@@ -5,8 +5,8 @@ namespace Props
     public abstract class PlayerInteractable : MonoBehaviour
     {
         protected bool CanPlayerInteract = true;
-        protected bool IsPlayerInteracting = false;
         protected bool CanDodoInteract = false;
+        protected bool IsPlayerInteracting = false;
         protected bool IsDodoInteracting = false;
         private Camera _gameCamera;
 
