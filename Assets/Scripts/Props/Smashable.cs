@@ -4,12 +4,9 @@ namespace Props
 {
     public class Smashable : PlayerClickable
     {
-        private StatsManager _statsManager;
-
         protected override void Start()
         {
             base.Start();
-            _statsManager = FindObjectOfType<StatsManager>();
         }
         
         [Tooltip("How many times the prop can be clicked before it dies or is destroyed.")]
@@ -20,7 +17,7 @@ namespace Props
             durability--;
             if (durability == 0) {
                 // TODO Swap to a death state instead of destroying the object.
-                _statsManager.IncrementObjectsSmashed();
+                _statsController.IncrementObjectsSmashed();
                 Destroy(this.gameObject);
             }
         }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatsManager : MonoBehaviour
+public class StatsController : MonoBehaviour
 {
     public float time { get; private set; }
     private bool _timerRunning = false;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MountainBoundController : MonoBehaviour
+public class MountainBoundary : MonoBehaviour
 {
     private Vector3 inwardsVector = new Vector3(-.5f, -.25f);
     private Vector3 outwardsVector = new Vector3(.5f, .25f);

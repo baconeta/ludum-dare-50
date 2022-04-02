@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class WorldController : MonoBehaviour
 {
-    private StatsManager _statsManager;
+    private StatsController _statsController;
 
     [Tooltip("The speed at which the world moves, before any modifiers are applied.")] [SerializeField]
     private float baselineWorldSpeed;
@@ -26,7 +26,7 @@ public class WorldController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _statsManager = FindObjectOfType<StatsManager>();
+        _statsController = FindObjectOfType<StatsController>();
         currentRampSpeedModifier = initialRampSpeedModifier;
     }
 
@@ -37,7 +37,7 @@ public class WorldController : MonoBehaviour
         if (ramping)
         {
             // Check if we have been ramping for long enough.
-            if (worldSpeedRampDuration < _statsManager.time)
+            if (worldSpeedRampDuration < _statsController.time)
             {
                 ramping = false;
             }
