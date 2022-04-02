@@ -28,7 +28,7 @@ public class StatsController : MonoBehaviour
     {
         if (_timerRunning)
         {
-            time = time + Time.deltaTime;
+            time += Time.deltaTime;
         }
     }
 

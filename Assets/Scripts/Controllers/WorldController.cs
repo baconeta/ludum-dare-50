@@ -32,6 +32,7 @@ public class WorldController : MonoBehaviour
         _statsController = FindObjectOfType<StatsController>();
         currentRampSpeedModifier = initialRampSpeedModifier;
         _ramping = currentRampSpeedModifier < 1.0f;
+        _statsController.StartRun();
     }
 
     // Update is called once per frame
