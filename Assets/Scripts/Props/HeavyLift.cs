@@ -9,8 +9,9 @@ namespace Props
         [SerializeField] private Vector3 liftedDistanceVector;
         private BoxCollider2D _boxCollider2D;
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             _origin = transform.position;
             _boxCollider2D = GetComponent<BoxCollider2D>();
         }
