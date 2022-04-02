@@ -19,31 +19,25 @@ public class SpawnController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        c = GetComponent<BoxCollider2D>();
-        
         SpawnChunk();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Get Tilemap Collider2D from WorldChunks - If no collider, spawn new chunk
         Collider2D hit = Physics2D.OverlapPoint(spawnPosition.transform.position);
-       if (!hit)
+        if (!hit)
         {
             SpawnChunk();
         }
-        
-        if (m_SpawnTimer > spawnFrequency)
-        {
-            m_SpawnTimer = 0;
-            //SpawnChunk();
-        }
-        m_SpawnTimer += Time.deltaTime;
     }
     
     private void SpawnChunk()
     {
+        //Instantiate chunk
         GameObject newChunk = Instantiate(chunkObject, this.transform);
+        //Instantiate Object
         Instantiate(obstacleObject, newChunk.transform);
     }
 
