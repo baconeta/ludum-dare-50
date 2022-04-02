@@ -10,12 +10,13 @@ public class ChunkController : MonoBehaviour
     
     [SerializeField] private WorldController worldController;
     [SerializeField] private SpawnController spawnController;
-    [SerializeField] private float removePosition;
     [SerializeField] private TileBase[] tileArray;
+    [SerializeField] private float removePosition;
     
     [SerializeField] int maxWidth = 10;
     [SerializeField] int minWidth = 4;
     private int chunkLength = 5;
+    private Vector3 offset = new Vector3(2, -1f);
 
     // Start is called before the first frame update
     void Start()
@@ -34,13 +35,13 @@ public class ChunkController : MonoBehaviour
         
         worldController = FindObjectOfType<WorldController>();
         spawnController = FindObjectOfType<SpawnController>();
-        transform.position = spawnController.GetSpawnPosition();
+        transform.position = spawnController.GetSpawnPosition() + offset;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        transform.position = transform.position - worldController.getMoveDirection() * worldController.getWorldSpeed() * Time.fixedDeltaTime;
+        transform.position -= worldController.getMoveDirection() * Time.fixedDeltaTime * worldController.getWorldSpeed();
         if (transform.position.x < removePosition)
         {
             Die();

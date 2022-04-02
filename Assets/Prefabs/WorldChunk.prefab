@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7017940352435553851}
   - component: {fileID: 7017940352435553848}
   - component: {fileID: 7017940352435553849}
-  - component: {fileID: -1140427091361558535}
+  - component: {fileID: -4759695468127955012}
   m_Layer: 0
   m_Name: WorldChunk
   m_TagString: Untagged
@@ -158,14 +158,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldController: {fileID: 0}
   spawnController: {fileID: 0}
-  removePosition: -2
   tileArray:
   - {fileID: 11400000, guid: bf4ae9d264782714899d7b9e332c4891, type: 2}
   - {fileID: 11400000, guid: 921c964b90f34564db6b312aef26e6f5, type: 2}
   - {fileID: 11400000, guid: effcd2f850e6a78499ce39df9cf4fa54, type: 2}
+  removePosition: -2
   maxWidth: 12
   minWidth: 6
---- !u!19719996 &-1140427091361558535
+--- !u!19719996 &-4759695468127955012
 TilemapCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
