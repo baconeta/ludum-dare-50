@@ -6,8 +6,9 @@ namespace Props
     {
         private StatsManager _statsManager;
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             _statsManager = FindObjectOfType<StatsManager>();
         }
         

@@ -2,12 +2,10 @@ namespace Props
 {
     public class DodoBait : PlayerDraggable
     {
-        private StatsManager _statsManager;
-
-        private void Start()
+        protected override void Start()
         {
-            _statsManager = FindObjectOfType<StatsManager>();
-            CanDodoInteract = true;
+            base.Start();
+            // Left just for LD speed.
         }
 
     }

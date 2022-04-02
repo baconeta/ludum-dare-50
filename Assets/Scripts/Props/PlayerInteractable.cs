@@ -4,11 +4,21 @@ namespace Props
 {
     public abstract class PlayerInteractable : MonoBehaviour
     {
+        private Camera _gameCamera;
+
         protected bool CanPlayerInteract = true;
         protected bool CanDodoInteract = false;
         protected bool IsPlayerInteracting = false;
         protected bool IsDodoInteracting = false;
-        private Camera _gameCamera;
+        
+        protected StatsManager _statsManager;
+        protected WorldController _worldController;
+        
+        protected virtual void Start()
+        {
+            _statsManager = FindObjectOfType<StatsManager>();
+            _worldController = FindObjectOfType<WorldController>();
+        }
 
         protected void PlayerInteract()
         {
