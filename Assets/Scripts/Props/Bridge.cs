@@ -2,11 +2,10 @@ namespace Props
 {
     public class Bridge : PlayerDraggable
     {
-        private StatsManager _statsManager;
-
-        private void Start()
+        protected override void Start()
         {
-            _statsManager = FindObjectOfType<StatsManager>();
+            base.Start();
+            // Left just for LD speed.
         }
         
     }

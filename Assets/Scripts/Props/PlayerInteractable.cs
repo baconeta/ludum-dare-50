@@ -1,14 +1,33 @@
+using Controllers;
 using UnityEngine;
 
 namespace Props
 {
     public abstract class PlayerInteractable : MonoBehaviour
     {
+        private Camera _gameCamera;
+
         protected bool CanPlayerInteract = true;
         protected bool CanDodoInteract = false;
         protected bool IsPlayerInteracting = false;
         protected bool IsDodoInteracting = false;
-        private Camera _gameCamera;
+        
+        protected StatsController _statsController;
+        protected WorldController _worldController;
+        
+        protected virtual void Start()
+        {
+            _statsController = FindObjectOfType<StatsController>();
+            _worldController = FindObjectOfType<WorldController>();
+        }
+
+        protected virtual void Update()
+        {
+            if (IsPlayerInteracting)
+            {
+                // Move the prop each frame.
+            }
+        }
 
         protected void PlayerInteract()
         {
