@@ -162,9 +162,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bf4ae9d264782714899d7b9e332c4891, type: 2}
   - {fileID: 11400000, guid: 921c964b90f34564db6b312aef26e6f5, type: 2}
   - {fileID: 11400000, guid: effcd2f850e6a78499ce39df9cf4fa54, type: 2}
-  removePosition: -2
-  maxWidth: 12
-  minWidth: 6
+  removePosition: -3
+  maxWidth: 15
+  minWidth: 5
 --- !u!19719996 &-4759695468127955012
 TilemapCollider2D:
   m_ObjectHideFlags: 0
