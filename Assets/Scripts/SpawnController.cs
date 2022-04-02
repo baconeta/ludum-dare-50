@@ -9,7 +9,7 @@ public class SpawnController : MonoBehaviour
     [SerializeField] private GameObject chunkObject;
     [SerializeField] private GameObject obstacleObject;
     [SerializeField] private GameObject spawnPosition;
-    [SerializeField] Collider2D c;
+    Collider2D c;
 
     
     // Start is called before the first frame update
