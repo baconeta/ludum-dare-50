@@ -8,16 +8,17 @@ using UnityEngine.Tilemaps;
 public class SpawnController : MonoBehaviour
 {
     [SerializeField] private GameObject chunkObject;
-    [SerializeField] private GameObject obstacleObject;
     [SerializeField] private GameObject spawnPosition;
     private Vector3 offset = new Vector3(0.25f, 0.125f);
     private bool shouldSpawn = true;
+    private ObstacleController _obstacleController;
     Collider2D c;
 
     
     // Start is called before the first frame update
     void Start()
     {
+        _obstacleController =  FindObjectOfType<ObstacleController>();
         SpawnChunk();
     }
 
@@ -43,7 +44,8 @@ public class SpawnController : MonoBehaviour
         //Instantiate chunk
         GameObject newChunk = Instantiate(chunkObject, this.transform);
         //Instantiate Object
-        Instantiate(obstacleObject, newChunk.transform);
+        //TODO: Create object intermittently
+        _obstacleController.SpawnObstacle(newChunk);
     }
 
     public Vector3 GetSpawnPosition()
