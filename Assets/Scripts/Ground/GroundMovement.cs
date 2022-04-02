@@ -10,7 +10,7 @@ namespace Ground
         private WorldController _worldController;
 
         // Start is called before the first frame update
-        private void Awake()
+        private void Start()
         {
             // Activate the ground movement here
             _ground = FindObjectOfType<Ground>();

@@ -11,7 +11,7 @@ namespace Ground
         [SerializeField] private float removeXPosition;
 
         // Start is called before the first frame update
-        private void Start()
+        private void Awake()
         {
             _worldController = FindObjectOfType<WorldController>();
             SpriteRenderer sr = GetComponent<SpriteRenderer>();
