@@ -20,6 +20,14 @@ namespace Props
             _worldController = FindObjectOfType<WorldController>();
         }
 
+        protected virtual void Update()
+        {
+            if (IsPlayerInteracting)
+            {
+                // Move the prop each frame.
+            }
+        }
+
         protected void PlayerInteract()
         {
         }
