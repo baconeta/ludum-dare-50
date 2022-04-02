@@ -11,12 +11,12 @@ namespace Props
         protected bool IsPlayerInteracting = false;
         protected bool IsDodoInteracting = false;
         
-        protected StatsManager _statsManager;
+        protected StatsController _statsController;
         protected WorldController _worldController;
         
         protected virtual void Start()
         {
-            _statsManager = FindObjectOfType<StatsManager>();
+            _statsController = FindObjectOfType<StatsController>();
             _worldController = FindObjectOfType<WorldController>();
         }
 
