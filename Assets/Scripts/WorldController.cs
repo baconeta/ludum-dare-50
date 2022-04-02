@@ -7,7 +7,7 @@ public class WorldController : MonoBehaviour
 {
     [Tooltip("The speed at which the world moves.")]
     [SerializeField] public float worldSpeed;
-    private Vector3 moveDirection = new Vector3(0.5f, 0.25f);
+    private Vector3 moveDirection = new Vector3(1f, .5f);
     
 
     // Start is called before the first frame update

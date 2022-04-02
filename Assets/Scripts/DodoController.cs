@@ -11,7 +11,6 @@ public class DodoController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         dodoOrigin = transform.position;
     }
 

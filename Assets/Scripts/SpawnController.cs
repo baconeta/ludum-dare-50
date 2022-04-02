@@ -6,6 +6,7 @@ public class SpawnController : MonoBehaviour
 {
     [SerializeField] private float spawnFrequency = 5;
     [SerializeField] private GameObject chunkObject;
+    [SerializeField] private GameObject obstacleObject;
     [SerializeField] private GameObject spawnPosition;
     private float m_SpawnTimer;
     // Start is called before the first frame update
@@ -28,7 +29,8 @@ public class SpawnController : MonoBehaviour
     
     private void SpawnChunk()
     {
-        Instantiate(chunkObject, this.transform);
+        GameObject newChunk = Instantiate(chunkObject, this.transform);
+        Instantiate(obstacleObject, newChunk.transform);
     }
 
     public Vector3 GetSpawnPosition()
