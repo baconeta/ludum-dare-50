@@ -1,33 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class PlayerInteractable : MonoBehaviour
+namespace Props
 {
-    protected bool canPlayerInteract;
-    protected bool isPlayerInteracting = false;
-    protected bool canDodoInteract;
-    protected bool isDodoInteracting = false;
+    public abstract class PlayerInteractable : MonoBehaviour
+    {
+        protected bool canPlayerInteract = true;
+        protected bool isPlayerInteracting = false;
+        protected bool canDodoInteract = false;
+        protected bool isDodoInteracting = false;
+        private Camera _gameCamera;
 
-    void playerInteract()
-    {
-        
-    }
+        protected void playerInteract()
+        {
+        }
 
-    void dodoInteract()
-    {
-        
-    }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+        protected void dodoInteract()
+        {
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        /// <summary>
+        /// Returns the world transform position relative to the mouse position on screen
+        /// </summary>
+        /// <param name="mousePosition"></param>
+        /// <returns> A Vector containing the world space position </returns>
+        protected Vector3 ConvertMouseToWorldPosition(Vector3 mousePosition)
+        {
+            if (!_gameCamera)
+            {
+                _gameCamera = FindObjectOfType<Camera>();
+            }
+
+            return _gameCamera.ScreenToWorldPoint(mousePosition);
+        }
     }
 }
