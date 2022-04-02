@@ -241,11 +241,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
---- !u!4 &463158553 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7809516065480981656, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
-  m_PrefabInstance: {fileID: 463158552}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &463158554 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7809516064845122637, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
@@ -420,18 +415,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6102199197974787305, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
-      propertyPath: dodoSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6102199197974787305, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
-      propertyPath: cliffBounds
-      value: 
-      objectReference: {fileID: 463158553}
-    - target: {fileID: 6102199197974787305, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
-      propertyPath: mountainBounds
-      value: 
-      objectReference: {fileID: 463158553}
     - target: {fileID: 6102199197974787306, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
       propertyPath: m_Name
       value: Dodo
