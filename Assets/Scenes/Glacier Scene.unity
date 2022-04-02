@@ -422,6 +422,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 685972145}
     m_Modifications:
+    - target: {fileID: -7948619238120934654, guid: 1f8aba01eedde45d3b6fe2762a768757, type: 3}
+      propertyPath: obstacleTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7948619238120934654, guid: 1f8aba01eedde45d3b6fe2762a768757, type: 3}
+      propertyPath: obstacleTypes.Array.data[0]
+      value: 
+      objectReference: {fileID: 6654553859295572524, guid: cb9ba66891e0db045a172cce169e29cf, type: 3}
     - target: {fileID: 3226795110749629906, guid: 1f8aba01eedde45d3b6fe2762a768757, type: 3}
       propertyPath: m_Name
       value: ObstacleController
@@ -639,7 +647,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chunkObject: {fileID: 7017940352435553847, guid: f1f648b6e99f7ba43bda58b24668cb9f, type: 3}
-  obstacleObject: {fileID: 6654553859295572524, guid: cb9ba66891e0db045a172cce169e29cf, type: 3}
   spawnPosition: {fileID: 1760744236}
 --- !u!1001 &1845930508
 PrefabInstance:
