@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Ground : MonoBehaviour
 {
     private WorldController _worldController;
     [SerializeField] private Sprite[] possibleGroundPieces;
+    [SerializeField] private float removeXPosition;
 
     // Start is called before the first frame update
     private void Start()
@@ -16,5 +19,18 @@ public class Ground : MonoBehaviour
     public WorldController GetWorldCollider()
     {
         return _worldController;
+    }
+
+    private void Update()
+    {
+        if (transform.position.x < removeXPosition)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }
