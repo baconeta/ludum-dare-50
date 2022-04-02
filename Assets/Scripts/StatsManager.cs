@@ -6,7 +6,7 @@ public class StatsManager : MonoBehaviour
     private float time = 0;
     private bool _timerRunning = false;
     
-    public List<float> times { get; private set; }
+    public List<string> times { get; private set; }
     public List<int> scores { get; private set; }
     
     public int deaths { get; private set; }
@@ -32,14 +32,21 @@ public class StatsManager : MonoBehaviour
     public void EndRun()
     {
         _timerRunning = false;
-        times.Add(time);
+        times.Add(GetFormattedTime());
         scores.Add(CalculateScore());
+    }
+
+    public string GetFormattedTime()
+    {
+        int minutes = Mathf.FloorToInt(time / 60F);
+        int seconds = Mathf.FloorToInt(time % 60F);
+        int milliseconds = Mathf.FloorToInt((time * 100F) % 100F);
+        return minutes.ToString ("00") + ":" + seconds.ToString ("00") + ":" + milliseconds.ToString("00");
     }
     
     private int CalculateScore()
     {
-        int score = (int)time + eatenFoods + objectsSmashed + bridgesCrossed;
-        return score;
+        return (int) time + eatenFoods + objectsSmashed + bridgesCrossed;
     }
 
     public void IncrementFoodEaten()
