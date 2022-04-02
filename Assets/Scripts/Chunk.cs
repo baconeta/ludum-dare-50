@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
-public class ChunkController : MonoBehaviour
+public class Chunk : MonoBehaviour
 {
     
     [SerializeField] private WorldController worldController;

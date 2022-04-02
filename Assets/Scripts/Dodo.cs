@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class DodoController : MonoBehaviour
+public class Dodo : MonoBehaviour
 {
     [SerializeField] private float dodoSpeed;
     private float timer;

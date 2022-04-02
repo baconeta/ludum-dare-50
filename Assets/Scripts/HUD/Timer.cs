@@ -5,15 +5,15 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     public Text TimerValue;
-    private StatsManager _statsManager;
+    private StatsController _statsController;
 
     private void Start()
     {
-        _statsManager = FindObjectOfType<StatsManager>();
+        _statsController = FindObjectOfType<StatsController>();
     }
 
     private void Update()
     {
-        TimerValue.text = _statsManager.GetFormattedTime();
+        TimerValue.text = _statsController.GetFormattedTime();
     }
 }
