@@ -8,27 +8,43 @@ namespace Props
         private Vector3 _origin;
         [SerializeField] private Vector3 liftedDistanceVector;
         private BoxCollider2D _boxCollider2D;
+        private bool _isLifted;
+        private float _timeLifted;
 
         protected override void Start()
         {
             base.Start();
-            _origin = transform.position;
             _boxCollider2D = GetComponent<BoxCollider2D>();
+            _timeLifted = 0f;
+            _isLifted = false;
         }
 
         protected override void OnMouseDown()
         {
-            Vector3 newLocation = _origin;
-            newLocation += liftedDistanceVector;
-            transform.position = newLocation;
+            _origin = transform.position;
+            transform.position = _origin + liftedDistanceVector;
 
+            _isLifted = true;
+            _timeLifted = 0f;
             _boxCollider2D.enabled = false;
         }
 
         protected override void OnMouseUp()
         {
-            transform.position = _origin;
+            var offset = _worldController.getMoveDirection() * _timeLifted * _worldController.getWorldSpeed();
+            transform.position = _origin - offset;
+            _isLifted = false;
             _boxCollider2D.enabled = true;
+        }
+
+        protected override void Update()
+        {
+            if (_isLifted)
+            {
+                _timeLifted += Time.deltaTime;
+            }
+
+            //Don't do base behaviour of dragging object with mouse
         }
     }
 }
