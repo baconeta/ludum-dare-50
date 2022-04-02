@@ -1,74 +1,74 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class WorldController : MonoBehaviour
+namespace Controllers
 {
-    private StatsController _statsController;
-
-    [Tooltip("The speed at which the world moves, before any modifiers are applied.")] [SerializeField]
-    private float baselineWorldSpeed = 4.0f;
-
-    // Modifying this variable will
-    [Tooltip("The initial speed at which the world moves. Set to 1.0 for no effect.")] [SerializeField]
-    private float initialRampSpeedModifier = 0.1f;
-
-    public float currentRampSpeedModifier;
-    public float environmentalSpeedModifier = 1.0f;
-
-    [Tooltip("How many seconds it takes for the rampSpeedModifier to decay to 1.0.")] [SerializeField]
-    private float worldSpeedRampDuration = 60.0f;
-
-    private bool _ramping;
-
-    private Vector3 _moveDirection = new Vector3(1f, -.5f);
-
-    private float _timeElapsed;
-
-    // Start is called before the first frame update
-    void Start()
+    public class WorldController : MonoBehaviour
     {
-        _statsController = FindObjectOfType<StatsController>();
-        currentRampSpeedModifier = initialRampSpeedModifier;
-        _ramping = currentRampSpeedModifier < 1.0f;
-        _statsController.StartRun();
-    }
+        private StatsController _statsController;
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Decay ramp modifier to 1 over the course of the ramp duration.
-        if (_ramping)
+        [Tooltip("The speed at which the world moves, before any modifiers are applied.")] [SerializeField]
+        private float baselineWorldSpeed = 4.0f;
+
+        // Modifying this variable will
+        [Tooltip("The initial speed at which the world moves. Set to 1.0 for no effect.")] [SerializeField]
+        private float initialRampSpeedModifier = 0.1f;
+
+        public float currentRampSpeedModifier;
+        public float environmentalSpeedModifier = 1.0f;
+
+        [Tooltip("How many seconds it takes for the rampSpeedModifier to decay to 1.0.")] [SerializeField]
+        private float worldSpeedRampDuration = 60.0f;
+
+        private bool _ramping;
+
+        private Vector3 _moveDirection = new Vector3(1f, -.5f);
+
+        private float _timeElapsed;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            // Check if we have been ramping for long enough.
-            if (worldSpeedRampDuration < _statsController.time)
+            _statsController = FindObjectOfType<StatsController>();
+            currentRampSpeedModifier = initialRampSpeedModifier;
+            _ramping = currentRampSpeedModifier < 1.0f;
+            _statsController.StartRun();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            // Decay ramp modifier to 1 over the course of the ramp duration.
+            if (_ramping)
             {
-                _ramping = false;
-            }
-            else
-            {
-                if (_timeElapsed < worldSpeedRampDuration)
+                // Check if we have been ramping for long enough.
+                if (worldSpeedRampDuration < _statsController.time)
                 {
-                    currentRampSpeedModifier = Mathf.Lerp(initialRampSpeedModifier, 1.0f,
-                        _timeElapsed / worldSpeedRampDuration);
-                    _timeElapsed += Time.deltaTime;
+                    _ramping = false;
                 }
                 else
                 {
-                    currentRampSpeedModifier = 1.0f;
+                    if (_timeElapsed < worldSpeedRampDuration)
+                    {
+                        currentRampSpeedModifier = Mathf.Lerp(initialRampSpeedModifier, 1.0f,
+                            _timeElapsed / worldSpeedRampDuration);
+                        _timeElapsed += Time.deltaTime;
+                    }
+                    else
+                    {
+                        currentRampSpeedModifier = 1.0f;
+                    }
                 }
             }
         }
-    }
 
-    public float getWorldSpeed()
-    {
-        return baselineWorldSpeed * currentRampSpeedModifier * environmentalSpeedModifier;
-    }
+        public float getWorldSpeed()
+        {
+            return baselineWorldSpeed * currentRampSpeedModifier * environmentalSpeedModifier;
+        }
 
-    public Vector3 getMoveDirection()
-    {
-        return _moveDirection;
+        public Vector3 getMoveDirection()
+        {
+            return _moveDirection;
+        }
     }
 }
