@@ -20,16 +20,23 @@ public class SpawnController : MonoBehaviour
     void Start()
     {
         c = GetComponent<BoxCollider2D>();
+        
         SpawnChunk();
     }
 
     // Update is called once per frame
     void Update()
     {
+        Collider2D hit = Physics2D.OverlapPoint(spawnPosition.transform.position);
+       if (!hit)
+        {
+            SpawnChunk();
+        }
+        
         if (m_SpawnTimer > spawnFrequency)
         {
             m_SpawnTimer = 0;
-            SpawnChunk();
+            //SpawnChunk();
         }
         m_SpawnTimer += Time.deltaTime;
     }
@@ -45,9 +52,5 @@ public class SpawnController : MonoBehaviour
         return spawnPosition.transform.position;
     }
 
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        Debug.Log("Spawn chunk");
-        SpawnChunk();
-    }
+
 }
