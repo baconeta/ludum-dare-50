@@ -24,7 +24,6 @@ public class Chunk : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         chunkWidth = Random.Range(minWidth, maxWidth);
         tileMap = GetComponent<Tilemap>();
         for (int y = 0; y < chunkLength; y++)
@@ -35,7 +34,7 @@ public class Chunk : MonoBehaviour
                 tileMap.SetTile(new Vector3Int(x, y, 0), randomTile);
             }
         }
-        
+
         setColliderCorners();
 
         worldController = FindObjectOfType<WorldController>();
@@ -74,5 +73,11 @@ public class Chunk : MonoBehaviour
 
     }
 
-    
+    public Vector3 GetRandomTileOffset()
+    {
+        var x = Random.Range(0, (int)chunkWidth);
+        var y = Random.Range(0, (int)chunkLength);
+        var tileOffset = new Vector3(x, y, 0);
+        return tileOffset;
+    }
 }

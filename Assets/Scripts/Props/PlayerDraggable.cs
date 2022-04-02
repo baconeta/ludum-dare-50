@@ -22,7 +22,7 @@ namespace Props
         }
 
         // Update is called once per frame
-        private void Update()
+        protected override void Update()
         {
             // If the player is clicking on the object.
             if (IsPlayerInteracting)

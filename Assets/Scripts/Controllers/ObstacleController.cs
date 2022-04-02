@@ -1,23 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class ObstacleController : MonoBehaviour
 {
-    
-    [SerializeField] private float obstacleSpeed;
-    private Vector3 offset = new Vector3(0, 0.25f);
-    private float timer;
+    [SerializeField] private GameObject[] obstacleTypes;
 
-    // Start is called before the first frame update
-    void Start()
+    public void SpawnObstacle(GameObject parent)
     {
+        var obstacleType = GetRandomObstacleType();
+        var obstacle = Instantiate(obstacleType, parent.transform);
+
+        var location = GetRandomOffset(parent);
+        obstacle.transform.position += location;
     }
 
-    // Update is called once per frame
-    void Update()
+    private GameObject GetRandomObstacleType()
     {
-        timer += Time.fixedDeltaTime;
-        transform.localPosition = new Vector3(Mathf.Sin(timer), Mathf.Sin(timer) / 2) * obstacleSpeed * Time.fixedDeltaTime + offset;
+        return obstacleTypes[Random.Range(0, obstacleTypes.Length)];
+    }
+
+    private Vector3 GetRandomOffset(GameObject parentChunk)
+    {
+        //TODO: Don't directly access other components of random types!!
+        var chunk = parentChunk.GetComponent<Chunk>();
+        return chunk.GetRandomTileOffset();
     }
 }
