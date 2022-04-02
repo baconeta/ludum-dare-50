@@ -25,10 +25,5 @@ namespace Props
             transform.position -= liftedDistanceVector;
             _boxCollider2D.enabled = true;
         }
-
-        protected override void Update()
-        {
-            //Don't do base behaviour of dragging object with mouse
-        }
     }
 }
