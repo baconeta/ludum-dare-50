@@ -1,3 +1,4 @@
+using Controllers;
 using UnityEngine;
 
 namespace Ground
@@ -5,14 +6,14 @@ namespace Ground
     public class GroundMovement : MonoBehaviour
     {
         private BoxCollider2D _boxCollider;
-        private global::Ground.Ground _ground;
+        private Ground _ground;
         private WorldController _worldController;
 
         // Start is called before the first frame update
         private void Awake()
         {
             // Activate the ground movement here
-            _ground = FindObjectOfType<global::Ground.Ground>();
+            _ground = FindObjectOfType<Ground>();
             _worldController = _ground.GetWorldCollider();
 
             _boxCollider = GetComponent<BoxCollider2D>();

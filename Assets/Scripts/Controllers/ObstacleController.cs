@@ -1,31 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
-public class ObstacleController : MonoBehaviour
+namespace Controllers
 {
-    [SerializeField] private GameObject[] obstacleTypes;
-
-    public void SpawnObstacle(GameObject parent)
+    public class ObstacleController : MonoBehaviour
     {
-        var obstacleType = GetRandomObstacleType();
-        var obstacle = Instantiate(obstacleType, parent.transform);
+        [SerializeField] private GameObject[] obstacleTypes;
 
-        var location = GetRandomOffset(parent);
-        obstacle.transform.position += location;
-    }
+        public void SpawnObstacle(GameObject parent)
+        {
+            var obstacleType = GetRandomObstacleType();
+            var obstacle = Instantiate(obstacleType, parent.transform);
 
-    private GameObject GetRandomObstacleType()
-    {
-        return obstacleTypes[Random.Range(0, obstacleTypes.Length)];
-    }
+            var location = GetRandomOffset(parent);
+            obstacle.transform.position += location;
+        }
 
-    private Vector3 GetRandomOffset(GameObject parentChunk)
-    {
-        //TODO: Don't directly access other components of random types!!
-        var chunk = parentChunk.GetComponent<Chunk>();
-        return chunk.GetRandomTileOffset();
+        private GameObject GetRandomObstacleType()
+        {
+            return obstacleTypes[Random.Range(0, obstacleTypes.Length)];
+        }
+
+        private Vector3 GetRandomOffset(GameObject parentChunk)
+        {
+            //TODO: Don't directly access other components of random types!!
+            var chunk = parentChunk.GetComponent<Chunk>();
+            return chunk.GetRandomTileOffset();
+        }
     }
 }

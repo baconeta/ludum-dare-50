@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Controllers;
 using UnityEditor.U2D.Path;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -54,7 +55,7 @@ public class Chunk : MonoBehaviour
 
     void Die()
     {
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     void setColliderCorners()
