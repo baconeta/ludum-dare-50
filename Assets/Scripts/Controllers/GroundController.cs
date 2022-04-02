@@ -9,17 +9,24 @@ namespace Controllers
     ///
     public class GroundController : MonoBehaviour
     {
-        // Start is called before the first frame update
         private BoxCollider2D _boxCollider;
         private float _lastGroundWidth;
         private GameObject _lastGroundPiece;
         private GameObject _nextGroundPiece;
+        private ObstacleController _obstacleController;
+        private int _chunksAddedSinceLastObstacle = 0;
         [SerializeField] private GameObject spawnPosition;
         [SerializeField] private GameObject instantiatePosition;
         [SerializeField] private GameObject groundObjectToSpawn;
 
+        [SerializeField]
+        [Min(0.1f)]
+        [Tooltip("The number of chunks for each Obstacle. Less than 1 will create multiple obstacles per chunk.")]
+        private float chunkToObstacleRatio;
+
         void Start()
         {
+            _obstacleController = FindObjectOfType<ObstacleController>();
             _nextGroundPiece = Instantiate(groundObjectToSpawn, instantiatePosition.transform);
             SpawnNewGround();
         }
@@ -35,6 +42,7 @@ namespace Controllers
 
             // Create a new ground piece for the next spawn
             _nextGroundPiece = Instantiate(groundObjectToSpawn, instantiatePosition.transform);
+            _chunksAddedSinceLastObstacle++;
         }
 
         // Update is called once per frame
@@ -46,7 +54,32 @@ namespace Controllers
             if (xPosLastGround <= 1.01 * (spawnPosition.transform.position.x - _lastGroundWidth))
             {
                 SpawnNewGround();
+                SpawnObstacles();
             }
+        }
+
+        private void SpawnObstacles()
+        {
+            var parent = _nextGroundPiece;
+            var spawnCount = CalculateNumberOfObstaclesToSpawn();
+            for (var i = 0; i < spawnCount; i++)
+            {
+                _obstacleController.SpawnObstacle(parent, _lastGroundWidth);
+                _chunksAddedSinceLastObstacle = 0;
+            }
+        }
+
+        private int CalculateNumberOfObstaclesToSpawn()
+        {
+            var randomisedRatio = chunkToObstacleRatio + (chunkToObstacleRatio * 0.4 * Random.value);
+            var spawnCount = (int)(_chunksAddedSinceLastObstacle / randomisedRatio);
+
+            if (spawnCount > 0)
+            {
+                Debug.Log($"Spawning {spawnCount} obstacles after {_chunksAddedSinceLastObstacle} chunks due to randomised ratio {randomisedRatio}");
+            }
+
+            return spawnCount;
         }
     }
 }

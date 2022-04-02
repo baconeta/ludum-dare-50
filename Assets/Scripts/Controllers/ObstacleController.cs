@@ -6,12 +6,12 @@ namespace Controllers
     {
         [SerializeField] private GameObject[] obstacleTypes;
 
-        public void SpawnObstacle(GameObject parent)
+        public void SpawnObstacle(GameObject parent, float width)
         {
             var obstacleType = GetRandomObstacleType();
             var obstacle = Instantiate(obstacleType, parent.transform);
 
-            var location = GetRandomOffset(parent);
+            var location = GetRandomOffset(width);
             obstacle.transform.position += location;
         }
 
@@ -20,11 +20,11 @@ namespace Controllers
             return obstacleTypes[Random.Range(0, obstacleTypes.Length)];
         }
 
-        private Vector3 GetRandomOffset(GameObject parentChunk)
+        private static Vector3 GetRandomOffset(float width)
         {
-            //TODO: Don't directly access other components of random types!!
-            var chunk = parentChunk.GetComponent<Chunk>();
-            return chunk.GetRandomTileOffset();
+            var maxOffset = width * 0.8f / 2f;
+            var offset = Random.Range(-maxOffset, maxOffset);
+            return new Vector3(offset, 0, 0);
         }
     }
 }
