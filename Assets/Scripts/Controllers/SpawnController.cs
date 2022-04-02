@@ -4,14 +4,17 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 public class SpawnController : MonoBehaviour
 {
     [SerializeField] private GameObject chunkObject;
     [SerializeField] private GameObject spawnPosition;
+    [SerializeField] [Min(0.1f)] private float chunkToObstacleRatio;
+    private ObstacleController _obstacleController;
+    private int _chunksAddedSinceLastObstacle = 0;
     private Vector3 _offset = new Vector3(0.25f, 0.125f);
     private bool _shouldSpawn = true;
-    private ObstacleController _obstacleController;
 
     
     // Start is called before the first frame update
@@ -42,9 +45,32 @@ public class SpawnController : MonoBehaviour
     {
         //Instantiate chunk
         GameObject newChunk = Instantiate(chunkObject, this.transform);
-        //Instantiate Object
-        //TODO: Create object intermittently
-        _obstacleController.SpawnObstacle(newChunk);
+        _chunksAddedSinceLastObstacle++;
+
+        SpawnObstacles(newChunk);
+    }
+
+    private void SpawnObstacles(GameObject parent)
+    {
+        var spawnCount = CalculateNumberOfObstaclesToSpawn();
+        for (var i = 0; i < spawnCount; i++)
+        {
+            _obstacleController.SpawnObstacle(parent);
+            _chunksAddedSinceLastObstacle = 0;
+        }
+    }
+
+    private int CalculateNumberOfObstaclesToSpawn()
+    {
+        var randomisedRatio = chunkToObstacleRatio + (chunkToObstacleRatio * 0.3 * Random.value);
+        var spawnCount = (int)(_chunksAddedSinceLastObstacle / randomisedRatio);
+
+        if (spawnCount > 0)
+        {
+            Debug.Log($"Spawning {spawnCount} obstacles after {_chunksAddedSinceLastObstacle} chunks due to randomised ratio {randomisedRatio}");
+        }
+
+        return spawnCount;
     }
 
     public Vector3 GetSpawnPosition()
