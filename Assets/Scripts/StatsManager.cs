@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class StatsManager : MonoBehaviour
 {
-    private float time = 0;
+    public float time { get; private set; }
     private bool _timerRunning = false;
     
     public List<string> times { get; private set; }
