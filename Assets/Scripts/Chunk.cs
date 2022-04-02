@@ -70,4 +70,12 @@ public class Chunk : MonoBehaviour
         };
         collider.SetPath(0, points);
     }
+
+    public Vector3 GetRandomTileOffset()
+    {
+        var x = Random.Range(0, (int)chunkWidth);
+        var y = Random.Range(0, (int)chunkLength);
+        var tileOffset = new Vector3(x, y, 0);
+        return tileOffset;
+    }
 }
