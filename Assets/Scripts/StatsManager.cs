@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatsManager
+public class StatsManager : MonoBehaviour
 {
     private float time = 0;
     private bool _timerRunning = false;
     
-    public List<int> times { get; private set; }
+    public List<float> times { get; private set; }
     public List<int> scores { get; private set; }
     
     public int deaths { get; private set; }
@@ -38,7 +38,7 @@ public class StatsManager
     
     private int CalculateScore()
     {
-        int score = time + eatenFoods + objectsSmashed + bridgesCrossed;
+        int score = (int)time + eatenFoods + objectsSmashed + bridgesCrossed;
         return score;
     }
 

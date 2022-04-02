@@ -6,15 +6,11 @@ using UnityEngine.Tilemaps;
 
 public class SpawnController : MonoBehaviour
 {
-    [SerializeField] private float spawnFrequency = 5;
     [SerializeField] private GameObject chunkObject;
     [SerializeField] private GameObject obstacleObject;
     [SerializeField] private GameObject spawnPosition;
-    private float m_SpawnTimer;
-
     [SerializeField] Collider2D c;
 
-    private bool m_B_shouldSpawn;
     
     // Start is called before the first frame update
     void Start()
