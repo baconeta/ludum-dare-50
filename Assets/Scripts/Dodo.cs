@@ -106,5 +106,17 @@ public class Dodo : MonoBehaviour
         transform.position = dodoOrigin + (new Vector3(sinWave / 2, sinWave  / 4, 0) * dodoSpeed);
     }
 
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("DeathHazard"))
+        {
+            DamagePlayer(col.name);
+        }
+    }
+
+    void DamagePlayer(string source)
+    {
+        Debug.Log($"You took damage from {source} and died");
+    }
 
 }

@@ -15,6 +15,7 @@ namespace Controllers
         private GameObject _nextGroundPiece;
         private ObstacleController _obstacleController;
         private int _chunksAddedSinceLastObstacle = 0;
+        [SerializeField] private bool debug;
         [SerializeField] private GameObject spawnPosition;
         [SerializeField] private GameObject instantiatePosition;
         [SerializeField] private GameObject groundObjectToSpawn;
@@ -73,7 +74,7 @@ namespace Controllers
             var randomisedRatio = chunkToObstacleRatio + (chunkToObstacleRatio * 0.4 * Random.value);
             var spawnCount = (int)(_chunksAddedSinceLastObstacle / randomisedRatio);
 
-            if (spawnCount > 0)
+            if (debug && spawnCount > 0)
             {
                 Debug.Log($"Spawning {spawnCount} obstacles after {_chunksAddedSinceLastObstacle} chunks due to randomised ratio {randomisedRatio}");
             }
