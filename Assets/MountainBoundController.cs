@@ -19,19 +19,19 @@ public class MountainBoundController : MonoBehaviour
         Collider2D hit = Physics2D.OverlapPoint(transform.position);
         if (!hit)
         {
-            transform.position += inwardsVector;
+           // transform.position += inwardsVector;
         }
         else
         {
             if (Physics2D.OverlapPoint(transform.position + outwardsVector))
             {
-                transform.position += outwardsVector;
+                //transform.position += outwardsVector;
             }
         }
 
         if (transform.position.x > 6)
         {
-            transform.position = new Vector3(6, 0);
+            //transform.position = new Vector3(6, 0);
         }
     }
 }
