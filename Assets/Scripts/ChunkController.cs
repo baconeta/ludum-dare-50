@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.U2D.Path;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
@@ -15,24 +16,28 @@ public class ChunkController : MonoBehaviour
     
     [SerializeField] int maxWidth = 10;
     [SerializeField] int minWidth = 4;
-    private int chunkLength = 5;
+    private float chunkLength = 5;
+    private float chunkWidth;
+    private Tilemap tileMap;
     private Vector3 offset = new Vector3(2, -1f);
 
     // Start is called before the first frame update
     void Start()
     {
         
-        int chunkWidth = Random.Range(minWidth, maxWidth);
-        Tilemap tileMap = GetComponent<Tilemap>();
+        chunkWidth = Random.Range(minWidth, maxWidth);
+        tileMap = GetComponent<Tilemap>();
         for (int y = 0; y < chunkLength; y++)
         {
             for (int x = 0; x < chunkWidth; x++)
             {
                 TileBase randomTile = tileArray[Random.Range(0, tileArray.Length)];
-               tileMap.SetTile(new Vector3Int(x, y, 0), randomTile);
+                tileMap.SetTile(new Vector3Int(x, y, 0), randomTile);
             }
         }
         
+        setColliderCorners();
+
         worldController = FindObjectOfType<WorldController>();
         spawnController = FindObjectOfType<SpawnController>();
         transform.position = spawnController.GetSpawnPosition() + offset;
@@ -51,6 +56,22 @@ public class ChunkController : MonoBehaviour
     void Die()
     {
         Destroy(this.gameObject);
+    }
+
+    void setColliderCorners()
+    {
+        int pointIndex = 0;
+        PolygonCollider2D collider = GetComponent<PolygonCollider2D>();
+        Vector2[] points =
+        {
+            new Vector2(0, 0),
+            new Vector2(-chunkLength / 2, chunkLength / 4),
+            new Vector2(chunkWidth / 2 - chunkLength / 2, chunkWidth / 4 + chunkLength / 4),
+            new Vector2(chunkWidth / 2, chunkWidth / 4)
+
+        };
+        collider.SetPath(0, points);
+
     }
 
     

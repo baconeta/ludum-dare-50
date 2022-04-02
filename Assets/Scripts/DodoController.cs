@@ -12,8 +12,9 @@ public class DodoController : MonoBehaviour
     [SerializeField] private Transform mountainBounds;
     [SerializeField] private float behaviourChangeSpeed;
     private Vector3 m_ForwardDirection = new Vector3(1f, -.5f);
-    private Vector3 m_CliffDirection = new Vector3(-.1f, -.5f);
-    private Vector3 m_MountainDirection = new Vector3(.1f, .5f);
+    private Vector3 m_CliffDirection = new Vector3(-.1f, -.05f);
+    private Vector3 m_MountainDirection = new Vector3(.1f, .05f);
+    private int currentBehaviour;
   
 
 
@@ -26,23 +27,23 @@ public class DodoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int randNum = 2;
-        if (Time.time % behaviourChangeSpeed + 0.1 > behaviourChangeSpeed)
+        MovePingPong();
+        if (Time.time % behaviourChangeSpeed + 0.05 > behaviourChangeSpeed)
         {
-            randNum = Random.Range(2, 4);
+            currentBehaviour = Random.Range(1, 4);
         }
-        if (randNum is 1)
+        if (currentBehaviour is 1)
         {
-            //MovePingPong();
+            
         }
-        if (randNum is 2)
+        if (currentBehaviour is 2)
         {
-            MoveTowardCliff();
+            //MoveTowardCliff();
         }
 
-        if (randNum is 3)
+        if (currentBehaviour is 3)
         {
-            MoveTowardMountain();
+            //MoveTowardMountain();
         }
 
         
@@ -60,19 +61,19 @@ public class DodoController : MonoBehaviour
     void MoveTowardCliff()
     {
         Debug.Log("Move Cliff");
-        transform.position += m_CliffDirection / dodoSpeed;
+        transform.position += m_CliffDirection * dodoSpeed;
     }
     
     void MoveTowardMountain()
     {
         Debug.Log("Move Mountain");
-        transform.position += m_MountainDirection / dodoSpeed;
+        transform.position += m_MountainDirection * dodoSpeed;
     }
 
     void MovePingPong()
     {
         transform.position = Vector3.Lerp(cliffBounds.position, mountainBounds.position,
-            Mathf.PingPong(Time.time / dodoSpeed, 1));
+            Mathf.PingPong(Time.time / 100 * dodoSpeed, 1));
     }
 
 
