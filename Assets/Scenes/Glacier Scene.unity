@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e785a1ddfe01cbe48a207c01ec93ad63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baselineWorldSpeed: 5
+  baselineWorldSpeed: 3
   initialRampSpeedModifier: 1
   currentRampSpeedModifier: 0
   environmentalSpeedModifier: 1
