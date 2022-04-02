@@ -26,7 +26,10 @@ public class StatsManager : MonoBehaviour
 
     public void Update()
     {
-        time = time + Time.deltaTime;
+        if (_timerRunning)
+        {
+            time = time + Time.deltaTime;
+        }
     }
 
     public void EndRun()
