@@ -50,7 +50,6 @@ namespace Controllers
         {
             //the x position of the last ground object (centre pos)
             float xPosLastGround = _lastGroundPiece.transform.position.x;
-
             if (xPosLastGround <= 1.01 * (spawnPosition.transform.position.x - _lastGroundWidth))
             {
                 SpawnNewGround();
