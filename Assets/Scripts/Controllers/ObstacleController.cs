@@ -24,6 +24,7 @@ public class ObstacleController : MonoBehaviour
 
     private Vector3 GetRandomOffset(GameObject parentChunk)
     {
+        //TODO: Don't directly access other components of random types!!
         var chunk = parentChunk.GetComponent<Chunk>();
         return chunk.GetRandomTileOffset();
     }
