@@ -258,7 +258,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21db079f37ec78349bf3482da550bd6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnFrequency: 1
   chunkObject: {fileID: 7017940352435553847, guid: f1f648b6e99f7ba43bda58b24668cb9f, type: 3}
   obstacleObject: {fileID: 6654553859295572524, guid: cb9ba66891e0db045a172cce169e29cf, type: 3}
   spawnPosition: {fileID: 1028399371}
@@ -370,7 +369,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1312286814}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7, y: -7, z: 0}
+  m_LocalPosition: {x: 6.5, y: -7.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 456380889}
@@ -511,14 +510,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 456380889}
     m_Modifications:
-    - target: {fileID: 1591786295511276507, guid: 72b54858926ecfe43a639703b3079c98, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 4.56
-      objectReference: {fileID: 0}
-    - target: {fileID: 1591786295511276507, guid: 72b54858926ecfe43a639703b3079c98, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.95
-      objectReference: {fileID: 0}
     - target: {fileID: 6593310431528448588, guid: 72b54858926ecfe43a639703b3079c98, type: 3}
       propertyPath: m_Name
       value: Dodo
@@ -568,6 +559,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6593310431528448591, guid: 72b54858926ecfe43a639703b3079c98, type: 3}
+      propertyPath: dodoSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593310431528448591, guid: 72b54858926ecfe43a639703b3079c98, type: 3}
       propertyPath: cliffBounds
       value: 
       objectReference: {fileID: 1312286815}
@@ -575,5 +570,9 @@ PrefabInstance:
       propertyPath: mountainBounds
       value: 
       objectReference: {fileID: 1509326333}
+    - target: {fileID: 6593310431528448591, guid: 72b54858926ecfe43a639703b3079c98, type: 3}
+      propertyPath: behaviourChangeSpeed
+      value: 1.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72b54858926ecfe43a639703b3079c98, type: 3}
