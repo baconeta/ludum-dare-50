@@ -9,6 +9,7 @@ public class SpawnController : MonoBehaviour
     [SerializeField] private GameObject chunkObject;
     [SerializeField] private GameObject obstacleObject;
     [SerializeField] private GameObject spawnPosition;
+    private bool shouldSpawn = true;
     Collider2D c;
 
     
@@ -23,9 +24,15 @@ public class SpawnController : MonoBehaviour
     {
         //Get Tilemap Collider2D from WorldChunks - If no collider, spawn new chunk
         Collider2D hit = Physics2D.OverlapPoint(spawnPosition.transform.position);
-        if (!hit)
+        if (!hit && shouldSpawn)
         {
             SpawnChunk();
+            shouldSpawn = false;
+        }
+
+        if (Time.time % 0.15 > 0.1)
+        {
+            shouldSpawn = true;
         }
     }
     
