@@ -9,10 +9,9 @@ public class SpawnController : MonoBehaviour
 {
     [SerializeField] private GameObject chunkObject;
     [SerializeField] private GameObject spawnPosition;
-    private Vector3 offset = new Vector3(0.25f, 0.125f);
-    private bool shouldSpawn = true;
+    private Vector3 _offset = new Vector3(0.25f, 0.125f);
+    private bool _shouldSpawn = true;
     private ObstacleController _obstacleController;
-    Collider2D c;
 
     
     // Start is called before the first frame update
@@ -26,16 +25,16 @@ public class SpawnController : MonoBehaviour
     void Update()
     {
         //Get Tilemap Collider2D from WorldChunks - If no collider, spawn new chunk
-        Collider2D hit = Physics2D.OverlapPoint(spawnPosition.transform.position + offset);
-        if (!hit && shouldSpawn)
+        Collider2D hit = Physics2D.OverlapPoint(spawnPosition.transform.position + _offset);
+        if (!hit && _shouldSpawn)
         {
             SpawnChunk();
-            shouldSpawn = false;
+            _shouldSpawn = false;
         }
 
         if (Time.time % 0.2 > 0.15)
         {
-            shouldSpawn = true;
+            _shouldSpawn = true;
         }
     }
     
