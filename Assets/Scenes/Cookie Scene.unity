@@ -184,10 +184,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e785a1ddfe01cbe48a207c01ec93ad63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baselineWorldSpeed: 0
-  initialRampSpeedModifier: 0
-  environmentalSpeedModifier: 0
-  worldSpeedRampDuration: 0
+  baselineWorldSpeed: 4
+  initialRampSpeedModifier: 1
+  environmentalSpeedModifier: 1
+  worldSpeedRampDuration: 1
 --- !u!1 &1028399371
 GameObject:
   m_ObjectHideFlags: 0
