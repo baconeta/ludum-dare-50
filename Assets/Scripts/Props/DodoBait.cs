@@ -6,6 +6,7 @@ namespace Props
         {
             base.Start();
             // Left just for LD speed.
+            CanDodoInteract = true;
         }
 
     }
