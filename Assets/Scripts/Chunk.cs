@@ -8,12 +8,11 @@ using Random = UnityEngine.Random;
 
 public class Chunk : MonoBehaviour
 {
-    
     [SerializeField] private WorldController worldController;
     [SerializeField] private SpawnController spawnController;
     [SerializeField] private TileBase[] tileArray;
     [SerializeField] private float removePosition;
-    
+
     [SerializeField] int maxWidth = 10;
     [SerializeField] int minWidth = 4;
     private float chunkLength = 5;
@@ -24,7 +23,6 @@ public class Chunk : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         chunkWidth = Random.Range(minWidth, maxWidth);
         tileMap = GetComponent<Tilemap>();
         for (int y = 0; y < chunkLength; y++)
@@ -35,7 +33,7 @@ public class Chunk : MonoBehaviour
                 tileMap.SetTile(new Vector3Int(x, y, 0), randomTile);
             }
         }
-        
+
         setColliderCorners();
 
         worldController = FindObjectOfType<WorldController>();
@@ -46,7 +44,8 @@ public class Chunk : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.position -= worldController.getMoveDirection() * Time.fixedDeltaTime * worldController.getWorldSpeed();
+        transform.position -=
+            worldController.getMoveDirection() * Time.fixedDeltaTime * worldController.getWorldSpeed();
         if (transform.position.x < removePosition)
         {
             Die();
@@ -68,11 +67,7 @@ public class Chunk : MonoBehaviour
             new Vector2(-chunkLength / 2, chunkLength / 4),
             new Vector2(chunkWidth / 2 - chunkLength / 2, chunkWidth / 4 + chunkLength / 4),
             new Vector2(chunkWidth / 2, chunkWidth / 4)
-
         };
         collider.SetPath(0, points);
-
     }
-
-    
 }
