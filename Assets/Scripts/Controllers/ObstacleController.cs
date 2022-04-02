@@ -9,9 +9,13 @@ public class ObstacleController : MonoBehaviour
 
     public void SpawnObstacle(GameObject parent)
     {
-        //TODO: Randomise
-        var obstacleType = obstacleTypes.First();
+        var obstacleType = GetRandomObstacleType();
 
         Instantiate(obstacleType, parent.transform);
+    }
+
+    private GameObject GetRandomObstacleType()
+    {
+        return obstacleTypes[Random.Range(0, obstacleTypes.Length)];
     }
 }
