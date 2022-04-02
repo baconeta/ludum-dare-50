@@ -8,9 +8,13 @@ using Random = UnityEngine.Random;
 
 public class SpawnController : MonoBehaviour
 {
+    [SerializeField]
+    [Min(0.1f)]
+    [Tooltip("The number of chunks for each Obstacle. Less than 1 will create multiple obstacles per chunk.")]
+    private float chunkToObstacleRatio;
+
     [SerializeField] private GameObject chunkObject;
     [SerializeField] private GameObject spawnPosition;
-    [SerializeField] [Min(0.1f)] private float chunkToObstacleRatio;
     private ObstacleController _obstacleController;
     private int _chunksAddedSinceLastObstacle = 0;
     private Vector3 _offset = new Vector3(0.25f, 0.125f);
@@ -62,7 +66,7 @@ public class SpawnController : MonoBehaviour
 
     private int CalculateNumberOfObstaclesToSpawn()
     {
-        var randomisedRatio = chunkToObstacleRatio + (chunkToObstacleRatio * 0.3 * Random.value);
+        var randomisedRatio = chunkToObstacleRatio + (chunkToObstacleRatio * 0.4 * Random.value);
         var spawnCount = (int)(_chunksAddedSinceLastObstacle / randomisedRatio);
 
         if (spawnCount > 0)

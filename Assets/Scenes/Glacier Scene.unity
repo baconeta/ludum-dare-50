@@ -648,6 +648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chunkObject: {fileID: 7017940352435553847, guid: f1f648b6e99f7ba43bda58b24668cb9f, type: 3}
   spawnPosition: {fileID: 1760744236}
+  chunkToObstacleRatio: 5
 --- !u!1001 &1845930508
 PrefabInstance:
   m_ObjectHideFlags: 0
