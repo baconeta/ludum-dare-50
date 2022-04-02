@@ -18,6 +18,6 @@ public class DodoController : MonoBehaviour
     void Update()
     {
         timer += Time.fixedDeltaTime;
-        transform.position = dodoOrigin + (new Vector3(-Mathf.Sin(timer), Mathf.Sin(timer) / 2) * dodoSpeed * Time.fixedDeltaTime);
+        transform.position = dodoOrigin + (new Vector3(Mathf.Sin(timer) , Mathf.Sin(timer) /2) * dodoSpeed * Time.fixedDeltaTime);
     }
 }
