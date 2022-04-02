@@ -5,17 +5,17 @@ namespace Props
         // TODO Move onMouseDown & onMouseUp to PlayerInteractable.cs.
         protected virtual void OnMouseDown()
         {
-            if (canPlayerInteract && !isDodoInteracting)
+            if (CanPlayerInteract && !IsDodoInteracting)
             {
-                isPlayerInteracting = true;
+                IsPlayerInteracting = true;
             }
         }
 
         protected virtual void OnMouseUp()
         {
-            if (isPlayerInteracting)
+            if (IsPlayerInteracting)
             {
-                isPlayerInteracting = false;
+                IsPlayerInteracting = false;
             }
         }
     }

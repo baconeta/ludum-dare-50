@@ -7,17 +7,17 @@ namespace Props
         // TODO Move onMouseDown & onMouseUp to PlayerInteractable.cs.
         protected virtual void OnMouseDown()
         {
-            if (canPlayerInteract && !isDodoInteracting)
+            if (CanPlayerInteract && !IsDodoInteracting)
             {
-                isPlayerInteracting = true;
+                IsPlayerInteracting = true;
             }
         }
 
         protected virtual void OnMouseUp()
         {
-            if (isPlayerInteracting)
+            if (IsPlayerInteracting)
             {
-                isPlayerInteracting = false;
+                IsPlayerInteracting = false;
             }
         }
 
@@ -25,7 +25,7 @@ namespace Props
         private void Update()
         {
             // If the player is clicking on the object.
-            if (isPlayerInteracting)
+            if (IsPlayerInteracting)
             {
                 // when you click and hold down, it follows the mouse cursor, and then drops on release.
                 Vector3 mousePos = Input.mousePosition;

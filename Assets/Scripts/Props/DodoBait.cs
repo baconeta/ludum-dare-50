@@ -2,6 +2,10 @@ namespace Props
 {
     public class DodoBait : PlayerDraggable
     {
-        protected bool canDodoInteract = true;
+        private void Start()
+        {
+            CanDodoInteract = true;
+        }
+
     }
 }

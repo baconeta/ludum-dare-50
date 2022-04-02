@@ -4,17 +4,17 @@ namespace Props
 {
     public abstract class PlayerInteractable : MonoBehaviour
     {
-        protected bool canPlayerInteract = true;
-        protected bool isPlayerInteracting = false;
-        protected bool canDodoInteract = false;
-        protected bool isDodoInteracting = false;
+        protected bool CanPlayerInteract = true;
+        protected bool IsPlayerInteracting = false;
+        protected bool CanDodoInteract = false;
+        protected bool IsDodoInteracting = false;
         private Camera _gameCamera;
 
-        protected void playerInteract()
+        protected void PlayerInteract()
         {
         }
 
-        protected void dodoInteract()
+        protected void DodoInteract()
         {
         }
 
