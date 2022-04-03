@@ -14,8 +14,9 @@ public class Dodo : MonoBehaviour
     private Vector3 deccelerationOffset = new Vector3(0.5f, 0.25f);
     
     //Sniff
+    [SerializeField] Vector3 forwardVector = new Vector3(0.5f, -0.25f);
     [SerializeField] float sniffRange;
-    private SmellController dodoSniffer;
+    SmellController dodoSniffer;
     
     //Movement and Behaviours
     [Tooltip("How often the behaviour automatically changes")]
@@ -47,6 +48,7 @@ public class Dodo : MonoBehaviour
     void Start()
     {
         dodoSniffer = GetComponentInChildren<SmellController>();
+        dodoSniffer.GetComponent<CircleCollider2D>().radius = sniffRange;
         _cliffBoundPos = _cliffBound.position;
         _mountainBoundPos = _mountainBound.position;
     }
@@ -54,6 +56,8 @@ public class Dodo : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        Debug.DrawLine(transform.position, (transform.position + forwardVector.normalized));
+
         if (!isOnBridge)
         {
             _behaviourTimer = Time.time % behaviourChangeSpeed;
@@ -91,37 +95,52 @@ public class Dodo : MonoBehaviour
         
     }
 
-    bool canSmellWatermelon(bool result = false)
-    {
-        if (dodoSniffer.getSmelledObject())
-        {
-            result = true;
-        }
-        return result;
-    }
+
 
     void Move()
     {
-        if (canSmellWatermelon())
-        {
-            Debug.Log("mmmmmm, I can smell that water melooooon!");
-        }
         _currentDodoAcceleration += dodoAcceleration / 100;
         _currentDodoAcceleration = Mathf.Clamp(_currentDodoAcceleration, 0, 1);
-        if (_behaviourTimer < 0.1 && !_hasMoved)
+        
+        //If there is a viable smell object - Move towards it.
+        GameObject smelledObject = dodoSniffer.getSmelledObject();
+        if (smelledObject != null)
         {
-            ChangeMovementBehaviour();
-            _hasMoved = true;
-            
+            Vector3 currentPos = transform.position;
+            Vector3 directionOfSmell = currentPos - smelledObject.transform.position;
+            Debug.DrawLine(transform.position, transform.position - directionOfSmell, Color.red);
+
+            float smellCrossProduct = Vector3.Cross(directionOfSmell.normalized, forwardVector.normalized).z;
+            //if CrossProduct is > 0, move towards mountains
+            if (smellCrossProduct > 0)
+            {
+                ChangeMovementBehaviour(3);
+                Debug.Log("Moving to Mountain for snacks");
+            }
+            else //Move towards cliff
+            {
+                ChangeMovementBehaviour(2);
+                Debug.Log("Moving to Cliff for Melon");
+
+            }
         }
-        else if (_behaviourTimer > 0.1)
+        else //No smell object, find a new movement
         {
-            _hasMoved = false;
-        }
-        else if (_behaviourTimer > behaviourChangeSpeed - 0.1)
-        {
-            b_isTransitionMovement = false;
-            behaviourChangeSpeed = 5;
+            if (_behaviourTimer < 0.1 && !_hasMoved)
+            {
+                ChangeMovementBehaviour();
+                _hasMoved = true;
+                
+            }
+            else if (_behaviourTimer > 0.1)
+            {
+                _hasMoved = false;
+            }
+            else if (_behaviourTimer > behaviourChangeSpeed - 0.1)
+            {
+                b_isTransitionMovement = false;
+                behaviourChangeSpeed = 5;
+            }
         }
         
         switch (_currentBehaviour)
@@ -139,8 +158,6 @@ public class Dodo : MonoBehaviour
                 MoveTowardMountain();
                 break;
         }
-        //Current Acceleration %
-        _currentDodoAcceleration = Mathf.Clamp(_currentDodoAcceleration, 0, 1);
 
     }
     void MoveForwards()
@@ -152,11 +169,8 @@ public class Dodo : MonoBehaviour
     
     void MoveTowardCliff()
     { ;
-        if (transform.position.x <= _cliffBoundPos.x + deccelerationOffset.x)
-        {
-            _currentDodoAcceleration -= dodoAcceleration / 100;
-        }
-        transform.position +=  -_sideVector3 * dodoSpeed * _currentDodoAcceleration;
+        
+        transform.position +=  -_sideVector3 * (dodoSpeed * _currentDodoAcceleration);
         if (transform.position.x <= _cliffBoundPos.x)
         {
             ChangeMovementBehaviour(3);
@@ -165,13 +179,7 @@ public class Dodo : MonoBehaviour
     
     void MoveTowardMountain()
     { ;
-        if (transform.position.x >= _mountainBoundPos.x - deccelerationOffset.x)
-        {
-            _currentDodoAcceleration -= dodoAcceleration / 100;
-            
-        }
-
-        transform.position += _sideVector3 * dodoSpeed * _currentDodoAcceleration;
+        transform.position += _sideVector3 * (dodoSpeed * _currentDodoAcceleration);
         if (transform.position.x >= _mountainBoundPos.x)
         {
             ChangeMovementBehaviour(2);

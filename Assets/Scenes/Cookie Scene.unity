@@ -209,6 +209,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6102199197974787305, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
+      propertyPath: sniffRange
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102199197974787305, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
       propertyPath: _cliffBound
       value: 
       objectReference: {fileID: 24806206}
@@ -228,6 +232,10 @@ PrefabInstance:
       propertyPath: mountainBounds
       value: 
       objectReference: {fileID: 1188650910}
+    - target: {fileID: 6102199197974787305, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
+      propertyPath: forwardVector.y
+      value: -0.295
+      objectReference: {fileID: 0}
     - target: {fileID: 6102199197974787305, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
       propertyPath: _wobbleFrequency
       value: 1
@@ -285,14 +293,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 484664862}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.8643103, y: -3.923793, z: 0}
-  m_LocalScale: {x: 0.1152414, y: 0.1152414, z: 0.576207}
+  m_LocalPosition: {x: 7.4999986, y: 5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1847866422}
+  m_Father: {fileID: 1896049911}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &484664864
-PolygonCollider2D:
+--- !u!58 &484664864
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -305,22 +313,8 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.460773, y: -1.5879045}
-      - {x: -9.874725, y: -6.167345}
-      - {x: -3.2411878, y: -15.7769375}
-      - {x: 16.60829, y: -14.783939}
-      - {x: 18.617323, y: -5.027253}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!50 &484664865
 Rigidbody2D:
   serializedVersion: 4
@@ -666,11 +660,6 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7809516064845122637, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
   m_PrefabInstance: {fileID: 1188650909}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1847866422 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7333302484063874087, guid: 1f8aba01eedde45d3b6fe2762a768757, type: 3}
-  m_PrefabInstance: {fileID: 1087495812}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1896049911 stripped
 Transform:
