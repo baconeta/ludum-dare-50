@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5165314828486348383}
   - component: {fileID: 5739524043030434251}
   - component: {fileID: -5761882593040802925}
+  - component: {fileID: 5321852835096130702}
   m_Layer: 0
   m_Name: Bushfire
   m_TagString: DeathHazard
@@ -86,7 +87,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 99b8a693f2f54c145887f4bde5509e2c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 42efd03e492bb4c47894f14584f907aa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -123,3 +124,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 23.422367, y: 20.659557}
   m_EdgeRadius: 0
+--- !u!95 &5321852835096130702
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8855985278181753037}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a1ad8a554a7249f4b92e21bb9b582d01, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
