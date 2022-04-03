@@ -101,7 +101,7 @@ MonoBehaviour:
   possibleGroundPieces:
   - {fileID: 21300000, guid: 3d6dcb413eec4754d823325a64455f8e, type: 3}
   - {fileID: 21300000, guid: 6e13f39a7d9be544681bea135837bc26, type: 3}
-  - {fileID: 21300000, guid: 40dc78e65a2b08b48aeab4865a41d11e, type: 3}
+  - {fileID: 21300000, guid: 9a34171eb89f2624abd9e818ff2612ff, type: 3}
   removeXPosition: -10
 --- !u!61 &804859318406779703
 BoxCollider2D:
