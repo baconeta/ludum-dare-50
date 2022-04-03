@@ -39,7 +39,6 @@ namespace Controllers
             // place previous ground piece into the right location
             _nextGroundPiece.transform.position = spawnPosition.transform.position;
             _lastGroundPiece = _nextGroundPiece;
-            _lastGroundPiece.AddComponent<GroundMovement>();
             _boxCollider = _nextGroundPiece.GetComponent<BoxCollider2D>();
             _lastGroundWidth = _boxCollider.size.x * _nextGroundPiece.transform.localScale.x;
 
