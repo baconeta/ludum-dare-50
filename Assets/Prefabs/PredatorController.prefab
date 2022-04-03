@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7477291845776885752}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.684597, y: -5.069237, z: -426.05942}
+  m_LocalPosition: {x: 8.684597, y: -5.069237, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6030493650381220955}
@@ -45,9 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minimumTimeBetweenSpawns: 15
-  spawnChance: 100
+  spawnChance: 50
   spawnTransform: {fileID: 6030493650381220955}
   predatorObjectToSpawn: {fileID: 8802793379628755827, guid: 7938686d77c19e14bbc3cba2a03f7b6f, type: 3}
+  timeBeforePredatorsStartSpawning: 60
 --- !u!1 &8475486500525175072
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,7 +73,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8475486500525175072}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.5, y: 4, z: 0}
+  m_LocalPosition: {x: -11.4, y: 7.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6357227680681627557}
