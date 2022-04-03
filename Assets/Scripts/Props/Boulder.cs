@@ -21,10 +21,15 @@ namespace Props
                 if (possibleSprites.Length == 0)
                 {
                     Debug.Log("Add possible sprites to boulder object.");
-
                 }
+
                 _sr.sprite = possibleSprites.ChooseRandom();
             }
+        }
+
+        public void StopAllAnims()
+        {
+            GetComponent<Animator>().enabled = false;
         }
     }
 }
