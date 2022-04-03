@@ -12,6 +12,7 @@ public class Dodo : MonoBehaviour
 {
     [Tooltip("World Controller used in Scene")]
     [SerializeField] WorldController _wc;
+    
     //Speed and Acceleration
     [SerializeField] private float dodoSpeed;
     [SerializeField] private float dodoAccelerationSpeed;
@@ -23,7 +24,16 @@ public class Dodo : MonoBehaviour
     [SerializeField] float sniffRange;
     private SmellController dodoSniffer;
     private GameObject focusedObject;
+    private float distanceToSmellable;
+    private float focusedObjectPreviousDistance;
 
+    //Eating
+    private bool isEating = false;
+    [Tooltip("Speed at which the dodo (de/ac)celerates surrounding eating.")]
+    [SerializeField] float dodoPostEatAcceleration = 0.005f;
+    [Tooltip("Range at which the dodo will eat.")]
+    [SerializeField] private float eatRange = 1;
+    
     //Movement and Behaviours
     [Tooltip("How often the behaviour automatically changes")]
     [SerializeField] private float behaviourChangeSpeed = 5;
@@ -117,6 +127,10 @@ public class Dodo : MonoBehaviour
         }
         else //No smell object, find a new movement
         {
+            if (_wc.getWorldSpeedPercentage() < 1f)
+            {
+                _wc.setWorldSpeedPercentage(Mathf.Clamp(_wc.getWorldSpeedPercentage() + dodoPostEatAcceleration,0.2f, 1));
+            }
             if (_behaviourTimer < 0.1 && !_hasMoved)
             {
                 ChangeMovementBehaviour();
@@ -249,14 +263,37 @@ public class Dodo : MonoBehaviour
 
     private void SlowWorldSpeed()
     {
-        float distanceToSmellable = Vector3.Distance(transform.position, focusedObject.transform.position);
-        if (distanceToSmellable < 0.5)
+        focusedObjectPreviousDistance = distanceToSmellable;
+        distanceToSmellable = Vector3.Distance(transform.position, focusedObject.transform.position);
+
+        //focused object is now going away from Dodo
+        //if (distanceToSmellable > focusedObjectPreviousDistance)
         {
-            _wc.setWorldSpeedPercentage(0);
+            //focusedObject = null;
         }
-        else
+        //else
         {
-            _wc.setWorldSpeedPercentage(Mathf.Clamp(_wc.getWorldSpeedPercentage() - 0.005f,0.2f, 1));
+            
+            if (distanceToSmellable < eatRange && !isEating)
+            {
+                setEatingStatus(true);
+                _wc.setWorldSpeedPercentage(0);
+                GetComponentInChildren<DodoEat>().EatMelon();
+            }
+            else if (!isEating)
+            {
+                _wc.setWorldSpeedPercentage(Mathf.Clamp(_wc.getWorldSpeedPercentage() - dodoPostEatAcceleration,0.2f, 1));
+            }
         }
+    }
+
+    public void setEatingStatus(bool newIsEating)
+    {
+        isEating = newIsEating;
+    }
+
+    public GameObject getFocusedObject()
+    {
+        return (focusedObject);
     }
 }
