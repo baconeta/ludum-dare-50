@@ -148,11 +148,6 @@ public class Dodo : MonoBehaviour
                 behaviourChangeSpeed = 5;
             }
         }
-        else if (_behaviourTimer > behaviourChangeSpeed - 0.1)
-        {
-            b_isTransitionMovement = false;
-            behaviourChangeSpeed = 5;
-        }
 
         switch (_currentBehaviour)
         {
@@ -209,7 +204,7 @@ public class Dodo : MonoBehaviour
     {
         switch (col.tag)
         {
-            case "DeathHazard": HitDeathHazard(col); break;
+            case "DeathHazard": DamagePlayer(col.name); break;
             case "BypassableHazard": HitBypassableHazard(col); break;
             case "Bridge": MountBridge(col); break;
         }
@@ -221,11 +216,6 @@ public class Dodo : MonoBehaviour
         {
             case "Bridge": DismountBridge(col); break;
         }
-    }
-
-    private void DamagePlayer(string source)
-    {
-        DamagePlayer(col.name);
     }
 
     private void HitBypassableHazard(Collider2D col)
