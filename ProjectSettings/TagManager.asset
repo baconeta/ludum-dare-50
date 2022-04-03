@@ -5,11 +5,15 @@ TagManager:
   serializedVersion: 2
   tags:
   - WorldController
+  - DeathHazard
+  - Dodo
+  - Bridge
+  - Smell
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Smells
   - Water
   - UI
   - 
