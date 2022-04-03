@@ -190,6 +190,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 8286371915749912068, guid: 1ee142cc84506584c8ec72ed03327292, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c890d6c77afb9384cae5e9aae5a7a7fb, type: 3}
     - target: {fileID: 8286371916177847399, guid: 1ee142cc84506584c8ec72ed03327292, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
