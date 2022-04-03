@@ -102,7 +102,6 @@ public class Dodo : MonoBehaviour
                 // Then it is transitional movement - Will MoveForwards for 1 second.
                 _currentBehaviour = 1;
                 behaviourChangeSpeed = 1;
-                b_isTransitionMovement = true;
             }
             else
             {
@@ -142,7 +141,6 @@ public class Dodo : MonoBehaviour
             }
             if (_behaviourTimer > behaviourChangeSpeed - 0.1)
             {
-                b_isTransitionMovement = false;
                 behaviourChangeSpeed = 5;
             }
         }
@@ -267,11 +265,12 @@ public class Dodo : MonoBehaviour
         distanceToSmellable = Vector3.Distance(transform.position, focusedObject.transform.position);
 
         //focused object is now going away from Dodo
-        //if (distanceToSmellable > focusedObjectPreviousDistance)
+        if (distanceToSmellable > focusedObjectPreviousDistance)
         {
-            //focusedObject = null;
+            focusedObject.GetComponent<PlayerInteractable>().DodoInteract(false);
+            focusedObject = null;
         }
-        //else
+        else
         {
             
             if (distanceToSmellable < eatRange && !isEating)

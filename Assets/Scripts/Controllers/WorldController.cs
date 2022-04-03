@@ -13,7 +13,7 @@ namespace Controllers
         [Tooltip("The initial speed at which the world moves. Set to 1.0 for no effect.")] [SerializeField]
         private float initialRampSpeedModifier = 0.1f;
 
-        public float currentRampSpeedModifier;
+        public float _currentRampSpeedModifier;
 
         [Tooltip("A value of 0 - 1. All speed is modified by this value. 0 = Standstill, 1 = full speed")] 
         private float percentageSpeedModifier = 1;
@@ -68,7 +68,7 @@ namespace Controllers
 
         public float getWorldSpeed()
         {
-            return baselineWorldSpeed * currentRampSpeedModifier * environmentalSpeedModifier * percentageSpeedModifier;
+            return baselineWorldSpeed * _currentRampSpeedModifier * environmentalSpeedModifier * percentageSpeedModifier;
         }
 
         public void setBaselineWorldSpeed(float speed)
