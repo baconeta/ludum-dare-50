@@ -8,6 +8,9 @@ TagManager:
   - DeathHazard
   - Dodo
   - Bridge
+  - BypassableHazard
+  - SpeedHazard
+  - BackgroundMusic
   - Smell
   layers:
   - Default
@@ -16,32 +19,32 @@ TagManager:
   - Smells
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
   m_SortingLayers:
   - name: Default
     uniqueID: 0

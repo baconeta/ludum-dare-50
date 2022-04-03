@@ -14,12 +14,12 @@ public class Dodo : MonoBehaviour
     [SerializeField] private float dodoAccelerationSpeed;
     private float dodoDefaultSpeed;
     private float _currentDodoAcceleration;
-    
+
     //Sniff
     [SerializeField] Vector3 forwardVector = new Vector3(0.5f, -0.25f);
     [SerializeField] float sniffRange;
     SmellController dodoSniffer;
-    
+
     //Movement and Behaviours
     [Tooltip("How often the behaviour automatically changes")]
     [SerializeField] private float behaviourChangeSpeed = 5;
@@ -32,20 +32,20 @@ public class Dodo : MonoBehaviour
     [SerializeField]private float _wobbleWidth;
     [Tooltip("How quickly the Dodo wobbles")]
     [SerializeField] private float _wobbleFrequency;
-    
+
     //Vector line that Dodo Moves on
     private Vector3 _sideVector3 = new Vector3(.5f, 0.25f) / 100;
-    
+
     //Boundaries
     [SerializeField] Transform _cliffBound;
     private Vector3 _cliffBoundPos;
     [SerializeField] Transform _mountainBound;
     private Vector3 _mountainBoundPos;
-    
+
     //Bridges
     private bool isOnBridge;
 
-  
+
 
 
     // Start is called before the first frame update
@@ -53,7 +53,7 @@ public class Dodo : MonoBehaviour
     {
         if (_wc == default)
         {
-            
+
         }
 
         dodoDefaultSpeed = dodoSpeed;
@@ -72,8 +72,8 @@ public class Dodo : MonoBehaviour
             _behaviourTimer = Time.time % behaviourChangeSpeed;
             Move();
         }
-        
-        
+
+
     }
 
     //Input desiredBehaviour to choose a behaviour
@@ -95,20 +95,20 @@ public class Dodo : MonoBehaviour
                 behaviourChangeSpeed = 1;
                 b_isTransitionMovement = true;
             }
-            else 
+            else
             {
                 _currentBehaviour = Random.Range(1, 4);
             }
         }
-        
-        
+
+
     }
-    
+
     private void Move()
     {
         _currentDodoAcceleration += dodoAccelerationSpeed / 100;
         _currentDodoAcceleration = Mathf.Clamp(_currentDodoAcceleration, 0, 1);
-        
+
         //If there is a viable smell object - Move towards it.
         GameObject smelledObject = dodoSniffer.getSmelledObject();
         if (smelledObject != null)
@@ -128,8 +128,8 @@ public class Dodo : MonoBehaviour
                 ChangeMovementBehaviour(2);
 
             }
-            
-            
+
+
         }
         else //No smell object, find a new movement
         {
@@ -148,7 +148,12 @@ public class Dodo : MonoBehaviour
                 behaviourChangeSpeed = 5;
             }
         }
-        
+        else if (_behaviourTimer > behaviourChangeSpeed - 0.1)
+        {
+            b_isTransitionMovement = false;
+            behaviourChangeSpeed = 5;
+        }
+
         switch (_currentBehaviour)
         {
             //Move Forwards
@@ -172,7 +177,7 @@ public class Dodo : MonoBehaviour
         transform.position += _sideVector3 * sinWave;
 
     }
-    
+
     private void MoveTowardCliff()
     {
         Debug.Log(_currentDodoAcceleration);
@@ -186,9 +191,9 @@ public class Dodo : MonoBehaviour
             ChangeMovementBehaviour(3);
         }
     }
-    
+
     private void MoveTowardMountain()
-    { 
+    {
         transform.position += _sideVector3 * (dodoSpeed * _currentDodoAcceleration);
         //If at bounds, inverse direction
         if (transform.position.x >= _mountainBoundPos.x)
@@ -202,26 +207,33 @@ public class Dodo : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("DeathHazard"))
+        switch (col.tag)
         {
-            DamagePlayer(col.name);
-        } else if (col.CompareTag("Bridge"))
-        {
-            MountBridge(col);
+            case "DeathHazard": HitDeathHazard(col); break;
+            case "BypassableHazard": HitBypassableHazard(col); break;
+            case "Bridge": MountBridge(col); break;
         }
     }
 
     private void OnTriggerExit2D(Collider2D col)
     {
-        if (col.CompareTag("Bridge"))
+        switch (col.tag)
         {
-            DismountBridge(col);
+            case "Bridge": DismountBridge(col); break;
         }
     }
 
     private void DamagePlayer(string source)
     {
-        Debug.Log($"You took damage from {source} and died");
+        DamagePlayer(col.name);
+    }
+
+    private void HitBypassableHazard(Collider2D col)
+    {
+        if (!isOnBridge)
+        {
+            DamagePlayer(col.name);
+        }
     }
 
     private void MountBridge(Collider2D col)
@@ -236,5 +248,10 @@ public class Dodo : MonoBehaviour
         isOnBridge = false;
         transform.position -= new Vector3(0f, 0.1f, 0f);
         col.gameObject.GetComponent<PlayerInteractable>().DodoInteract(false);
+    }
+
+    void DamagePlayer(string source)
+    {
+        Debug.Log($"You took damage from {source} and died");
     }
 }
