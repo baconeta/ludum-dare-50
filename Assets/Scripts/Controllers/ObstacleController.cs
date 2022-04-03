@@ -4,20 +4,26 @@ namespace Controllers
 {
     public class ObstacleController : MonoBehaviour
     {
-        [SerializeField] private GameObject[] obstacleTypes;
+        [SerializeField] private GameObject[] standardHazards;
+        [SerializeField] private GameObject[] largeHazards;
 
-        public void SpawnObstacle(GameObject parent, float width)
+        public void SpawnHazard(GameObject parent, float width)
         {
-            var obstacleType = GetRandomObstacleType();
+            var obstacleType = GetRandomHazardType(parent);
             var obstacle = Instantiate(obstacleType, parent.transform);
 
             var location = GetRandomOffset(width);
             obstacle.transform.position += location;
         }
 
-        private GameObject GetRandomObstacleType()
+        private GameObject GetRandomHazardType(GameObject parent)
         {
-            return obstacleTypes[Random.Range(0, obstacleTypes.Length)];
+            if (parent.CompareTag("LargeGround"))
+            {
+                return largeHazards.ChooseRandom();
+            }
+
+            return standardHazards.ChooseRandom();
         }
 
         private static Vector3 GetRandomOffset(float width)
