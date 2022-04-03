@@ -48,6 +48,10 @@ public class Dodo : MonoBehaviour
     //Bridges
     private bool isOnBridge;
     
+    //Animation
+    private Animator _anim;
+    private static readonly int DodoSpeed = Animator.StringToHash("dodoSpeed");
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -62,6 +66,8 @@ public class Dodo : MonoBehaviour
         dodoSniffer.GetComponent<CircleCollider2D>().radius = sniffRange;
         _cliffBoundPos = _cliffBound.position;
         _mountainBoundPos = _mountainBound.position;
+        _anim = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
@@ -72,6 +78,9 @@ public class Dodo : MonoBehaviour
             _behaviourTimer = Time.time % behaviourChangeSpeed;
             Move();
         }
+
+        float currentDodoSpeed = _wc.getWorldSpeed();
+        _anim.SetFloat(DodoSpeed, currentDodoSpeed);
     }
 
     //Input desiredBehaviour to choose a behaviour
