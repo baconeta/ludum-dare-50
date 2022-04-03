@@ -14,7 +14,7 @@ public class SaberToothedTiger : MonoBehaviour
     private Vector3 _directionOfFocus;
     [SerializeField] private float sidewaysSpeed = 2f;
 
-    //Vector line that Tiger will moves on
+    //Vector line that Tiger will moves on TODO this is wrong because it depends where the tiger is on the screen...
     private Vector3 _sideVector3 = new Vector3(.5f, 0.25f) / 100;
     [SerializeField] Vector3 tigerForwardVector = new Vector3(1f, -.5f);
 
