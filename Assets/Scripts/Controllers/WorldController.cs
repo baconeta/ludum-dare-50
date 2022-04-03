@@ -4,6 +4,7 @@ namespace Controllers
 {
     public class WorldController : MonoBehaviour
     {
+        private GameController _gameController;
         private StatsController _statsController;
 
         [Tooltip("The speed at which the world moves, before any modifiers are applied.")] [SerializeField]
@@ -33,6 +34,7 @@ namespace Controllers
         // Start is called before the first frame update
         void Start()
         {
+            _gameController = FindObjectOfType<GameController>();
             _statsController = FindObjectOfType<StatsController>();
             _currentRampSpeedModifier = initialRampSpeedModifier;
             _ramping = _currentRampSpeedModifier < 1.0f;
@@ -68,7 +70,14 @@ namespace Controllers
 
         public float getWorldSpeed()
         {
-            return baselineWorldSpeed * _currentRampSpeedModifier * environmentalSpeedModifier * percentageSpeedModifier;
+            if (_gameController.gameRunning)
+            {
+                return baselineWorldSpeed * _currentRampSpeedModifier * environmentalSpeedModifier * percentageSpeedModifier;
+            }
+            else
+            {
+                return 0.0F;
+            }
         }
 
         public void setBaselineWorldSpeed(float speed)
