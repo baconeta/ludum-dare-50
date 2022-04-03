@@ -19,6 +19,7 @@ public class Dodo : MonoBehaviour
     [SerializeField] private float dodoSpeed;
     [SerializeField] private float dodoAccelerationSpeed;
     private float dodoDefaultSpeed;
+    [SerializeField] private float dodoOnLogSpeed = 0.3f;
     private float _currentDodoAcceleration;
 
     //Sniff
@@ -223,6 +224,9 @@ public class Dodo : MonoBehaviour
             case "Bridge":
                 MountBridge(col);
                 break;
+            case "Tiger":
+                DamagePlayer(col.name);
+                break;
         }
     }
 
@@ -246,6 +250,7 @@ public class Dodo : MonoBehaviour
 
     private void MountBridge(Collider2D col)
     {
+        _wc.setWorldSpeedPercentage(dodoOnLogSpeed);
         _isOnBridge = true;
         transform.position += new Vector3(0f, 0.1f, 0f);
         col.gameObject.GetComponent<PlayerInteractable>().DodoInteract(true);

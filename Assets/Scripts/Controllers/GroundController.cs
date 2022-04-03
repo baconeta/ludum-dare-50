@@ -39,7 +39,6 @@ namespace Controllers
             // place previous ground piece into the right location
             _nextGroundPiece.transform.position = spawnPosition.transform.position;
             _lastGroundPiece = _nextGroundPiece;
-            _lastGroundPiece.AddComponent<GroundMovement>();
             _boxCollider = _nextGroundPiece.GetComponent<BoxCollider2D>();
             _lastGroundWidth = _boxCollider.size.x * _nextGroundPiece.transform.localScale.x;
 
@@ -67,7 +66,7 @@ namespace Controllers
             var spawnCount = CalculateNumberOfObstaclesToSpawn();
             for (var i = 0; i < spawnCount; i++)
             {
-                _obstacleController.SpawnObstacle(parent, _lastGroundWidth);
+                _obstacleController.SpawnHazard(parent, _lastGroundWidth);
                 _chunksAddedSinceLastObstacle = 0;
             }
         }

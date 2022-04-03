@@ -8,11 +8,14 @@ public class DodoEat : MonoBehaviour
     [SerializeField] private float _eatSpeedMin;
     [SerializeField] private float _eatSpeedMax;
 
-    private Dodo dodo;
+    private Dodo _dodo;
+    private AudioSource[] _eatingSounds;
+
     // Start is called before the first frame update
     void Start()
     {
-        dodo = GetComponentInParent<Dodo>();
+        _dodo = GetComponentInParent<Dodo>();
+        _eatingSounds = GetComponents<AudioSource>();
     }
 
     // Update is called once per frame
@@ -23,14 +26,17 @@ public class DodoEat : MonoBehaviour
 
     public void EatMelon()
     {
-        StartCoroutine(waitToEat());
+        var sound = _eatingSounds.ChooseRandom();
+        StartCoroutine(waitToEat(sound));
     }
 
-    IEnumerator waitToEat()
+    IEnumerator waitToEat(AudioSource sound)
     {
+        sound.Play();
         float randomTimeToEat = Random.Range(_eatSpeedMin, _eatSpeedMax);
         yield return new WaitForSeconds(randomTimeToEat);
-        dodo.getFocusedObject().GetComponent<DodoBait>().getEaten();
-        dodo.setEatingStatus(false);
+        _dodo.getFocusedObject().GetComponent<DodoBait>().getEaten();
+        _dodo.setEatingStatus(false);
+        sound.Stop();
     }
 }
