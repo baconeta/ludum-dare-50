@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class SaberToothedTiger : Smashable
 {
-    // Game objects vars
-    private WorldController _worldController;
     private Dodo _dodoToChase;
 
     // Animation
@@ -27,7 +25,7 @@ public class SaberToothedTiger : Smashable
 
 
     // Start is called before the first frame update
-    private void Start()
+    protected override void Start()
     {
         _worldController = FindObjectOfType<WorldController>();
         // On spawn we want the tiger to start running towards the dodo.
@@ -39,7 +37,7 @@ public class SaberToothedTiger : Smashable
     }
 
     // Update is called once per frame
-    private void Update()
+    protected override void Update()
     {
         MoveTowardsDodo();
         Vector3 movementVector = _worldController.getMoveDirection() *
