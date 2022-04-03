@@ -11,8 +11,7 @@ namespace Controllers
         public void SpawnHazard(GameObject parent, float parentWidth)
         {
             var obstacleType = GetRandomHazardType(parent);
-            SpawnObstacleRandomly(obstacleType, parent, parentWidth);
-
+            SpawnObstacle(obstacleType, parent, parentWidth);
             SpawnHazardBypassIfExists(obstacleType, parent, parentWidth);
         }
 
@@ -31,8 +30,7 @@ namespace Controllers
             var bypassType = GetBypassObjectType(hazardType);
             if (bypassType != null)
             {
-                Debug.Log("Spawning bypass object: ", bypassType);
-                SpawnObstacleRandomly(bypassType, parent, parentWidth);
+                SpawnObstacle(bypassType, parent, parentWidth);
             }
         }
 
@@ -46,11 +44,24 @@ namespace Controllers
             return bypassableHazard.bypassObject;
         }
 
-        private void SpawnObstacleRandomly(GameObject obstacleType, GameObject parent, float parentWidth)
+        private void SpawnObstacle(GameObject obstacleType, GameObject parent, float parentWidth)
         {
             var obstacle = Instantiate(obstacleType, parent.transform);
-            var location = GetRandomOffset(parentWidth);
+            var location = GetOffset(obstacleType, parentWidth);
             obstacle.transform.position += location;
+        }
+
+        private static Vector3 GetOffset(GameObject obstacleType, float width)
+        {
+            if (ShouldBePlacedRandomly(obstacleType))
+                return GetRandomOffset(width);
+
+            return Vector3.zero;
+        }
+
+        private static bool ShouldBePlacedRandomly(GameObject obstacleType)
+        {
+            return !obstacleType.CompareTag("BypassableHazard");
         }
 
         private static Vector3 GetRandomOffset(float width)
