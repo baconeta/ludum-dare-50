@@ -18,7 +18,8 @@ namespace Controllers
         [SerializeField] private bool debug;
         [SerializeField] private GameObject spawnPosition;
         [SerializeField] private GameObject instantiatePosition;
-        [SerializeField] private GameObject groundObjectToSpawn;
+        [SerializeField] private GameObject standardGroundObjectToSpawn;
+        [SerializeField] private GameObject largeGroundObjectToSpawn;
 
         [SerializeField]
         [Min(0.1f)]
@@ -28,7 +29,7 @@ namespace Controllers
         void Start()
         {
             _obstacleController = FindObjectOfType<ObstacleController>();
-            _nextGroundPiece = Instantiate(groundObjectToSpawn, instantiatePosition.transform);
+            _nextGroundPiece = Instantiate(standardGroundObjectToSpawn, instantiatePosition.transform);
             SpawnNewGround();
         }
 
@@ -42,7 +43,8 @@ namespace Controllers
             _lastGroundWidth = _boxCollider.size.x * _nextGroundPiece.transform.localScale.x;
 
             // Create a new ground piece for the next spawn
-            _nextGroundPiece = Instantiate(groundObjectToSpawn, instantiatePosition.transform);
+            var nextGroundTile = SelectNextGroundTile();
+            _nextGroundPiece = Instantiate(nextGroundTile, instantiatePosition.transform);
             _chunksAddedSinceLastObstacle++;
         }
 
@@ -80,6 +82,11 @@ namespace Controllers
             }
 
             return spawnCount;
+        }
+
+        private GameObject SelectNextGroundTile()
+        {
+            return Random.value > 0.7 ? largeGroundObjectToSpawn : standardGroundObjectToSpawn;
         }
     }
 }
