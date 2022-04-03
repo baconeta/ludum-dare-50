@@ -31,9 +31,9 @@ public class SaberToothedTiger : MonoBehaviour
     private void Update()
     {
         MoveTowardsDodo();
-        transform.position +=
-            _worldController.getMoveDirection() *
-            (Time.deltaTime * (_fullSaberSpeed - _worldController.getWorldSpeed()));
+        Vector3 movementVector = _worldController.getMoveDirection() *
+                                 (Time.deltaTime * (_fullSaberSpeed - _worldController.getWorldSpeed()));
+        transform.position += movementVector;
     }
 
     void MoveTowardsDodo()
