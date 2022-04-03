@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MuteButton : MonoBehaviour
+public class VolumeController : MonoBehaviour
 {
     AudioSource m_BackgroundMusic;
     // Start is called before the first frame update
