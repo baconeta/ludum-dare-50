@@ -66,6 +66,11 @@ namespace Controllers
             return baselineWorldSpeed * _currentRampSpeedModifier * environmentalSpeedModifier;
         }
 
+        public void setWorldSpeed(float speed)
+        {
+            baselineWorldSpeed = speed;
+        }
+
         public Vector3 getMoveDirection()
         {
             return _moveDirection;
