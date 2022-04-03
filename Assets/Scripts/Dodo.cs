@@ -54,10 +54,9 @@ public class Dodo : MonoBehaviour
     {
         if (!isOnBridge)
         {
+            _behaviourTimer = Time.time % behaviourChangeSpeed;
             Move();
         }
-        _behaviourTimer = Time.time % behaviourChangeSpeed;
-        Move();
     }
 
     //Input desiredBehaviour to choose a behaviour
