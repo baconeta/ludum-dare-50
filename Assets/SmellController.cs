@@ -28,7 +28,6 @@ public class SmellController : MonoBehaviour
 
     public GameObject getSmelledObject()
     {
-        
         return smellObject;
     }
 }
