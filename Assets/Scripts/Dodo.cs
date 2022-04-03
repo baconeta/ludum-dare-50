@@ -223,6 +223,9 @@ public class Dodo : MonoBehaviour
             case "Bridge":
                 MountBridge(col);
                 break;
+            case "Tiger":
+                DamagePlayer(col.name);
+                break;
         }
     }
 
