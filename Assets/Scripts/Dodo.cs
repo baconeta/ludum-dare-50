@@ -1,3 +1,4 @@
+using System;
 using Props;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,10 +6,12 @@ using System.Runtime.CompilerServices;
 using Controllers;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 public class Dodo : MonoBehaviour
 {
-    private WorldController _wc;
+    [Tooltip("World Controller used in Scene")]
+    [SerializeField] WorldController _wc;
     //Speed and Acceleration
     [SerializeField] private float dodoSpeed;
     [SerializeField] private float dodoAccelerationSpeed;
@@ -44,16 +47,14 @@ public class Dodo : MonoBehaviour
 
     //Bridges
     private bool isOnBridge;
-
-
-
-
+    
     // Start is called before the first frame update
     private void Start()
     {
         if (_wc == default)
         {
-
+            //World Controller is not set
+            throw new NullReferenceException();
         }
 
         dodoDefaultSpeed = dodoSpeed;
@@ -66,14 +67,11 @@ public class Dodo : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-
         if (!isOnBridge)
         {
             _behaviourTimer = Time.time % behaviourChangeSpeed;
             Move();
         }
-
-
     }
 
     //Input desiredBehaviour to choose a behaviour
@@ -113,23 +111,8 @@ public class Dodo : MonoBehaviour
         GameObject smelledObject = dodoSniffer.getSmelledObject();
         if (smelledObject != null)
         {
-            Vector3 currentPos = transform.position;
-            Vector3 directionOfSmell = currentPos - smelledObject.transform.position;
-
-            //Is smelled object to Dodo's left or right
-            float smellCrossProduct = Vector3.Cross(directionOfSmell.normalized, forwardVector.normalized).z;
-            //if CrossProduct is > 0, move towards mountains
-            if (smellCrossProduct > 0 && _currentBehaviour != 3)
-            {
-                ChangeMovementBehaviour(3);
-            }
-            else if(smellCrossProduct < 0 && _currentBehaviour != 2)//Move towards cliff
-            {
-                ChangeMovementBehaviour(2);
-
-            }
-
-
+            MoveTowardsSmellable(smelledObject);
+            SlowWorldSpeed();
         }
         else //No smell object, find a new movement
         {
@@ -138,11 +121,11 @@ public class Dodo : MonoBehaviour
                 ChangeMovementBehaviour();
                 _hasMoved = true;
             }
-            else if (_behaviourTimer > 0.1)
+            if (_behaviourTimer > 0.1)
             {
                 _hasMoved = false;
             }
-            else if (_behaviourTimer > behaviourChangeSpeed - 0.1)
+            if (_behaviourTimer > behaviourChangeSpeed - 0.1)
             {
                 b_isTransitionMovement = false;
                 behaviourChangeSpeed = 5;
@@ -175,7 +158,6 @@ public class Dodo : MonoBehaviour
 
     private void MoveTowardCliff()
     {
-        Debug.Log(_currentDodoAcceleration);
 
         transform.position +=  -_sideVector3 * (dodoSpeed * _currentDodoAcceleration);
         //If at bounds, inverse direction
@@ -243,5 +225,29 @@ public class Dodo : MonoBehaviour
     void DamagePlayer(string source)
     {
         Debug.Log($"You took damage from {source} and died");
+    }
+
+    void MoveTowardsSmellable(GameObject smelledObject)
+    {
+        smelledObject.GetComponent<PlayerInteractable>().DodoInteract(true);
+        Vector3 currentPos = transform.position;
+        Vector3 directionOfSmell = currentPos - smelledObject.transform.position;
+
+        //Is smelled object to Dodo's left or right
+        float smellCrossProduct = Vector3.Cross(directionOfSmell.normalized, forwardVector.normalized).z;
+        //if CrossProduct is > 0, move towards mountains
+        if (smellCrossProduct > 0 && _currentBehaviour != 3)
+        {
+            ChangeMovementBehaviour(3);
+        }
+        else if(smellCrossProduct < 0 && _currentBehaviour != 2)//Move towards cliff
+        {
+            ChangeMovementBehaviour(2);
+        }
+    }
+
+    private void SlowWorldSpeed()
+    {
+        
     }
 }
