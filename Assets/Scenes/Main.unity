@@ -374,8 +374,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1149387455}
     - target: {fileID: 910660611469145479, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: eatRange
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 910660611469145479, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
       propertyPath: dodoSpeed
-      value: 12
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 910660611469145479, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: sniffRange
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 910660611469145479, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: dodoAccelerationSpeed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6344460091223780589, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
       propertyPath: m_RootOrder
