@@ -20,6 +20,7 @@ namespace Controllers
         [SerializeField] private GameObject instantiatePosition;
         [SerializeField] private GameObject standardGroundObjectToSpawn;
         [SerializeField] private GameObject largeGroundObjectToSpawn;
+        [SerializeField] private float largeGroundSpawnChance;
 
         [SerializeField]
         [Min(0.1f)]
@@ -86,7 +87,7 @@ namespace Controllers
 
         private GameObject SelectNextGroundTile()
         {
-            return Random.value > 0.7 ? largeGroundObjectToSpawn : standardGroundObjectToSpawn;
+            return Random.value < largeGroundSpawnChance ? largeGroundObjectToSpawn : standardGroundObjectToSpawn;
         }
     }
 }
