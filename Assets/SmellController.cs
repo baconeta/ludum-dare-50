@@ -11,9 +11,12 @@ public class SmellController : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag is "Smell")
+        if (!GetComponentInParent<Dodo>().isEating())
         {
-            smellObject = col.gameObject;
+            if (col.tag is "Smell")
+            {
+                smellObject = col.gameObject;
+            }
         }
     }
 
