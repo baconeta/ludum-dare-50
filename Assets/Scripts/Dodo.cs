@@ -300,16 +300,17 @@ public class Dodo : MonoBehaviour
         }
         else if (!isEating)
         {
-            if (distanceTofocusedObject < eatRange)
+            if (distanceTofocusedObject < eatRange) // Then Feast!!!!
             {
+                
                 setEatingStatus(true);
                 _wc.setWorldSpeedPercentage(0);
                 GetComponentInChildren<DodoEat>().EatMelon();
             }
-            //If focus is getting closer, slow down speed
-            else if (distanceTofocusedObject < 4)
+            
+            else if (distanceTofocusedObject < 4) //focus is getting closer, slow down speed
             {
-                _wc.setWorldSpeedPercentage(Mathf.Clamp(_wc.getWorldSpeedPercentage() - dodoPostEatAcceleration, 0.2f,
+                _wc.setWorldSpeedPercentage(Mathf.Clamp(_wc.getWorldSpeedPercentage() - dodoPostEatAcceleration, 0.2f * distanceTofocusedObject,
                     1));
             }
             else // Focus is too far away, keep speed max or accelerate
