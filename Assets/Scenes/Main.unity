@@ -439,6 +439,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7809516064845122638, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
+      propertyPath: baselineWorldSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809516064845122638, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
+      propertyPath: worldSpeedRampDuration
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809516064845122638, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
+      propertyPath: initialRampSpeedModifier
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7809516065480981656, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
       propertyPath: m_LocalPosition.z
       value: 1
