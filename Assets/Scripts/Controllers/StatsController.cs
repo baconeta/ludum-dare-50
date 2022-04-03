@@ -41,6 +41,7 @@ namespace Controllers
             _timerRunning = false;
             times.Add(GetFormattedTime());
             scores.Add(CalculateScore());
+            scores.Sort();
         }
 
         public string GetFormattedTime()
