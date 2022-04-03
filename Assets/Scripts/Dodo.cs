@@ -2,13 +2,17 @@ using Props;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Controllers;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class Dodo : MonoBehaviour
 {
+    private WorldController _wc;
     //Speed and Acceleration
     [SerializeField] private float dodoSpeed;
+    [SerializeField] private float dodoDefaultSpeed;
+    [SerializeField] private float dodoSprintSpeed;
     [SerializeField] private float dodoAcceleration;
     private float _currentDodoAcceleration;
     private Vector3 deccelerationOffset = new Vector3(0.5f, 0.25f);
@@ -30,7 +34,7 @@ public class Dodo : MonoBehaviour
     [SerializeField] private float _wobbleFrequency;
     
     //Vector line that Dodo Moves on
-    private Vector3 _sideVector3 = new Vector3(.005f, 0.0025f);
+    private Vector3 _sideVector3 = new Vector3(.5f, 0.25f) / 100;
     
     //Boundaries
     [SerializeField] Transform _cliffBound;
@@ -45,8 +49,12 @@ public class Dodo : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        if (_wc == default)
+        {
+            
+        }
         dodoSniffer = GetComponentInChildren<SmellController>();
         dodoSniffer.GetComponent<CircleCollider2D>().radius = sniffRange;
         _cliffBoundPos = _cliffBound.position;
@@ -54,9 +62,8 @@ public class Dodo : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        Debug.DrawLine(transform.position, (transform.position + forwardVector.normalized));
 
         if (!isOnBridge)
         {
@@ -68,7 +75,7 @@ public class Dodo : MonoBehaviour
     }
 
     //Input desiredBehaviour to choose a behaviour
-    void ChangeMovementBehaviour(int desiredBehaviour = 0)
+    private void ChangeMovementBehaviour(int desiredBehaviour = 0)
     {
         _currentDodoAcceleration = 0;
         //If a chosen behaviour has been given
@@ -94,10 +101,8 @@ public class Dodo : MonoBehaviour
         
         
     }
-
-
-
-    void Move()
+    
+    private void Move()
     {
         _currentDodoAcceleration += dodoAcceleration / 100;
         _currentDodoAcceleration = Mathf.Clamp(_currentDodoAcceleration, 0, 1);
@@ -108,24 +113,23 @@ public class Dodo : MonoBehaviour
         {
             Vector3 currentPos = transform.position;
             Vector3 directionOfSmell = currentPos - smelledObject.transform.position;
-            Debug.DrawLine(transform.position, transform.position - directionOfSmell, Color.red);
 
             float smellCrossProduct = Vector3.Cross(directionOfSmell.normalized, forwardVector.normalized).z;
             //if CrossProduct is > 0, move towards mountains
             if (smellCrossProduct > 0)
             {
                 ChangeMovementBehaviour(3);
-                Debug.Log("Moving to Mountain for snacks");
             }
             else //Move towards cliff
             {
                 ChangeMovementBehaviour(2);
-                Debug.Log("Moving to Cliff for Melon");
-
             }
+            
+            
         }
         else //No smell object, find a new movement
         {
+            dodoSpeed = dodoDefaultSpeed;
             if (_behaviourTimer < 0.1 && !_hasMoved)
             {
                 ChangeMovementBehaviour();
@@ -160,33 +164,40 @@ public class Dodo : MonoBehaviour
         }
 
     }
-    void MoveForwards()
+    private void MoveForwards()
     {
         float sinWave = _wobbleWidth * Mathf.Sin(Time.time * _wobbleFrequency);
         transform.position += _sideVector3 * sinWave;
 
     }
     
-    void MoveTowardCliff()
-    { ;
+    private void MoveTowardCliff()
+    { 
         
         transform.position +=  -_sideVector3 * (dodoSpeed * _currentDodoAcceleration);
+        //If at bounds, inverse direction
         if (transform.position.x <= _cliffBoundPos.x)
         {
+            transform.position = _cliffBoundPos;
+            // move to Mountain
             ChangeMovementBehaviour(3);
         }
     }
     
-    void MoveTowardMountain()
-    { ;
+    private void MoveTowardMountain()
+    { 
         transform.position += _sideVector3 * (dodoSpeed * _currentDodoAcceleration);
+        //If at bounds, inverse direction
         if (transform.position.x >= _mountainBoundPos.x)
         {
+            transform.position = _mountainBoundPos;
+
+            // move to cliff
             ChangeMovementBehaviour(2);
         }
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.CompareTag("DeathHazard"))
         {
@@ -197,7 +208,7 @@ public class Dodo : MonoBehaviour
         }
     }
 
-    void OnTriggerExit2D(Collider2D col)
+    private void OnTriggerExit2D(Collider2D col)
     {
         if (col.CompareTag("Bridge"))
         {
@@ -205,7 +216,7 @@ public class Dodo : MonoBehaviour
         }
     }
 
-    void DamagePlayer(string source)
+    private void DamagePlayer(string source)
     {
         Debug.Log($"You took damage from {source} and died");
     }

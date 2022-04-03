@@ -210,7 +210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6102199197974787305, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
       propertyPath: sniffRange
-      value: 25
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 6102199197974787305, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
       propertyPath: _cliffBound
@@ -233,8 +233,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1188650910}
     - target: {fileID: 6102199197974787305, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
+      propertyPath: dodoSprintSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102199197974787305, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
+      propertyPath: forwardVector.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102199197974787305, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
       propertyPath: forwardVector.y
-      value: -0.295
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6102199197974787305, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
       propertyPath: _wobbleFrequency
@@ -242,6 +250,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6102199197974787305, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
       propertyPath: dodoAcceleration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102199197974787305, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
+      propertyPath: dodoDefaultSpeed
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6102199197974787306, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
@@ -536,6 +548,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1188650911}
     m_Modifications:
+    - target: {fileID: -5796905304614065710, guid: 1f8aba01eedde45d3b6fe2762a768757, type: 3}
+      propertyPath: obstacleTypes.Array.data[0]
+      value: 
+      objectReference: {fileID: 8855985278181753037, guid: e7e201e657313452f85b693eaf27f03b, type: 3}
+    - target: {fileID: -5796905304614065710, guid: 1f8aba01eedde45d3b6fe2762a768757, type: 3}
+      propertyPath: obstacleTypes.Array.data[2]
+      value: 
+      objectReference: {fileID: 8855985278181753037, guid: e7e201e657313452f85b693eaf27f03b, type: 3}
+    - target: {fileID: -5796905304614065710, guid: 1f8aba01eedde45d3b6fe2762a768757, type: 3}
+      propertyPath: obstacleTypes.Array.data[3]
+      value: 
+      objectReference: {fileID: 8855985278181753037, guid: e7e201e657313452f85b693eaf27f03b, type: 3}
     - target: {fileID: 3226795110749629906, guid: 1f8aba01eedde45d3b6fe2762a768757, type: 3}
       propertyPath: m_Name
       value: ObstacleController
