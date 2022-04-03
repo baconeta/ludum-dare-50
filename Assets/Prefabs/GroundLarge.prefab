@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2562933042529742484}
   - component: {fileID: 9154585153982336450}
   - component: {fileID: 804859318406779703}
-  - component: {fileID: -6292493272894952433}
+  - component: {fileID: -2628752462561570134}
   m_Layer: 0
   m_Name: GroundLarge
   m_TagString: LargeGround
@@ -127,7 +127,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 30.000002, y: 30.000002}
   m_EdgeRadius: 0
---- !u!114 &-6292493272894952433
+--- !u!114 &-2628752462561570134
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
