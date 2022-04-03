@@ -28,7 +28,7 @@ public class Dodo : MonoBehaviour
     private Vector3 directionOfFocus;
 
     //Eating
-    private bool isEating = false;
+    private bool _isEating = false;
 
     [Tooltip("Speed at which the dodo (de/ac)celerates surrounding eating.")] [SerializeField]
     float dodoPostEatAcceleration = 0.005f;
@@ -264,7 +264,6 @@ public class Dodo : MonoBehaviour
 
     void MoveTowardsSmellable()
     {
-        focusedObject.GetComponent<PlayerInteractable>().DodoInteract(true);
         Vector3 currentPos = transform.position;
         directionOfFocus = currentPos - focusedObject.transform.position;
 
@@ -283,22 +282,19 @@ public class Dodo : MonoBehaviour
 
     private void SlowWorldSpeed()
     {
+        //Get distance last of last frame
         focusedObjectPreviousDistance = distanceTofocusedObject;
+        
         distanceTofocusedObject = Vector3.Distance(transform.position, focusedObject.transform.position);
-        Debug.Log((distanceTofocusedObject));
-        //Get direction of focus
-        //Cross Product of Left Vector and Focus
-        Vector3 crossOfFocusAndLeft = Vector3.Cross(directionOfFocus.normalized, dodoLeftVector.normalized);
-
-        // Debug.Log(Vector3.Cross(directionOfFocus.normalized, dodoLeftVector.normalized).z);
-        if (Vector3.Cross(directionOfFocus.normalized, dodoLeftVector.normalized).z > 0 &&
-            distanceTofocusedObject > eatRange)
+        
+        //If Focus/Left CrossProduct is < 0 then dodo has passed focus AND out of eatRange
+        if (Vector3.Cross(directionOfFocus.normalized, dodoLeftVector.normalized).z > 0 && distanceTofocusedObject > eatRange)
         {
             //Dodo is not interacting with object
             focusedObject.GetComponent<PlayerInteractable>().DodoInteract(false);
             focusedObject = null;
         }
-        else if (!isEating)
+        else if (!_isEating)
         {
             if (distanceTofocusedObject < eatRange) // Then Feast!!!!
             {
@@ -307,9 +303,9 @@ public class Dodo : MonoBehaviour
                 _wc.setWorldSpeedPercentage(0);
                 GetComponentInChildren<DodoEat>().EatMelon();
             }
-            
-            else if (distanceTofocusedObject < 4) //focus is getting closer, slow down speed
+            else if (distanceTofocusedObject < 3) //focus is getting closer, slow down speed
             {
+                focusedObject.GetComponent<PlayerInteractable>().DodoInteract(true);
                 _wc.setWorldSpeedPercentage(Mathf.Clamp(_wc.getWorldSpeedPercentage() - dodoPostEatAcceleration, 0.2f * distanceTofocusedObject,
                     1));
             }
@@ -328,11 +324,16 @@ public class Dodo : MonoBehaviour
             focusedObject = null;
         }
 
-        isEating = newIsEating;
+        _isEating = newIsEating;
     }
 
     public GameObject getFocusedObject()
     {
         return (focusedObject);
+    }
+
+    public bool isEating()
+    {
+        return _isEating;
     }
 }
