@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Controllers
@@ -15,18 +16,15 @@ namespace Controllers
         public int eatenFoods { get; private set; }
         public int objectsSmashed { get; private set; }
         public int bridgesCrossed { get; private set; }
+        public int bouldersBumped { get; private set; }
 
-        public void StartRun()
+        private void Start()
         {
-            time = 0;
-            _timerRunning = true;
-            deaths = 0; 
-            eatenFoods = 0;
-            objectsSmashed = 0;
-            bridgesCrossed = 0;
+            times = new List<string>();
+            scores = Enumerable.Repeat(0, 5).ToList();
         }
 
-        public void Update()
+        private void Update()
         {
             if (_timerRunning)
             {
@@ -34,11 +32,27 @@ namespace Controllers
             }
         }
 
-        public void EndRun()
+        public void onGameReset()
+        {
+            onGameStart();
+        }
+        public void onGameStart()
+        {
+            time = 0;
+            _timerRunning = true;
+            deaths = 0; 
+            eatenFoods = 0;
+            objectsSmashed = 0;
+            bridgesCrossed = 0;
+            bouldersBumped = 0;
+        }
+
+        public void onGameEnd()
         {
             _timerRunning = false;
             times.Add(GetFormattedTime());
             scores.Add(CalculateScore());
+            scores.Sort();
         }
 
         public string GetFormattedTime()
@@ -51,7 +65,7 @@ namespace Controllers
     
         private int CalculateScore()
         {
-            return (int) time + eatenFoods + objectsSmashed + bridgesCrossed;
+            return (int) time + (eatenFoods * 5) + objectsSmashed + bridgesCrossed - bouldersBumped;
         }
 
         public void IncrementFoodEaten()
@@ -67,6 +81,11 @@ namespace Controllers
         public void IncrementBridgesCrossed()
         {
             bridgesCrossed++;
+        }
+
+        public void IncrementBouldersBumped()
+        {
+            bouldersBumped++;
         }
     }
 }
