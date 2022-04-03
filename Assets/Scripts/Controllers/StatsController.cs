@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Controllers
@@ -17,7 +18,13 @@ namespace Controllers
         public int bridgesCrossed { get; private set; }
         public int bouldersBumped { get; private set; }
 
-        public void Update()
+        private void Start()
+        {
+            times = new List<string>();
+            scores = Enumerable.Repeat(0, 5).ToList();
+        }
+
+        private void Update()
         {
             if (_timerRunning)
             {
