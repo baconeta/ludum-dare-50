@@ -54,11 +54,9 @@ public class Dodo : MonoBehaviour
     {
         if (!isOnBridge)
         {
+            _behaviourTimer = Time.time % behaviourChangeSpeed;
             Move();
         }
-        _behaviourTimer = Time.time % behaviourChangeSpeed;
-        Move();
-        Debug.Log(_currentDodoAcceleration);
     }
 
     //Input desiredBehaviour to choose a behaviour
@@ -166,26 +164,33 @@ public class Dodo : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("DeathHazard"))
+        switch (col.tag)
         {
-            DamagePlayer(col.name);
-        } else if (col.CompareTag("Bridge"))
-        {
-            MountBridge(col);
+            case "DeathHazard": HitDeathHazard(col); break;
+            case "BypassableHazard": HitBypassableHazard(col); break;
+            case "Bridge": MountBridge(col); break;
         }
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.CompareTag("Bridge"))
+        switch (col.tag)
         {
-            DismountBridge(col);
+            case "Bridge": DismountBridge(col); break;
         }
     }
 
-    void DamagePlayer(string source)
+    private void HitDeathHazard(Collider2D col)
     {
-        Debug.Log($"You took damage from {source} and died");
+        DamagePlayer(col.name);
+    }
+
+    private void HitBypassableHazard(Collider2D col)
+    {
+        if (!isOnBridge)
+        {
+            DamagePlayer(col.name);
+        }
     }
 
     private void MountBridge(Collider2D col)
@@ -200,5 +205,10 @@ public class Dodo : MonoBehaviour
         isOnBridge = false;
         transform.position -= new Vector3(0f, 0.1f, 0f);
         col.gameObject.GetComponent<PlayerInteractable>().DodoInteract(false);
+    }
+
+    void DamagePlayer(string source)
+    {
+        Debug.Log($"You took damage from {source} and died");
     }
 }

@@ -8,6 +8,8 @@ TagManager:
   - DeathHazard
   - Dodo
   - Bridge
+  - BypassableHazard
+  - SpeedHazard
   layers:
   - Default
   - TransparentFX
