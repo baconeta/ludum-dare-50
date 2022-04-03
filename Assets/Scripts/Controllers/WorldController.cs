@@ -34,8 +34,8 @@ namespace Controllers
         void Start()
         {
             _statsController = FindObjectOfType<StatsController>();
-            currentRampSpeedModifier = initialRampSpeedModifier;
-            _ramping = currentRampSpeedModifier < 1.0f;
+            _currentRampSpeedModifier = initialRampSpeedModifier;
+            _ramping = _currentRampSpeedModifier < 1.0f;
             _statsController.StartRun();
         }
 
@@ -54,13 +54,13 @@ namespace Controllers
                 {
                     if (_timeElapsed < worldSpeedRampDuration)
                     {
-                        currentRampSpeedModifier = Mathf.Lerp(initialRampSpeedModifier, 1.0f,
+                        _currentRampSpeedModifier = Mathf.Lerp(initialRampSpeedModifier, 1.0f,
                             _timeElapsed / worldSpeedRampDuration);
                         _timeElapsed += Time.deltaTime;
                     }
                     else
                     {
-                        currentRampSpeedModifier = 1.0f;
+                        _currentRampSpeedModifier = 1.0f;
                     }
                 }
             }
