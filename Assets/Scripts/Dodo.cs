@@ -1,21 +1,17 @@
 using System;
 using Props;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Controllers;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class Dodo : MonoBehaviour
 {
-    [Tooltip("World Controller used in Scene")]
-    [SerializeField] WorldController _wc;
+    [Tooltip("World Controller used in Scene")] [SerializeField]
+    WorldController _wc;
+
     [SerializeField] Vector3 dodoForwardVector = new Vector3(1f, -.5f);
     [SerializeField] Vector3 dodoLeftVector = new Vector3(1f, 0.5f);
 
-    
     //Speed and Acceleration
     [SerializeField] private float dodoSpeed;
     [SerializeField] private float dodoAccelerationSpeed;
@@ -32,23 +28,28 @@ public class Dodo : MonoBehaviour
 
     //Eating
     private bool isEating = false;
-    [Tooltip("Speed at which the dodo (de/ac)celerates surrounding eating.")]
-    [SerializeField] float dodoPostEatAcceleration = 0.005f;
-    [Tooltip("Range at which the dodo will eat.")]
-    [SerializeField] private float eatRange = 1;
-    
+
+    [Tooltip("Speed at which the dodo (de/ac)celerates surrounding eating.")] [SerializeField]
+    float dodoPostEatAcceleration = 0.005f;
+
+    [Tooltip("Range at which the dodo will eat.")] [SerializeField]
+    private float eatRange = 1;
+
     //Movement and Behaviours
-    [Tooltip("How often the behaviour automatically changes")]
-    [SerializeField] private float behaviourChangeSpeed = 5;
+    [Tooltip("How often the behaviour automatically changes")] [SerializeField]
+    private float behaviourChangeSpeed = 5;
+
     private int _currentBehaviour = 1;
     private bool _hasMoved = false;
     private float _behaviourTimer;
 
     private bool b_isTransitionMovement;
-    [Tooltip("How wide the Dodo wobbles")]
-    [SerializeField]private float _wobbleWidth;
-    [Tooltip("How quickly the Dodo wobbles")]
-    [SerializeField] private float _wobbleFrequency;
+
+    [Tooltip("How wide the Dodo wobbles")] [SerializeField]
+    private float _wobbleWidth;
+
+    [Tooltip("How quickly the Dodo wobbles")] [SerializeField]
+    private float _wobbleFrequency;
 
     //Vector line that Dodo Moves on
     private Vector3 _sideVector3 = new Vector3(.5f, 0.25f) / 100;
@@ -61,7 +62,7 @@ public class Dodo : MonoBehaviour
 
     //Bridges
     private bool isOnBridge;
-    
+
     //Animation
     private Animator _anim;
     private static readonly int DodoSpeed = Animator.StringToHash("dodoSpeed");
@@ -81,13 +82,11 @@ public class Dodo : MonoBehaviour
         _cliffBoundPos = _cliffBound.position;
         _mountainBoundPos = _mountainBound.position;
         _anim = GetComponent<Animator>();
-
     }
 
     // Update is called once per frame
     private void FixedUpdate()
     {
-        
         if (!isOnBridge)
         {
             _behaviourTimer = Time.time % behaviourChangeSpeed;
@@ -121,8 +120,6 @@ public class Dodo : MonoBehaviour
                 _currentBehaviour = Random.Range(1, 4);
             }
         }
-
-
     }
 
     private void Move()
@@ -132,7 +129,7 @@ public class Dodo : MonoBehaviour
 
         //If there is a viable smell object - Move towards it.
         focusedObject = dodoSniffer.getSmelledObject();
-        
+
         if (focusedObject != null)
         {
             MoveTowardsSmellable();
@@ -142,17 +139,21 @@ public class Dodo : MonoBehaviour
         {
             if (_wc.getWorldSpeedPercentage() < 1f)
             {
-                _wc.setWorldSpeedPercentage(Mathf.Clamp(_wc.getWorldSpeedPercentage() + dodoPostEatAcceleration,0.2f, 1));
+                _wc.setWorldSpeedPercentage(Mathf.Clamp(_wc.getWorldSpeedPercentage() + dodoPostEatAcceleration, 0.2f,
+                    1));
             }
+
             if (_behaviourTimer < 0.1 && !_hasMoved)
             {
                 ChangeMovementBehaviour();
                 _hasMoved = true;
             }
+
             if (_behaviourTimer > 0.1)
             {
                 _hasMoved = false;
             }
+
             if (_behaviourTimer > behaviourChangeSpeed - 0.1)
             {
                 behaviourChangeSpeed = 5;
@@ -174,19 +175,17 @@ public class Dodo : MonoBehaviour
                 MoveTowardMountain();
                 break;
         }
-
     }
+
     private void MoveForwards()
     {
         float sinWave = _wobbleWidth * Mathf.Sin(Time.time * _wobbleFrequency);
         transform.position += _sideVector3 * sinWave;
-
     }
 
     private void MoveTowardCliff()
     {
-
-        transform.position +=  -_sideVector3 * (dodoSpeed * _currentDodoAcceleration);
+        transform.position += -_sideVector3 * (dodoSpeed * _currentDodoAcceleration);
         //If at bounds, inverse direction
         if (transform.position.x <= _cliffBoundPos.x)
         {
@@ -213,9 +212,15 @@ public class Dodo : MonoBehaviour
     {
         switch (col.tag)
         {
-            case "DeathHazard": DamagePlayer(col.name); break;
-            case "BypassableHazard": HitBypassableHazard(col); break;
-            case "Bridge": MountBridge(col); break;
+            case "DeathHazard":
+                DamagePlayer(col.name);
+                break;
+            case "BypassableHazard":
+                HitBypassableHazard(col);
+                break;
+            case "Bridge":
+                MountBridge(col);
+                break;
         }
     }
 
@@ -223,7 +228,9 @@ public class Dodo : MonoBehaviour
     {
         switch (col.tag)
         {
-            case "Bridge": DismountBridge(col); break;
+            case "Bridge":
+                DismountBridge(col);
+                break;
         }
     }
 
@@ -267,7 +274,7 @@ public class Dodo : MonoBehaviour
         {
             ChangeMovementBehaviour(3);
         }
-        else if(smellCrossProduct < 0 && _currentBehaviour != 2)//Move towards cliff
+        else if (smellCrossProduct < 0 && _currentBehaviour != 2) //Move towards cliff
         {
             ChangeMovementBehaviour(2);
         }
@@ -281,9 +288,10 @@ public class Dodo : MonoBehaviour
         //Get direction of focus
         //Cross Product of Left Vector and Focus
         Vector3 crossOfFocusAndLeft = Vector3.Cross(directionOfFocus.normalized, dodoLeftVector.normalized);
-        
+
         Debug.Log(Vector3.Cross(directionOfFocus.normalized, dodoLeftVector.normalized).z);
-        if (Vector3.Cross(directionOfFocus.normalized, dodoLeftVector.normalized).z > 0 && distanceTofocusedObject > eatRange)
+        if (Vector3.Cross(directionOfFocus.normalized, dodoLeftVector.normalized).z > 0 &&
+            distanceTofocusedObject > eatRange)
         {
             //Dodo is not interacting with object
             focusedObject.GetComponent<PlayerInteractable>().DodoInteract(false);
@@ -299,7 +307,8 @@ public class Dodo : MonoBehaviour
             }
             else if (!isEating)
             {
-                _wc.setWorldSpeedPercentage(Mathf.Clamp(_wc.getWorldSpeedPercentage() - dodoPostEatAcceleration,0.2f, 1));
+                _wc.setWorldSpeedPercentage(Mathf.Clamp(_wc.getWorldSpeedPercentage() - dodoPostEatAcceleration, 0.2f,
+                    1));
             }
         }
     }
@@ -310,6 +319,7 @@ public class Dodo : MonoBehaviour
         {
             focusedObject = null;
         }
+
         isEating = newIsEating;
     }
 
@@ -317,6 +327,4 @@ public class Dodo : MonoBehaviour
     {
         return (focusedObject);
     }
-
-    
 }
