@@ -5,21 +5,9 @@ using UnityEngine;
 
 public class SmellController : MonoBehaviour
 {
-    private Collider2D collider;
 
     private GameObject smellObject;
-    // Start is called before the first frame update
-    void Start()
-    {
-        collider = GetComponent<CircleCollider2D>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.tag is "Smell")
@@ -38,6 +26,7 @@ public class SmellController : MonoBehaviour
 
     public GameObject getSmelledObject()
     {
+        
         return smellObject;
     }
 }
