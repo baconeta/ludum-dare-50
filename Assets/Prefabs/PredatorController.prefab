@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minimumTimeBetweenSpawns: 15
-  spawnChance: 50
+  spawnChance: 10
   spawnTransform: {fileID: 6030493650381220955}
   predatorObjectToSpawn: {fileID: 8802793379628755827, guid: 7938686d77c19e14bbc3cba2a03f7b6f, type: 3}
   timeBeforePredatorsStartSpawning: 60
