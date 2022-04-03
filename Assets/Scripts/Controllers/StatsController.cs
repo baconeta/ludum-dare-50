@@ -15,6 +15,7 @@ namespace Controllers
         public int eatenFoods { get; private set; }
         public int objectsSmashed { get; private set; }
         public int bridgesCrossed { get; private set; }
+        public int bouldersBumped { get; private set; }
 
         public void StartRun()
         {
@@ -24,6 +25,7 @@ namespace Controllers
             eatenFoods = 0;
             objectsSmashed = 0;
             bridgesCrossed = 0;
+            bouldersBumped = 0;
         }
 
         public void Update()
@@ -51,7 +53,7 @@ namespace Controllers
     
         private int CalculateScore()
         {
-            return (int) time + eatenFoods + objectsSmashed + bridgesCrossed;
+            return (int) time + (eatenFoods * 5) + objectsSmashed + bridgesCrossed - bouldersBumped;
         }
 
         public void IncrementFoodEaten()
@@ -67,6 +69,11 @@ namespace Controllers
         public void IncrementBridgesCrossed()
         {
             bridgesCrossed++;
+        }
+
+        public void IncrementBouldersBumped()
+        {
+            bouldersBumped++;
         }
     }
 }
