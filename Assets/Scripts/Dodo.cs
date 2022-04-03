@@ -7,8 +7,10 @@ using Random = UnityEngine.Random;
 
 public class Dodo : MonoBehaviour
 {
-    [Tooltip("World Controller used in Scene")] [SerializeField]
-    WorldController _wc;
+    //Components and Necessary Assets
+    [Tooltip("World Controller used in Scene")]
+    [SerializeField] private WorldController _wc;
+
 
     [SerializeField] Vector3 dodoForwardVector = new Vector3(1f, -.5f);
     [SerializeField] Vector3 dodoLeftVector = new Vector3(1f, 0.5f);
