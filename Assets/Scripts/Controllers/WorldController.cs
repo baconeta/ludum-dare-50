@@ -13,7 +13,7 @@ namespace Controllers
         [Tooltip("The initial speed at which the world moves. Set to 1.0 for no effect.")] [SerializeField]
         private float initialRampSpeedModifier = 0.1f;
 
-        public float currentRampSpeedModifier;
+        private float _currentRampSpeedModifier;
         public float environmentalSpeedModifier = 1.0f;
 
         [Tooltip("How many seconds it takes for the rampSpeedModifier to decay to 1.0.")] [SerializeField]
@@ -29,8 +29,8 @@ namespace Controllers
         void Start()
         {
             _statsController = FindObjectOfType<StatsController>();
-            currentRampSpeedModifier = initialRampSpeedModifier;
-            _ramping = currentRampSpeedModifier < 1.0f;
+            _currentRampSpeedModifier = initialRampSpeedModifier;
+            _ramping = _currentRampSpeedModifier < 1.0f;
             _statsController.StartRun();
         }
 
@@ -49,13 +49,13 @@ namespace Controllers
                 {
                     if (_timeElapsed < worldSpeedRampDuration)
                     {
-                        currentRampSpeedModifier = Mathf.Lerp(initialRampSpeedModifier, 1.0f,
+                        _currentRampSpeedModifier = Mathf.Lerp(initialRampSpeedModifier, 1.0f,
                             _timeElapsed / worldSpeedRampDuration);
                         _timeElapsed += Time.deltaTime;
                     }
                     else
                     {
-                        currentRampSpeedModifier = 1.0f;
+                        _currentRampSpeedModifier = 1.0f;
                     }
                 }
             }
@@ -63,7 +63,7 @@ namespace Controllers
 
         public float getWorldSpeed()
         {
-            return baselineWorldSpeed * currentRampSpeedModifier * environmentalSpeedModifier;
+            return baselineWorldSpeed * _currentRampSpeedModifier * environmentalSpeedModifier;
         }
 
         public void setWorldSpeed(float speed)
