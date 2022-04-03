@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98e445e8fc70a3c4eb24d87f5b533ab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedAboveWorld: 0.4
+  durability: 5
+  speedAboveWorld: 0.2
   sidewaysSpeed: 2
   tigerForwardVector: {x: 1, y: -0.5, z: 0}

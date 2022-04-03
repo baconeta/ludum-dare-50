@@ -5,6 +5,7 @@ namespace Props
     public class Boulder : MonoBehaviour
     {
         [SerializeField] private Sprite[] possibleSprites;
+        private AudioSource[] _boulderSounds;
         private SpriteRenderer _sr;
 
         // Start is called before the first frame update
@@ -21,10 +22,22 @@ namespace Props
                 if (possibleSprites.Length == 0)
                 {
                     Debug.Log("Add possible sprites to boulder object.");
-
                 }
+
                 _sr.sprite = possibleSprites.ChooseRandom();
             }
+
+            _boulderSounds = GetComponents<AudioSource>();
+        }
+
+        public void StopAllAnims()
+        {
+            GetComponent<Animator>().enabled = false;
+        }
+        
+        public void DropBoulder()
+        {
+            _boulderSounds.ChooseRandom().Play();
         }
     }
 }
