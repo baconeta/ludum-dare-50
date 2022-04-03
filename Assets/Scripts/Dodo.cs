@@ -1,4 +1,5 @@
 using System;
+using System.Linq.Expressions;
 using Props;
 using Controllers;
 using UnityEngine;
@@ -284,7 +285,7 @@ public class Dodo : MonoBehaviour
     {
         focusedObjectPreviousDistance = distanceTofocusedObject;
         distanceTofocusedObject = Vector3.Distance(transform.position, focusedObject.transform.position);
-
+        Debug.Log((distanceTofocusedObject));
         //Get direction of focus
         //Cross Product of Left Vector and Focus
         Vector3 crossOfFocusAndLeft = Vector3.Cross(directionOfFocus.normalized, dodoLeftVector.normalized);
@@ -297,17 +298,23 @@ public class Dodo : MonoBehaviour
             focusedObject.GetComponent<PlayerInteractable>().DodoInteract(false);
             focusedObject = null;
         }
-        else
+        else if (!isEating)
         {
-            if (distanceTofocusedObject < eatRange && !isEating)
+            if (distanceTofocusedObject < eatRange)
             {
                 setEatingStatus(true);
                 _wc.setWorldSpeedPercentage(0);
                 GetComponentInChildren<DodoEat>().EatMelon();
             }
-            else if (!isEating)
+            //If focus is getting closer, slow down speed
+            else if (distanceTofocusedObject < 4)
             {
                 _wc.setWorldSpeedPercentage(Mathf.Clamp(_wc.getWorldSpeedPercentage() - dodoPostEatAcceleration, 0.2f,
+                    1));
+            }
+            else // Focus is too far away, keep speed max or accelerate
+            {
+                _wc.setWorldSpeedPercentage(Mathf.Clamp(_wc.getWorldSpeedPercentage() + dodoPostEatAcceleration, 0.2f,
                     1));
             }
         }
