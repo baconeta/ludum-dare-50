@@ -1,3 +1,4 @@
+using Props;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -114,18 +115,15 @@ public class Dodo : MonoBehaviour
             DamagePlayer(col.name);
         } else if (col.CompareTag("Bridge"))
         {
-            isOnBridge = true;
-            transform.position += new Vector3(0f, 0.1f, 0f);
+            MountBridge(col);
         }
     }
-
 
     void OnTriggerExit2D(Collider2D col)
     {
         if (col.CompareTag("Bridge"))
         {
-            isOnBridge = false;
-            transform.position -= new Vector3(0f, 0.1f, 0f);
+            DismountBridge(col);
         }
     }
 
@@ -134,4 +132,17 @@ public class Dodo : MonoBehaviour
         Debug.Log($"You took damage from {source} and died");
     }
 
+    private void MountBridge(Collider2D col)
+    {
+        isOnBridge = true;
+        transform.position += new Vector3(0f, 0.1f, 0f);
+        col.gameObject.GetComponent<PlayerInteractable>().DodoInteract(true);
+    }
+
+    private void DismountBridge(Collider2D col)
+    {
+        isOnBridge = false;
+        transform.position -= new Vector3(0f, 0.1f, 0f);
+        col.gameObject.GetComponent<PlayerInteractable>().DodoInteract(false);
+    }
 }
