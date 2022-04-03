@@ -17,8 +17,7 @@ public class Dodo : MonoBehaviour
     [SerializeField] private float behaviourChangeSpeed = 5;
     private float _currentBehaviour = 1;
     private bool _hasMoved = false;
-    
-  
+    private bool isOnBridge;
 
 
     // Start is called before the first frame update
@@ -30,8 +29,10 @@ public class Dodo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
-
+        if (!isOnBridge)
+        {
+            Move();
+        }
     }
 
     //Input desiredBehaviour to choose a behaviour
@@ -111,6 +112,20 @@ public class Dodo : MonoBehaviour
         if (col.CompareTag("DeathHazard"))
         {
             DamagePlayer(col.name);
+        } else if (col.CompareTag("Bridge"))
+        {
+            isOnBridge = true;
+            transform.position += new Vector3(0f, 0.1f, 0f);
+        }
+    }
+
+
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.CompareTag("Bridge"))
+        {
+            isOnBridge = false;
+            transform.position -= new Vector3(0f, 0.1f, 0f);
         }
     }
 
