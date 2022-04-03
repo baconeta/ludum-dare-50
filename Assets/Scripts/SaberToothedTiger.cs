@@ -21,14 +21,13 @@ public class SaberToothedTiger : Smashable
 
     //Vector line that Tiger will moves on TODO this is wrong because it depends where the tiger is on the screen...
     private Vector3 _sideVector3 = new Vector3(.5f, 0.25f) / 100;
-    [SerializeField] Vector3 tigerForwardVector = new Vector3(1f, -.5f);
+    [SerializeField] private Vector3 tigerForwardVector = new Vector3(1f, -.5f);
 
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        _worldController = FindObjectOfType<WorldController>();
         // On spawn we want the tiger to start running towards the dodo.
         _fullSaberSpeed = _worldController.getWorldSpeed() + speedAboveWorld;
         _dodoToChase = FindObjectOfType<Dodo>();
@@ -51,7 +50,7 @@ public class SaberToothedTiger : Smashable
         Vector3 currentPos = transform.position;
         _directionOfFocus = currentPos - _dodoToChase.transform.position;
 
-        //Is smelled object to Dodo's left or right
+        //Is chased Dodo to the left or right of the tiger
         float smellCrossProduct = Vector3.Cross(_directionOfFocus.normalized, tigerForwardVector.normalized).z;
         //if CrossProduct is > 0, move towards mountains
         if (smellCrossProduct > 0)
