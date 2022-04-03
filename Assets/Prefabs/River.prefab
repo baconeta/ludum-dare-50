@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -5761882593040802925}
   m_Layer: 0
   m_Name: River
-  m_TagString: DeathHazard
+  m_TagString: BypassableHazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
