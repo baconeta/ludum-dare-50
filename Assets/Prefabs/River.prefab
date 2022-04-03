@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3964108696138040112}
   - component: {fileID: 5739524043030434251}
   - component: {fileID: -5761882593040802925}
+  - component: {fileID: 3812061677473867445}
   m_Layer: 0
   m_Name: River
   m_TagString: BypassableHazard
@@ -100,7 +101,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 30.000002, y: 30.000002}
+    oldSize: {x: 30.004883, y: 50}
     newSize: {x: 1, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -109,3 +110,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 25.357822, y: 8.399847}
   m_EdgeRadius: 0
+--- !u!114 &3812061677473867445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8855985278181753037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805bc2c4fe7ff4588b6f5adefd03b4cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bypassObject: {fileID: 8855985278181753037, guid: 961258da4ab0c46448cb1c388576741a, type: 3}
