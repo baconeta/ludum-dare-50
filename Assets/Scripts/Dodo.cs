@@ -1,68 +1,85 @@
 using Props;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Controllers;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class Dodo : MonoBehaviour
 {
+    private WorldController _wc;
+    //Speed and Acceleration
     [SerializeField] private float dodoSpeed;
-    [SerializeField] private float dodoAcceleration;
+    [SerializeField] private float dodoAccelerationSpeed;
+    private float dodoDefaultSpeed;
     private float _currentDodoAcceleration;
-    private Vector3 deccelerationOffset = new Vector3(0.5f, 0.25f);
 
-    private Vector3 dodoOrigin;
-    [Tooltip("How often the behaviour automatically changes")]
-    private Vector3 m_ForwardDirection = new Vector3(1f, -.5f);
+    //Sniff
+    [SerializeField] Vector3 forwardVector = new Vector3(0.5f, -0.25f);
     [SerializeField] float sniffRange;
-    
+    SmellController dodoSniffer;
+
     //Movement and Behaviours
+    [Tooltip("How often the behaviour automatically changes")]
     [SerializeField] private float behaviourChangeSpeed = 5;
     private int _currentBehaviour = 1;
     private bool _hasMoved = false;
     private float _behaviourTimer;
 
     private bool b_isTransitionMovement;
+    [Tooltip("How wide the Dodo wobbles")]
     [SerializeField]private float _wobbleWidth;
+    [Tooltip("How quickly the Dodo wobbles")]
     [SerializeField] private float _wobbleFrequency;
- 
-
 
     //Vector line that Dodo Moves on
-    private Vector3 _sideVector3 = new Vector3(.005f, 0.0025f);
-    
+    private Vector3 _sideVector3 = new Vector3(.5f, 0.25f) / 100;
+
     //Boundaries
     [SerializeField] Transform _cliffBound;
     private Vector3 _cliffBoundPos;
     [SerializeField] Transform _mountainBound;
     private Vector3 _mountainBoundPos;
+
+    //Bridges
     private bool isOnBridge;
 
-  
+
 
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        if (_wc == default)
+        {
+
+        }
+
+        dodoDefaultSpeed = dodoSpeed;
+        dodoSniffer = GetComponentInChildren<SmellController>();
+        dodoSniffer.GetComponent<CircleCollider2D>().radius = sniffRange;
         _cliffBoundPos = _cliffBound.position;
         _mountainBoundPos = _mountainBound.position;
-        dodoOrigin = transform.position;
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
+
         if (!isOnBridge)
         {
             _behaviourTimer = Time.time % behaviourChangeSpeed;
             Move();
         }
+
+
     }
 
     //Input desiredBehaviour to choose a behaviour
-    void ChangeMovementBehaviour(int desiredBehaviour = 0)
+    private void ChangeMovementBehaviour(int desiredBehaviour = 0)
     {
-        _currentDodoAcceleration = 0;
+        _currentDodoAcceleration = 0.01f;
         //If a chosen behaviour has been given
         if (desiredBehaviour != 0)
         {
@@ -70,7 +87,7 @@ public class Dodo : MonoBehaviour
         }
         else //Get a new behaviour
         {
-            //If current behaviour is Moving Forwards (1)
+            //If current behaviour is not Moving Forwards (1)
             if (_currentBehaviour != 1)
             {
                 // Then it is transitional movement - Will MoveForwards for 1 second.
@@ -78,36 +95,60 @@ public class Dodo : MonoBehaviour
                 behaviourChangeSpeed = 1;
                 b_isTransitionMovement = true;
             }
-            else 
+            else
             {
                 _currentBehaviour = Random.Range(1, 4);
             }
         }
-        
-        
+
+
     }
 
-
-    void Move()
+    private void Move()
     {
-        _currentDodoAcceleration += dodoAcceleration / 100;
+        _currentDodoAcceleration += dodoAccelerationSpeed / 100;
         _currentDodoAcceleration = Mathf.Clamp(_currentDodoAcceleration, 0, 1);
-        if (_behaviourTimer < 0.1 && !_hasMoved)
+
+        //If there is a viable smell object - Move towards it.
+        GameObject smelledObject = dodoSniffer.getSmelledObject();
+        if (smelledObject != null)
         {
-            ChangeMovementBehaviour();
-            _hasMoved = true;
-            
+            Vector3 currentPos = transform.position;
+            Vector3 directionOfSmell = currentPos - smelledObject.transform.position;
+
+            //Is smelled object to Dodo's left or right
+            float smellCrossProduct = Vector3.Cross(directionOfSmell.normalized, forwardVector.normalized).z;
+            //if CrossProduct is > 0, move towards mountains
+            if (smellCrossProduct > 0 && _currentBehaviour != 3)
+            {
+                ChangeMovementBehaviour(3);
+            }
+            else if(smellCrossProduct < 0 && _currentBehaviour != 2)//Move towards cliff
+            {
+                ChangeMovementBehaviour(2);
+
+            }
+
+
         }
-        else if (_behaviourTimer > 0.1)
+        else //No smell object, find a new movement
         {
-            _hasMoved = false;
+            if (_behaviourTimer < 0.1 && !_hasMoved)
+            {
+                ChangeMovementBehaviour();
+                _hasMoved = true;
+            }
+            else if (_behaviourTimer > 0.1)
+            {
+                _hasMoved = false;
+            }
+            else if (_behaviourTimer > behaviourChangeSpeed - 0.1)
+            {
+                b_isTransitionMovement = false;
+                behaviourChangeSpeed = 5;
+            }
         }
-        else if (_behaviourTimer > behaviourChangeSpeed - 0.1)
-        {
-            b_isTransitionMovement = false;
-            behaviourChangeSpeed = 5;
-        }
-        
+
         switch (_currentBehaviour)
         {
             //Move Forwards
@@ -123,66 +164,58 @@ public class Dodo : MonoBehaviour
                 MoveTowardMountain();
                 break;
         }
-        //Current Acceleration %
-        _currentDodoAcceleration = Mathf.Clamp(_currentDodoAcceleration, 0, 1);
 
     }
-    void MoveForwards()
+    private void MoveForwards()
     {
         float sinWave = _wobbleWidth * Mathf.Sin(Time.time * _wobbleFrequency);
         transform.position += _sideVector3 * sinWave;
 
     }
-    
-    void MoveTowardCliff()
-    { ;
-        if (transform.position.x <= _cliffBoundPos.x + deccelerationOffset.x)
-        {
-            _currentDodoAcceleration -= dodoAcceleration / 100;
-        }
-        transform.position +=  -_sideVector3 * dodoSpeed * _currentDodoAcceleration;
+
+    private void MoveTowardCliff()
+    {
+        Debug.Log(_currentDodoAcceleration);
+
+        transform.position +=  -_sideVector3 * (dodoSpeed * _currentDodoAcceleration);
+        //If at bounds, inverse direction
         if (transform.position.x <= _cliffBoundPos.x)
         {
+            transform.position = _cliffBoundPos;
+            // move to Mountain
             ChangeMovementBehaviour(3);
         }
     }
-    
-    void MoveTowardMountain()
-    { ;
-        if (transform.position.x >= _mountainBoundPos.x - deccelerationOffset.x)
-        {
-            _currentDodoAcceleration -= dodoAcceleration / 100;
-            
-        }
 
-        transform.position += _sideVector3 * dodoSpeed * _currentDodoAcceleration;
+    private void MoveTowardMountain()
+    {
+        transform.position += _sideVector3 * (dodoSpeed * _currentDodoAcceleration);
+        //If at bounds, inverse direction
         if (transform.position.x >= _mountainBoundPos.x)
         {
+            transform.position = _mountainBoundPos;
+
+            // move to cliff
             ChangeMovementBehaviour(2);
         }
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
         switch (col.tag)
         {
-            case "DeathHazard": HitDeathHazard(col); break;
+            case "DeathHazard": DamagePlayer(col.name); break;
             case "BypassableHazard": HitBypassableHazard(col); break;
             case "Bridge": MountBridge(col); break;
         }
     }
 
-    void OnTriggerExit2D(Collider2D col)
+    private void OnTriggerExit2D(Collider2D col)
     {
         switch (col.tag)
         {
             case "Bridge": DismountBridge(col); break;
         }
-    }
-
-    private void HitDeathHazard(Collider2D col)
-    {
-        DamagePlayer(col.name);
     }
 
     private void HitBypassableHazard(Collider2D col)
