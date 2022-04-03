@@ -24,6 +24,7 @@ namespace Controllers
         private void Start()
         {
             _statsController = FindObjectOfType<StatsController>();
+            hideEndGameScreen();
         }
 
         public void showEndGameScreen()
@@ -53,7 +54,7 @@ namespace Controllers
                 
         }
 
-        public void onGameReset()
+        public void hideEndGameScreen()
         {
             HighscoreBanner.enabled = false;
             Highscore1.enabled = false;
@@ -67,6 +68,11 @@ namespace Controllers
             TotalObjectsSmashed.enabled = false;
             TotalBridgesCrossed.enabled = false;
             TotalBouldersBumped.enabled = false;
+        }
+
+        public void onGameReset()
+        {
+            hideEndGameScreen();
         }
     }
 }
