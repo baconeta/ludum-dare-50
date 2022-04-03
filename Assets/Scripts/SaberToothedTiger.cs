@@ -36,7 +36,7 @@ public class SaberToothedTiger : MonoBehaviour
         transform.position += movementVector;
     }
 
-    void MoveTowardsDodo()
+    private void MoveTowardsDodo()
     {
         Vector3 currentPos = transform.position;
         _directionOfFocus = currentPos - _dodoToChase.transform.position;
