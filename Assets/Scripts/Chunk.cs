@@ -30,7 +30,7 @@ public class Chunk : MonoBehaviour
         {
             for (int x = 0; x < chunkWidth; x++)
             {
-                TileBase randomTile = tileArray[Random.Range(0, tileArray.Length)];
+                TileBase randomTile = tileArray.ChooseRandom();
                 tileMap.SetTile(new Vector3Int(x, y, 0), randomTile);
             }
         }
