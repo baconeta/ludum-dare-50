@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - WorldController
+  - DeathHazard
+  - Dodo
+  - Bridge
   layers:
   - Default
   - TransparentFX

@@ -1,3 +1,4 @@
+using Props;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,6 +36,7 @@ public class Dodo : MonoBehaviour
     private Vector3 _cliffBoundPos;
     [SerializeField] Transform _mountainBound;
     private Vector3 _mountainBoundPos;
+    private bool isOnBridge;
 
   
 
@@ -50,6 +52,10 @@ public class Dodo : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!isOnBridge)
+        {
+            Move();
+        }
         _behaviourTimer = Time.time % behaviourChangeSpeed;
         Move();
         Debug.Log(_currentDodoAcceleration);
@@ -121,6 +127,7 @@ public class Dodo : MonoBehaviour
         }
         //Current Acceleration %
         _currentDodoAcceleration = Mathf.Clamp(_currentDodoAcceleration, 0, 1);
+
     }
     void MoveForwards()
     {
@@ -157,8 +164,41 @@ public class Dodo : MonoBehaviour
         }
     }
 
-    
-    
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("DeathHazard"))
+        {
+            DamagePlayer(col.name);
+        } else if (col.CompareTag("Bridge"))
+        {
+            MountBridge(col);
+        }
+    }
 
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.CompareTag("Bridge"))
+        {
+            DismountBridge(col);
+        }
+    }
 
+    void DamagePlayer(string source)
+    {
+        Debug.Log($"You took damage from {source} and died");
+    }
+
+    private void MountBridge(Collider2D col)
+    {
+        isOnBridge = true;
+        transform.position += new Vector3(0f, 0.1f, 0f);
+        col.gameObject.GetComponent<PlayerInteractable>().DodoInteract(true);
+    }
+
+    private void DismountBridge(Collider2D col)
+    {
+        isOnBridge = false;
+        transform.position -= new Vector3(0f, 0.1f, 0f);
+        col.gameObject.GetComponent<PlayerInteractable>().DodoInteract(false);
+    }
 }
