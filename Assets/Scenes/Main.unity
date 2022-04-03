@@ -507,6 +507,18 @@ PrefabInstance:
       propertyPath: chunkToObstacleRatio
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 705115901464240670, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
+      propertyPath: largeGroundSpawnChance
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 705115901464240670, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
+      propertyPath: largeGroundObjectToSpawn
+      value: 
+      objectReference: {fileID: 5759361557189427495, guid: 1c145bf8f4b5c46608d5eaa6b9c49202, type: 3}
+    - target: {fileID: 705115901464240670, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
+      propertyPath: standardGroundObjectToSpawn
+      value: 
+      objectReference: {fileID: 5759361557189427495, guid: 4cafbb946030d0d4483e6de43b361a7c, type: 3}
     - target: {fileID: 705115902757614903, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
       propertyPath: m_LocalPosition.z
       value: 1
