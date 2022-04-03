@@ -12,6 +12,10 @@ public class Dodo : MonoBehaviour
 {
     [Tooltip("World Controller used in Scene")]
     [SerializeField] WorldController _wc;
+    [SerializeField] Vector3 dodoForwardVector = new Vector3(1f, -.5f);
+    [SerializeField] Vector3 dodoLeftVector = new Vector3(1f, 0.5f);
+
+    
     //Speed and Acceleration
     [SerializeField] private float dodoSpeed;
     [SerializeField] private float dodoAccelerationSpeed;
@@ -19,10 +23,20 @@ public class Dodo : MonoBehaviour
     private float _currentDodoAcceleration;
 
     //Sniff
-    [SerializeField] Vector3 forwardVector = new Vector3(0.5f, -0.25f);
     [SerializeField] float sniffRange;
-    SmellController dodoSniffer;
+    private SmellController dodoSniffer;
+    [SerializeField] GameObject focusedObject;
+    private float distanceTofocusedObject;
+    private float focusedObjectPreviousDistance;
+    private Vector3 directionOfFocus;
 
+    //Eating
+    private bool isEating = false;
+    [Tooltip("Speed at which the dodo (de/ac)celerates surrounding eating.")]
+    [SerializeField] float dodoPostEatAcceleration = 0.005f;
+    [Tooltip("Range at which the dodo will eat.")]
+    [SerializeField] private float eatRange = 1;
+    
     //Movement and Behaviours
     [Tooltip("How often the behaviour automatically changes")]
     [SerializeField] private float behaviourChangeSpeed = 5;
@@ -58,7 +72,7 @@ public class Dodo : MonoBehaviour
         if (_wc == default)
         {
             //World Controller is not set
-            throw new NullReferenceException();
+            throw new Exception("World Controller not set on Dodo Object!");
         }
 
         dodoDefaultSpeed = dodoSpeed;
@@ -73,6 +87,7 @@ public class Dodo : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
+        
         if (!isOnBridge)
         {
             _behaviourTimer = Time.time % behaviourChangeSpeed;
@@ -100,7 +115,6 @@ public class Dodo : MonoBehaviour
                 // Then it is transitional movement - Will MoveForwards for 1 second.
                 _currentBehaviour = 1;
                 behaviourChangeSpeed = 1;
-                b_isTransitionMovement = true;
             }
             else
             {
@@ -117,14 +131,19 @@ public class Dodo : MonoBehaviour
         _currentDodoAcceleration = Mathf.Clamp(_currentDodoAcceleration, 0, 1);
 
         //If there is a viable smell object - Move towards it.
-        GameObject smelledObject = dodoSniffer.getSmelledObject();
-        if (smelledObject != null)
+        focusedObject = dodoSniffer.getSmelledObject();
+        
+        if (focusedObject != null)
         {
-            MoveTowardsSmellable(smelledObject);
+            MoveTowardsSmellable();
             SlowWorldSpeed();
         }
         else //No smell object, find a new movement
         {
+            if (_wc.getWorldSpeedPercentage() < 1f)
+            {
+                _wc.setWorldSpeedPercentage(Mathf.Clamp(_wc.getWorldSpeedPercentage() + dodoPostEatAcceleration,0.2f, 1));
+            }
             if (_behaviourTimer < 0.1 && !_hasMoved)
             {
                 ChangeMovementBehaviour();
@@ -136,7 +155,6 @@ public class Dodo : MonoBehaviour
             }
             if (_behaviourTimer > behaviourChangeSpeed - 0.1)
             {
-                b_isTransitionMovement = false;
                 behaviourChangeSpeed = 5;
             }
         }
@@ -236,14 +254,14 @@ public class Dodo : MonoBehaviour
         Debug.Log($"You took damage from {source} and died");
     }
 
-    void MoveTowardsSmellable(GameObject smelledObject)
+    void MoveTowardsSmellable()
     {
-        smelledObject.GetComponent<PlayerInteractable>().DodoInteract(true);
+        focusedObject.GetComponent<PlayerInteractable>().DodoInteract(true);
         Vector3 currentPos = transform.position;
-        Vector3 directionOfSmell = currentPos - smelledObject.transform.position;
+        directionOfFocus = currentPos - focusedObject.transform.position;
 
         //Is smelled object to Dodo's left or right
-        float smellCrossProduct = Vector3.Cross(directionOfSmell.normalized, forwardVector.normalized).z;
+        float smellCrossProduct = Vector3.Cross(directionOfFocus.normalized, dodoForwardVector.normalized).z;
         //if CrossProduct is > 0, move towards mountains
         if (smellCrossProduct > 0 && _currentBehaviour != 3)
         {
@@ -257,6 +275,48 @@ public class Dodo : MonoBehaviour
 
     private void SlowWorldSpeed()
     {
+        focusedObjectPreviousDistance = distanceTofocusedObject;
+        distanceTofocusedObject = Vector3.Distance(transform.position, focusedObject.transform.position);
+
+        //Get direction of focus
+        //Cross Product of Left Vector and Focus
+        Vector3 crossOfFocusAndLeft = Vector3.Cross(directionOfFocus.normalized, dodoLeftVector.normalized);
         
+        Debug.Log(Vector3.Cross(directionOfFocus.normalized, dodoLeftVector.normalized).z);
+        if (Vector3.Cross(directionOfFocus.normalized, dodoLeftVector.normalized).z > 0 && distanceTofocusedObject > eatRange)
+        {
+            //Dodo is not interacting with object
+            focusedObject.GetComponent<PlayerInteractable>().DodoInteract(false);
+            focusedObject = null;
+        }
+        else
+        {
+            if (distanceTofocusedObject < eatRange && !isEating)
+            {
+                setEatingStatus(true);
+                _wc.setWorldSpeedPercentage(0);
+                GetComponentInChildren<DodoEat>().EatMelon();
+            }
+            else if (!isEating)
+            {
+                _wc.setWorldSpeedPercentage(Mathf.Clamp(_wc.getWorldSpeedPercentage() - dodoPostEatAcceleration,0.2f, 1));
+            }
+        }
     }
+
+    public void setEatingStatus(bool newIsEating)
+    {
+        if (newIsEating is false)
+        {
+            focusedObject = null;
+        }
+        isEating = newIsEating;
+    }
+
+    public GameObject getFocusedObject()
+    {
+        return (focusedObject);
+    }
+
+    
 }

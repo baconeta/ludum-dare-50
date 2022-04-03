@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Props
 {
     public class DodoBait : PlayerDraggable
@@ -7,6 +9,12 @@ namespace Props
             base.Start();
             // Left just for LD speed.
             CanDodoInteract = true;
+        }
+
+        public void getEaten()
+        {
+            
+            Destroy(this.gameObject);
         }
 
     }
