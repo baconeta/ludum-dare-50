@@ -262,6 +262,7 @@ public class Dodo : MonoBehaviour
     void DamagePlayer(string source)
     {
         Debug.Log($"You took damage from {source} and died");
+        FindObjectOfType<GameController>().EndGame();
     }
 
     void MoveTowardsSmellable()

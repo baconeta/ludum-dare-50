@@ -16,14 +16,14 @@ public class GameController : MonoBehaviour
         gameRunning = true;
     }
 
-    void ResetGame()
+    public void ResetGame()
     {
         BroadcastMessage("onGameReset");
         gameRunning = true;
     }
 
     // Update is called once per frame
-    void EndGame()
+    public void EndGame()
     {;
         if (!isInvincible)
         {
