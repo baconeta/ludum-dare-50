@@ -60,7 +60,7 @@ public class Chunk : MonoBehaviour
 
     void setColliderCorners()
     {
-        int pointIndex = 0;
+        
         PolygonCollider2D collider = GetComponent<PolygonCollider2D>();
         Vector2[] points =
         {
