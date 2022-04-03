@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3964108696138040112}
   - component: {fileID: 8987490749276889326}
   - component: {fileID: 5739524043030434251}
-  - component: {fileID: -5761882593040802925}
+  - component: {fileID: 1039526682068560982}
   m_Layer: 0
   m_Name: Bridge
   m_TagString: Bridge
@@ -96,8 +96,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &-5761882593040802925
-BoxCollider2D:
+--- !u!60 &1039526682068560982
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -106,10 +106,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -4.9212523, y: -0.3549688}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -119,6 +119,22 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 14.308165, y: 7.7467875}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -5.873697, y: 0.6839784}
+      - {x: -7.7959056, y: 1.0153952}
+      - {x: -10.507315, y: 0.8550295}
+      - {x: -11.8410635, y: 1.3325566}
+      - {x: -12.159021, y: 2.1516325}
+      - {x: -11.755097, y: 2.8983645}
+      - {x: -11.068076, y: 3.010804}
+      - {x: -6.86928, y: 2.3012478}
+      - {x: -3.5526276, y: 1.3603606}
+      - {x: 0, y: -1.47}
+      - {x: 1.5322763, y: -2.2929542}
+      - {x: 2.007616, y: -2.7465365}
+      - {x: 1.8095655, y: -3.5627925}
+      - {x: 0.97343445, y: -4.1501646}
+      - {x: -1.4168015, y: -3.3518975}
+      - {x: -3.0100284, y: -1.7252557}
+      - {x: -4.0959444, y: -0.2771001}
