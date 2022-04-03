@@ -273,7 +273,7 @@ public class Dodo : MonoBehaviour
         //Cross Product of Left Vector and Focus
         Vector3 crossOfFocusAndLeft = Vector3.Cross(directionOfFocus.normalized, dodoLeftVector.normalized);
         
-        Debug.Log(Vector3.Cross(directionOfFocus.normalized, dodoLeftVector.normalized).z);
+        // Debug.Log(Vector3.Cross(directionOfFocus.normalized, dodoLeftVector.normalized).z);
         if (Vector3.Cross(directionOfFocus.normalized, dodoLeftVector.normalized).z > 0 && distanceTofocusedObject > eatRange)
         {
             //Dodo is not interacting with object
