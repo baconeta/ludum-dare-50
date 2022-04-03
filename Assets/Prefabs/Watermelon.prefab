@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -2530285211859125091}
   - component: {fileID: 5739524043030434251}
   - component: {fileID: -5761882593040802925}
+  - component: {fileID: 8824558493232036783}
   m_Layer: 0
   m_Name: Watermelon
   m_TagString: Smell
@@ -122,3 +123,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 8.591652, y: 7.693588}
   m_EdgeRadius: 0
+--- !u!114 &8824558493232036783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8855985278181753037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69ee5743de9912e42a718680298652fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  possibleSprites:
+  - {fileID: 21300000, guid: a1fa896202de9ef4aaad473645461525, type: 3}
+  - {fileID: 21300000, guid: a57e4fe92a4faeb4c98e2f6c132c6ac6, type: 3}
+  - {fileID: 21300000, guid: 5c5761a255c62aa4bb572aa78d773542, type: 3}
+  - {fileID: 21300000, guid: 32d8995f95aebb841a2c5efa8c02794b, type: 3}
