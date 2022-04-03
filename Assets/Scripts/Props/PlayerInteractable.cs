@@ -33,8 +33,9 @@ namespace Props
         {
         }
 
-        protected void DodoInteract()
+        public void DodoInteract(bool isInteracting)
         {
+            IsDodoInteracting = isInteracting;
         }
 
         /// <summary>
