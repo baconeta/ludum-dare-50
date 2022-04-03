@@ -33,7 +33,8 @@ public class SaberToothedTiger : MonoBehaviour
         _fullSaberSpeed = _worldController.getWorldSpeed() + speedAboveWorld;
         _dodoToChase = FindObjectOfType<Dodo>();
         _anim = GetComponent<Animator>();
-        _anim.SetFloat(RunningSpeed, _fullSaberSpeed / 4);
+        _anim.SetFloat(RunningSpeed,
+            speedAboveWorld + _worldController.getWorldSpeed() / _worldController.getWorldSpeedPercentage() / 2.5f);
     }
 
     // Update is called once per frame
