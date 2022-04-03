@@ -1,3 +1,4 @@
+using Props;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,8 +18,7 @@ public class Dodo : MonoBehaviour
     [SerializeField] private float behaviourChangeSpeed = 5;
     private float _currentBehaviour = 1;
     private bool _hasMoved = false;
-    
-  
+    private bool isOnBridge;
 
 
     // Start is called before the first frame update
@@ -30,8 +30,10 @@ public class Dodo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
-
+        if (!isOnBridge)
+        {
+            Move();
+        }
     }
 
     //Input desiredBehaviour to choose a behaviour
@@ -111,6 +113,17 @@ public class Dodo : MonoBehaviour
         if (col.CompareTag("DeathHazard"))
         {
             DamagePlayer(col.name);
+        } else if (col.CompareTag("Bridge"))
+        {
+            MountBridge(col);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.CompareTag("Bridge"))
+        {
+            DismountBridge(col);
         }
     }
 
@@ -119,4 +132,17 @@ public class Dodo : MonoBehaviour
         Debug.Log($"You took damage from {source} and died");
     }
 
+    private void MountBridge(Collider2D col)
+    {
+        isOnBridge = true;
+        transform.position += new Vector3(0f, 0.1f, 0f);
+        col.gameObject.GetComponent<PlayerInteractable>().DodoInteract(true);
+    }
+
+    private void DismountBridge(Collider2D col)
+    {
+        isOnBridge = false;
+        transform.position -= new Vector3(0f, 0.1f, 0f);
+        col.gameObject.GetComponent<PlayerInteractable>().DodoInteract(false);
+    }
 }

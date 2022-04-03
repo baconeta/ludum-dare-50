@@ -4,12 +4,21 @@ namespace Props
 {
     public class PlayerDraggable : PlayerInteractable
     {
+        private BoxCollider2D _boxCollider2D;
+
+        protected override void Start()
+        {
+            base.Start();
+            _boxCollider2D = GetComponent<BoxCollider2D>();
+        }
+
         // TODO Move onMouseDown & onMouseUp to PlayerInteractable.cs.
         protected virtual void OnMouseDown()
         {
             if (CanPlayerInteract && !IsDodoInteracting)
             {
                 IsPlayerInteracting = true;
+                EnableCollisions(false);
             }
         }
 
@@ -18,6 +27,7 @@ namespace Props
             if (IsPlayerInteracting)
             {
                 IsPlayerInteracting = false;
+                EnableCollisions(true);
             }
         }
 
@@ -34,6 +44,11 @@ namespace Props
                 loc.y = mousePos.y;
                 transform.position = loc;
             }
+        }
+
+        protected void EnableCollisions(bool enabled)
+        {
+            _boxCollider2D.enabled = enabled;
         }
     }
 }
