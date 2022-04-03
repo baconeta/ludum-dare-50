@@ -3,20 +3,27 @@ using UnityEngine;
 
 public class SaberToothedTiger : MonoBehaviour
 {
-    private float _fullSaberSpeed;
+    // Game objects vars
+    private WorldController _worldController;
+    private Dodo _dodoToChase;
 
+    // Animation
+    private Animator _anim;
+    private static readonly int RunningSpeed = Animator.StringToHash("runningSpeed");
+
+    // Speed and movement values
     [Tooltip("This is how much faster the tiger is than the world (at time of spawn).")] [SerializeField]
     private float speedAboveWorld;
 
-    private WorldController _worldController;
-
-    private Dodo _dodoToChase;
+    private float _fullSaberSpeed;
     private Vector3 _directionOfFocus;
+
     [SerializeField] private float sidewaysSpeed = 2f;
 
     //Vector line that Tiger will moves on TODO this is wrong because it depends where the tiger is on the screen...
     private Vector3 _sideVector3 = new Vector3(.5f, 0.25f) / 100;
     [SerializeField] Vector3 tigerForwardVector = new Vector3(1f, -.5f);
+
 
     // Start is called before the first frame update
     private void Start()
@@ -25,6 +32,8 @@ public class SaberToothedTiger : MonoBehaviour
         // On spawn we want the tiger to start running towards the dodo.
         _fullSaberSpeed = _worldController.getWorldSpeed() + speedAboveWorld;
         _dodoToChase = FindObjectOfType<Dodo>();
+        _anim = GetComponent<Animator>();
+        _anim.SetFloat(RunningSpeed, _fullSaberSpeed / 4);
     }
 
     // Update is called once per frame
