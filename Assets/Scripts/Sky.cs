@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SkyController : MonoBehaviour
+public class Sky : MonoBehaviour
 {
 
     public BoxCollider2D collider;
