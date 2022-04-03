@@ -45,8 +45,7 @@ public class Chunk : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.position -=
-            worldController.getMoveDirection() * Time.fixedDeltaTime * worldController.getWorldSpeed();
+        transform.position -= worldController.getMoveDirection() * Time.fixedDeltaTime * worldController.getWorldSpeed();
         if (transform.position.x < removePosition)
         {
             Die();
