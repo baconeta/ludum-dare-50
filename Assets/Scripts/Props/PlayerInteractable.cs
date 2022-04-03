@@ -52,5 +52,10 @@ namespace Props
 
             return _gameCamera.ScreenToWorldPoint(mousePosition);
         }
+
+        private void onGameReset()
+        {
+            Destroy(this);
+        }
     }
 }
