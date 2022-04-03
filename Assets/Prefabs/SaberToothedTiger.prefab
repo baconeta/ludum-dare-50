@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8802793379628755825}
   - component: {fileID: 8802793379628755824}
   - component: {fileID: 8802793379628755831}
+  - component: {fileID: 167072701687061564}
   m_Layer: 0
   m_Name: SaberToothedTiger
   m_TagString: Untagged
@@ -129,3 +130,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 16.073685, y: 10.190035}
   m_EdgeRadius: 0
+--- !u!114 &167072701687061564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8802793379628755827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98e445e8fc70a3c4eb24d87f5b533ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedAboveWorld: 0.4
