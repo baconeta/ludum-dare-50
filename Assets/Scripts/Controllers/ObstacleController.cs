@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Controllers
@@ -7,13 +8,12 @@ namespace Controllers
         [SerializeField] private GameObject[] standardHazards;
         [SerializeField] private GameObject[] largeHazards;
 
-        public void SpawnHazard(GameObject parent, float width)
+        public void SpawnHazard(GameObject parent, float parentWidth)
         {
             var obstacleType = GetRandomHazardType(parent);
-            var obstacle = Instantiate(obstacleType, parent.transform);
+            SpawnObstacleRandomly(obstacleType, parent, parentWidth);
 
-            var location = GetRandomOffset(width);
-            obstacle.transform.position += location;
+            SpawnHazardBypassIfExists(obstacleType, parent, parentWidth);
         }
 
         private GameObject GetRandomHazardType(GameObject parent)
@@ -24,6 +24,33 @@ namespace Controllers
             }
 
             return standardHazards.ChooseRandom();
+        }
+
+        private void SpawnHazardBypassIfExists(GameObject hazardType, GameObject parent, float parentWidth)
+        {
+            var bypassType = GetBypassObjectType(hazardType);
+            if (bypassType != null)
+            {
+                Debug.Log("Spawning bypass object: ", bypassType);
+                SpawnObstacleRandomly(bypassType, parent, parentWidth);
+            }
+        }
+
+        [CanBeNull]
+        private GameObject GetBypassObjectType(GameObject hazardType)
+        {
+            var bypassableHazard =  hazardType.GetComponent<BypassableHazard>();
+            if (bypassableHazard == null)
+                return null;
+
+            return bypassableHazard.bypassObject;
+        }
+
+        private void SpawnObstacleRandomly(GameObject obstacleType, GameObject parent, float parentWidth)
+        {
+            var obstacle = Instantiate(obstacleType, parent.transform);
+            var location = GetRandomOffset(parentWidth);
+            obstacle.transform.position += location;
         }
 
         private static Vector3 GetRandomOffset(float width)
