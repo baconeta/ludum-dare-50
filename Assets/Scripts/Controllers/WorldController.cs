@@ -14,6 +14,11 @@ namespace Controllers
         private float initialRampSpeedModifier = 0.1f;
 
         public float currentRampSpeedModifier;
+
+        [Tooltip("A value of 0 - 1. All speed is modified by this value. 0 = Standstill, 1 = full speed")] 
+        private float percentageSpeedModifier = 1;
+        
+        [Tooltip("Environmental effect on speed - Such as tar slowing Dodo down")]
         public float environmentalSpeedModifier = 1.0f;
 
         [Tooltip("How many seconds it takes for the rampSpeedModifier to decay to 1.0.")] [SerializeField]
@@ -63,12 +68,22 @@ namespace Controllers
 
         public float getWorldSpeed()
         {
-            return baselineWorldSpeed * currentRampSpeedModifier * environmentalSpeedModifier;
+            return baselineWorldSpeed * currentRampSpeedModifier * environmentalSpeedModifier * percentageSpeedModifier;
         }
 
-        public void setWorldSpeed(float speed)
+        public void setBaselineWorldSpeed(float speed)
         {
             baselineWorldSpeed = speed;
+        }
+        
+        public void setWorldSpeedPercentage(float speed)
+        {
+            percentageSpeedModifier = speed;
+        }
+        
+        public float getWorldSpeedPercentage()
+        {
+            return percentageSpeedModifier;
         }
 
         public Vector3 getMoveDirection()

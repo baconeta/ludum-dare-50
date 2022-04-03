@@ -21,7 +21,8 @@ public class Dodo : MonoBehaviour
     //Sniff
     [SerializeField] Vector3 forwardVector = new Vector3(0.5f, -0.25f);
     [SerializeField] float sniffRange;
-    SmellController dodoSniffer;
+    private SmellController dodoSniffer;
+    private GameObject focusedObject;
 
     //Movement and Behaviours
     [Tooltip("How often the behaviour automatically changes")]
@@ -54,7 +55,7 @@ public class Dodo : MonoBehaviour
         if (_wc == default)
         {
             //World Controller is not set
-            throw new NullReferenceException();
+            throw new Exception("World Controller not set on Dodo Object!");
         }
 
         dodoDefaultSpeed = dodoSpeed;
@@ -108,10 +109,10 @@ public class Dodo : MonoBehaviour
         _currentDodoAcceleration = Mathf.Clamp(_currentDodoAcceleration, 0, 1);
 
         //If there is a viable smell object - Move towards it.
-        GameObject smelledObject = dodoSniffer.getSmelledObject();
-        if (smelledObject != null)
+        focusedObject = dodoSniffer.getSmelledObject();
+        if (focusedObject != null)
         {
-            MoveTowardsSmellable(smelledObject);
+            MoveTowardsSmellable();
             SlowWorldSpeed();
         }
         else //No smell object, find a new movement
@@ -227,11 +228,11 @@ public class Dodo : MonoBehaviour
         Debug.Log($"You took damage from {source} and died");
     }
 
-    void MoveTowardsSmellable(GameObject smelledObject)
+    void MoveTowardsSmellable()
     {
-        smelledObject.GetComponent<PlayerInteractable>().DodoInteract(true);
+        focusedObject.GetComponent<PlayerInteractable>().DodoInteract(true);
         Vector3 currentPos = transform.position;
-        Vector3 directionOfSmell = currentPos - smelledObject.transform.position;
+        Vector3 directionOfSmell = currentPos - focusedObject.transform.position;
 
         //Is smelled object to Dodo's left or right
         float smellCrossProduct = Vector3.Cross(directionOfSmell.normalized, forwardVector.normalized).z;
@@ -248,6 +249,14 @@ public class Dodo : MonoBehaviour
 
     private void SlowWorldSpeed()
     {
-        
+        float distanceToSmellable = Vector3.Distance(transform.position, focusedObject.transform.position);
+        if (distanceToSmellable < 0.5)
+        {
+            _wc.setWorldSpeedPercentage(0);
+        }
+        else
+        {
+            _wc.setWorldSpeedPercentage(Mathf.Clamp(_wc.getWorldSpeedPercentage() - 0.005f,0.2f, 1));
+        }
     }
 }
