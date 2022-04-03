@@ -11,11 +11,9 @@ public class Dodo : MonoBehaviour
     private WorldController _wc;
     //Speed and Acceleration
     [SerializeField] private float dodoSpeed;
-    [SerializeField] private float dodoDefaultSpeed;
-    [SerializeField] private float dodoSprintSpeed;
-    [SerializeField] private float dodoAcceleration;
+    [SerializeField] private float dodoAccelerationSpeed;
+    private float dodoDefaultSpeed;
     private float _currentDodoAcceleration;
-    private Vector3 deccelerationOffset = new Vector3(0.5f, 0.25f);
     
     //Sniff
     [SerializeField] Vector3 forwardVector = new Vector3(0.5f, -0.25f);
@@ -30,7 +28,9 @@ public class Dodo : MonoBehaviour
     private float _behaviourTimer;
 
     private bool b_isTransitionMovement;
+    [Tooltip("How wide the Dodo wobbles")]
     [SerializeField]private float _wobbleWidth;
+    [Tooltip("How quickly the Dodo wobbles")]
     [SerializeField] private float _wobbleFrequency;
     
     //Vector line that Dodo Moves on
@@ -55,6 +55,8 @@ public class Dodo : MonoBehaviour
         {
             
         }
+
+        dodoDefaultSpeed = dodoSpeed;
         dodoSniffer = GetComponentInChildren<SmellController>();
         dodoSniffer.GetComponent<CircleCollider2D>().radius = sniffRange;
         _cliffBoundPos = _cliffBound.position;
@@ -77,7 +79,7 @@ public class Dodo : MonoBehaviour
     //Input desiredBehaviour to choose a behaviour
     private void ChangeMovementBehaviour(int desiredBehaviour = 0)
     {
-        _currentDodoAcceleration = 0;
+        _currentDodoAcceleration = 0.01f;
         //If a chosen behaviour has been given
         if (desiredBehaviour != 0)
         {
@@ -85,7 +87,7 @@ public class Dodo : MonoBehaviour
         }
         else //Get a new behaviour
         {
-            //If current behaviour is Moving Forwards (1)
+            //If current behaviour is not Moving Forwards (1)
             if (_currentBehaviour != 1)
             {
                 // Then it is transitional movement - Will MoveForwards for 1 second.
@@ -104,7 +106,7 @@ public class Dodo : MonoBehaviour
     
     private void Move()
     {
-        _currentDodoAcceleration += dodoAcceleration / 100;
+        _currentDodoAcceleration += dodoAccelerationSpeed / 100;
         _currentDodoAcceleration = Mathf.Clamp(_currentDodoAcceleration, 0, 1);
         
         //If there is a viable smell object - Move towards it.
@@ -114,27 +116,27 @@ public class Dodo : MonoBehaviour
             Vector3 currentPos = transform.position;
             Vector3 directionOfSmell = currentPos - smelledObject.transform.position;
 
+            //Is smelled object to Dodo's left or right
             float smellCrossProduct = Vector3.Cross(directionOfSmell.normalized, forwardVector.normalized).z;
             //if CrossProduct is > 0, move towards mountains
-            if (smellCrossProduct > 0)
+            if (smellCrossProduct > 0 && _currentBehaviour != 3)
             {
                 ChangeMovementBehaviour(3);
             }
-            else //Move towards cliff
+            else if(smellCrossProduct < 0 && _currentBehaviour != 2)//Move towards cliff
             {
                 ChangeMovementBehaviour(2);
+
             }
             
             
         }
         else //No smell object, find a new movement
         {
-            dodoSpeed = dodoDefaultSpeed;
             if (_behaviourTimer < 0.1 && !_hasMoved)
             {
                 ChangeMovementBehaviour();
                 _hasMoved = true;
-                
             }
             else if (_behaviourTimer > 0.1)
             {
@@ -172,8 +174,9 @@ public class Dodo : MonoBehaviour
     }
     
     private void MoveTowardCliff()
-    { 
-        
+    {
+        Debug.Log(_currentDodoAcceleration);
+
         transform.position +=  -_sideVector3 * (dodoSpeed * _currentDodoAcceleration);
         //If at bounds, inverse direction
         if (transform.position.x <= _cliffBoundPos.x)
