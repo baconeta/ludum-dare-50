@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Props;
 
 public class SmellController : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class SmellController : MonoBehaviour
     {
         if (other.tag is "Smell" && other.gameObject == smellObject)
         {
+            smellObject.GetComponent<PlayerInteractable>().DodoInteract(false);
             smellObject = null;
         }
     }
