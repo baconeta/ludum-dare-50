@@ -284,9 +284,9 @@ public class Dodo : MonoBehaviour
     {
         //Get distance last of last frame
         focusedObjectPreviousDistance = distanceTofocusedObject;
-        
+
         distanceTofocusedObject = Vector3.Distance(transform.position, focusedObject.transform.position);
-        
+
         //If Focus/Left CrossProduct is < 0 then dodo has passed focus AND out of eatRange
         if (Vector3.Cross(directionOfFocus.normalized, dodoLeftVector.normalized).z > 0 && distanceTofocusedObject > eatRange)
         {
@@ -298,7 +298,7 @@ public class Dodo : MonoBehaviour
         {
             if (distanceTofocusedObject < eatRange) // Then Feast!!!!
             {
-                
+
                 setEatingStatus(true);
                 _wc.setWorldSpeedPercentage(0);
                 GetComponentInChildren<DodoEat>().EatMelon();

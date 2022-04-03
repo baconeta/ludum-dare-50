@@ -4,7 +4,7 @@ using UnityEngine;
 public class Sky : MonoBehaviour
 {
     public WorldController worldController;
-    public BoxCollider2D collider;
+    public new BoxCollider2D collider;
     public Rigidbody2D rb;
 
     [SerializeField] private Transform center;
