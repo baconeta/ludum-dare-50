@@ -1,7 +1,8 @@
 using Controllers;
+using Props;
 using UnityEngine;
 
-public class SaberToothedTiger : MonoBehaviour
+public class SaberToothedTiger : Smashable
 {
     // Game objects vars
     private WorldController _worldController;
