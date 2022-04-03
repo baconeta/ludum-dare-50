@@ -113,6 +113,7 @@ public class Dodo : MonoBehaviour
         GameObject smelledObject = dodoSniffer.getSmelledObject();
         if (smelledObject != null)
         {
+            smelledObject.GetComponent<PlayerInteractable>().DodoInteract(true);
             Vector3 currentPos = transform.position;
             Vector3 directionOfSmell = currentPos - smelledObject.transform.position;
 
