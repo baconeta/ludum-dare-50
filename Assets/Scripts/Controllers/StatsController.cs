@@ -17,7 +17,19 @@ namespace Controllers
         public int bridgesCrossed { get; private set; }
         public int bouldersBumped { get; private set; }
 
-        public void StartRun()
+        public void Update()
+        {
+            if (_timerRunning)
+            {
+                time += Time.deltaTime;
+            }
+        }
+
+        public void onGameReset()
+        {
+            onGameStart();
+        }
+        public void onGameStart()
         {
             time = 0;
             _timerRunning = true;
@@ -28,15 +40,7 @@ namespace Controllers
             bouldersBumped = 0;
         }
 
-        public void Update()
-        {
-            if (_timerRunning)
-            {
-                time += Time.deltaTime;
-            }
-        }
-
-        public void EndRun()
+        public void onGameEnd()
         {
             _timerRunning = false;
             times.Add(GetFormattedTime());

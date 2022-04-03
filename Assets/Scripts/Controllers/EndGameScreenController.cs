@@ -27,6 +27,16 @@ namespace Controllers
             hideEndGameScreen();
         }
 
+        public void onGameReset()
+        {
+            hideEndGameScreen();
+        }
+
+        public void onGameEnd()
+        {
+            showEndGameScreen();
+        }
+
         public void showEndGameScreen()
         {
             Highscore1.text = _statsController.scores[0].ToString();
@@ -68,11 +78,6 @@ namespace Controllers
             TotalObjectsSmashed.enabled = false;
             TotalBridgesCrossed.enabled = false;
             TotalBouldersBumped.enabled = false;
-        }
-
-        public void onGameReset()
-        {
-            hideEndGameScreen();
         }
     }
 }
