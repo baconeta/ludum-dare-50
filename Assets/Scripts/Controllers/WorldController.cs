@@ -66,7 +66,7 @@ namespace Controllers
             return baselineWorldSpeed * currentRampSpeedModifier * environmentalSpeedModifier;
         }
 
-        public float setWorldSpeed(float speed)
+        public void setWorldSpeed(float speed)
         {
             baselineWorldSpeed = speed;
         }
