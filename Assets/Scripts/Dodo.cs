@@ -58,7 +58,6 @@ public class Dodo : MonoBehaviour
         }
         _behaviourTimer = Time.time % behaviourChangeSpeed;
         Move();
-        Debug.Log(_currentDodoAcceleration);
     }
 
     //Input desiredBehaviour to choose a behaviour
