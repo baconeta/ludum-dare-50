@@ -138,5 +138,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   possibleSprites:
   - {fileID: 21300000, guid: 01685cd5538cc624dad27f94d5ecb732, type: 3}
-  - {fileID: 21300000, guid: fea348005ca7f5244b2dde6dd6fdd223, type: 3}
-  - {fileID: 21300000, guid: fbfd261e58133ef4bbecf5fd8544bf44, type: 3}
