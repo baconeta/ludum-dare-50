@@ -8,6 +8,11 @@ public class GameController : MonoBehaviour
     public bool gameRunning { get; private set; }
 
     // Start is called before the first frame update
+    void Start()
+    {
+        gameRunning = true;
+    }
+
     void ResetGame()
     {
         BroadcastMessage("onGameReset");
