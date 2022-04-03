@@ -70,6 +70,7 @@ public class Dodo : MonoBehaviour
     //Animation
     private Animator _anim;
     private static readonly int DodoSpeed = Animator.StringToHash("dodoSpeed");
+    private static readonly int DodoOnBridge = Animator.StringToHash("isOnBridge");
 
     // Start is called before the first frame update
     private void Start()
@@ -254,6 +255,7 @@ public class Dodo : MonoBehaviour
         _isOnBridge = true;
         transform.position += new Vector3(0f, 0.1f, 0f);
         col.gameObject.GetComponent<PlayerInteractable>().DodoInteract(true);
+        _anim.SetBool(DodoOnBridge, true);
     }
 
     private void DismountBridge(Collider2D col)
@@ -261,6 +263,7 @@ public class Dodo : MonoBehaviour
         _isOnBridge = false;
         transform.position -= new Vector3(0f, 0.1f, 0f);
         col.gameObject.GetComponent<PlayerInteractable>().DodoInteract(false);
+        _anim.SetBool(DodoOnBridge, true);
     }
 
     void DamagePlayer(string source)
