@@ -27,6 +27,7 @@ public class SaberToothedTiger : Smashable
     // Start is called before the first frame update
     protected override void Start()
     {
+        base.Start();
         _worldController = FindObjectOfType<WorldController>();
         // On spawn we want the tiger to start running towards the dodo.
         _fullSaberSpeed = _worldController.getWorldSpeed() + speedAboveWorld;
