@@ -8,11 +8,12 @@ TagManager:
   - DeathHazard
   - Dodo
   - Bridge
+  - Smell
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Smells
   - Water
   - UI
   - 

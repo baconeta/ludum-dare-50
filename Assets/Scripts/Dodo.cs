@@ -1,22 +1,24 @@
 using Props;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class Dodo : MonoBehaviour
 {
+    //Speed and Acceleration
     [SerializeField] private float dodoSpeed;
     [SerializeField] private float dodoAcceleration;
     private float _currentDodoAcceleration;
     private Vector3 deccelerationOffset = new Vector3(0.5f, 0.25f);
-
-    private Vector3 dodoOrigin;
-    [Tooltip("How often the behaviour automatically changes")]
-    private Vector3 m_ForwardDirection = new Vector3(1f, -.5f);
+    
+    //Sniff
     [SerializeField] float sniffRange;
+    private SmellController dodoSniffer;
     
     //Movement and Behaviours
+    [Tooltip("How often the behaviour automatically changes")]
     [SerializeField] private float behaviourChangeSpeed = 5;
     private int _currentBehaviour = 1;
     private bool _hasMoved = false;
@@ -25,9 +27,7 @@ public class Dodo : MonoBehaviour
     private bool b_isTransitionMovement;
     [SerializeField]private float _wobbleWidth;
     [SerializeField] private float _wobbleFrequency;
- 
-
-
+    
     //Vector line that Dodo Moves on
     private Vector3 _sideVector3 = new Vector3(.005f, 0.0025f);
     
@@ -36,6 +36,8 @@ public class Dodo : MonoBehaviour
     private Vector3 _cliffBoundPos;
     [SerializeField] Transform _mountainBound;
     private Vector3 _mountainBoundPos;
+    
+    //Bridges
     private bool isOnBridge;
 
   
@@ -44,9 +46,9 @@ public class Dodo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        dodoSniffer = GetComponentInChildren<SmellController>();
         _cliffBoundPos = _cliffBound.position;
         _mountainBoundPos = _mountainBound.position;
-        dodoOrigin = transform.position;
     }
 
     // Update is called once per frame
@@ -54,11 +56,11 @@ public class Dodo : MonoBehaviour
     {
         if (!isOnBridge)
         {
+            _behaviourTimer = Time.time % behaviourChangeSpeed;
             Move();
         }
-        _behaviourTimer = Time.time % behaviourChangeSpeed;
-        Move();
-        Debug.Log(_currentDodoAcceleration);
+        
+        
     }
 
     //Input desiredBehaviour to choose a behaviour
@@ -89,9 +91,21 @@ public class Dodo : MonoBehaviour
         
     }
 
+    bool canSmellWatermelon(bool result = false)
+    {
+        if (dodoSniffer.getSmelledObject())
+        {
+            result = true;
+        }
+        return result;
+    }
 
     void Move()
     {
+        if (canSmellWatermelon())
+        {
+            Debug.Log("mmmmmm, I can smell that water melooooon!");
+        }
         _currentDodoAcceleration += dodoAcceleration / 100;
         _currentDodoAcceleration = Mathf.Clamp(_currentDodoAcceleration, 0, 1);
         if (_behaviourTimer < 0.1 && !_hasMoved)
