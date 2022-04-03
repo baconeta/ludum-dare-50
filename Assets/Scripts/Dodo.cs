@@ -64,7 +64,7 @@ public class Dodo : MonoBehaviour
     private Vector3 _mountainBoundPos;
 
     //Bridges
-    private bool isOnBridge;
+    private bool _isOnBridge;
 
     //Animation
     private Animator _anim;
@@ -90,12 +90,11 @@ public class Dodo : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if (!isOnBridge)
-        {
-            _behaviourTimer = Time.time % behaviourChangeSpeed;
-            Move();
-        }
+        if (_isOnBridge || _isEating)
+            return;
 
+        _behaviourTimer = Time.time % behaviourChangeSpeed;
+        Move();
         float currentDodoSpeed = _wc.getWorldSpeed();
         _anim.SetFloat(DodoSpeed, currentDodoSpeed);
     }
@@ -239,7 +238,7 @@ public class Dodo : MonoBehaviour
 
     private void HitBypassableHazard(Collider2D col)
     {
-        if (!isOnBridge)
+        if (!_isOnBridge)
         {
             DamagePlayer(col.name);
         }
@@ -247,14 +246,14 @@ public class Dodo : MonoBehaviour
 
     private void MountBridge(Collider2D col)
     {
-        isOnBridge = true;
+        _isOnBridge = true;
         transform.position += new Vector3(0f, 0.1f, 0f);
         col.gameObject.GetComponent<PlayerInteractable>().DodoInteract(true);
     }
 
     private void DismountBridge(Collider2D col)
     {
-        isOnBridge = false;
+        _isOnBridge = false;
         transform.position -= new Vector3(0f, 0.1f, 0f);
         col.gameObject.GetComponent<PlayerInteractable>().DodoInteract(false);
     }
