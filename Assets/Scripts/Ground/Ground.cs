@@ -15,7 +15,7 @@ namespace Ground
         {
             _worldController = FindObjectOfType<WorldController>();
             SpriteRenderer sr = GetComponent<SpriteRenderer>();
-            sr.sprite = possibleGroundPieces[Random.Range(0, possibleGroundPieces.Length)];
+            sr.sprite = possibleGroundPieces.ChooseRandom();
         }
 
         public WorldController GetWorldCollider()

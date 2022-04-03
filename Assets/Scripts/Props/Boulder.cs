@@ -23,7 +23,7 @@ namespace Props
                     Debug.Log("Add possible sprites to boulder object.");
 
                 }
-                _sr.sprite = possibleSprites[Random.Range(0, possibleSprites.Length)];
+                _sr.sprite = possibleSprites.ChooseRandom();
             }
         }
     }

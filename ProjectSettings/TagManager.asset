@@ -12,6 +12,8 @@ TagManager:
   - SpeedHazard
   - BackgroundMusic
   - Smell
+  - StandardGround
+  - LargeGround
   layers:
   - Default
   - TransparentFX
@@ -19,6 +21,7 @@ TagManager:
   - Smells
   - Water
   - UI
+  - 
   - 
   - 
   - 
