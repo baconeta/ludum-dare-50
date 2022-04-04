@@ -385,6 +385,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 910660611469145479, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: dodoInMudSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 910660611469145479, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
       propertyPath: _bridgeJumpStrength
       value: 0.2
       objectReference: {fileID: 0}
@@ -444,6 +448,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: DodoController
       objectReference: {fileID: 0}
+    - target: {fileID: 6344460091618131811, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: _eatSpeedMax
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344460091618131811, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: _eatSpeedMin
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
 --- !u!4 &1432412438 stripped
@@ -458,6 +470,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 903353930}
     m_Modifications:
+    - target: {fileID: 3426466731793498720, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
+      propertyPath: largeHazards.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3426466731793498720, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
+      propertyPath: largeHazards.Array.data[5]
+      value: 
+      objectReference: {fileID: 8855985278181753037, guid: e7e201e657313452f85b693eaf27f03b, type: 3}
+    - target: {fileID: 3426466731793498720, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
+      propertyPath: largeHazards.Array.data[6]
+      value: 
+      objectReference: {fileID: 8855985278181753037, guid: fa643a549e8ef4dd9a77ab193aeb208f, type: 3}
+    - target: {fileID: 3426466731793498720, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
+      propertyPath: standardHazards.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3426466731793498720, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
+      propertyPath: standardHazards.Array.data[4]
+      value: 
+      objectReference: {fileID: 8855985278181753037, guid: e7e201e657313452f85b693eaf27f03b, type: 3}
+    - target: {fileID: 3426466731793498720, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
+      propertyPath: standardHazards.Array.data[5]
+      value: 
+      objectReference: {fileID: 6374743446245139740, guid: 08c65560404eb418fb2606244014cac4, type: 3}
     - target: {fileID: 7809516064845122627, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
       propertyPath: m_Name
       value: WorldController

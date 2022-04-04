@@ -15,6 +15,7 @@ namespace Controllers
         [SerializeField] private Transform spawnTransform;
         [SerializeField] private GameObject predatorObjectToSpawn;
         [SerializeField] private float timeBeforePredatorsStartSpawning = 60f;
+        private float _originalPredatorSpawnTime;
         private bool _bCanSpawn = false;
 
         private Random _randomValue;
@@ -23,6 +24,7 @@ namespace Controllers
         private void Start()
         {
             _randomValue = new Random();
+            _originalPredatorSpawnTime = timeBeforePredatorsStartSpawning;
         }
 
         private void SpawnTiger()
@@ -60,6 +62,12 @@ namespace Controllers
                     }
                 }
             }
+        }
+
+        public void onGameReset()
+        {
+            _timeSinceLastSpawn = 0f;
+            timeBeforePredatorsStartSpawning = _originalPredatorSpawnTime;
         }
     }
 }
