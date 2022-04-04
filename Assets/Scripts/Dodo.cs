@@ -7,6 +7,7 @@ using Controllers;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.U2D;
+using static BypassableHazard;
 using Random = UnityEngine.Random;
 
 public class Dodo : MonoBehaviour
@@ -15,7 +16,7 @@ public class Dodo : MonoBehaviour
     [Tooltip("World Controller used in Scene")]
     [SerializeField] private WorldController _wc;
 
-    private StatsController statsController;
+    private StatsController _statsController;
 
     [SerializeField] private Vector3 dodoForwardVector = new Vector3(1f, -.5f);
     [SerializeField] private Vector3 dodoLeftVector = new Vector3(1f, 0.5f);
@@ -25,6 +26,7 @@ public class Dodo : MonoBehaviour
     [SerializeField] private float dodoAccelerationSpeed;
     private float dodoDefaultSpeed;
     [SerializeField] private float dodoOnLogSpeed = 0.3f;
+    [SerializeField] private float dodoInMudSpeed = 0.5f;
     private float _currentDodoAcceleration;
 
     //Sniff
@@ -93,7 +95,7 @@ public class Dodo : MonoBehaviour
             throw new Exception("World Controller not set on Dodo Object!");
         }
 
-        statsController = FindObjectOfType<StatsController>();
+        _statsController = FindObjectOfType<StatsController>();
 
         dodoDefaultSpeed = dodoSpeed;
         dodoSniffer = GetComponentInChildren<SmellController>();
@@ -279,21 +281,46 @@ public class Dodo : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D col)
+    private void OnTriggerStay2D(Collider2D col)
     {
         switch (col.tag)
         {
-            case "Bridge":
-                //Dismount now occurs in movement
+            case "BypassableHazard":
+                WhileInBypassableHazard(col);
                 break;
         }
     }
 
     private void HitBypassableHazard(Collider2D col)
     {
-        if (!_isOnBridge)
+        if (_isOnBridge)
+            return;
+
+        var effect = col.GetComponent<BypassableHazard>().collisionEffect;
+        switch (effect)
         {
-            DamagePlayer(col.name);
+            case Effect.Damage:
+                DamagePlayer(col.name);
+                break;
+            case Effect.Slow:
+                _wc.setWorldSpeedPercentage(dodoInMudSpeed);
+                break;
+            default:
+                throw new Exception($"{nameof(Dodo)}.{nameof(HitBypassableHazard)} doesn't handle {effect}");
+        }
+    }
+
+    private void WhileInBypassableHazard(Collider2D col)
+    {
+        if (_isOnBridge)
+            return;
+
+        var effect = col.GetComponent<BypassableHazard>().collisionEffect;
+        switch (effect)
+        {
+            case Effect.Slow:
+                _wc.setWorldSpeedPercentage(dodoInMudSpeed);
+                break;
         }
     }
 
@@ -310,7 +337,7 @@ public class Dodo : MonoBehaviour
     private void DismountBridge(Collider2D col)
     {
         BridgeJump(true);
-        statsController.IncrementBridgesCrossed();
+        _statsController.IncrementTrunksTraversed();
         _isOnBridge = false;
         _BridgeObjectDodoIsOn.GetComponent<PlayerInteractable>().DodoInteract(false);
         _anim.SetBool(DodoOnBridge, false);
@@ -408,7 +435,7 @@ public class Dodo : MonoBehaviour
     {
         if (newIsEating is false)
         {
-            statsController.IncrementFoodEaten();
+            _statsController.IncrementMelonsMunched();
             focusedObject = null;
         }
 

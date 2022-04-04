@@ -47,8 +47,12 @@ MonoBehaviour:
   - {fileID: 6374743446245139740, guid: 08c65560404eb418fb2606244014cac4, type: 3}
   - {fileID: 8855985278181753037, guid: 2a7f3d2d8af92499eb949cb2182c3aca, type: 3}
   - {fileID: 8855985278181753037, guid: e7e201e657313452f85b693eaf27f03b, type: 3}
+  - {fileID: 8855985278181753037, guid: 3e5afe13df0ce49ab8409a1fba940746, type: 3}
   largeHazards:
   - {fileID: 6374743446245139740, guid: 08c65560404eb418fb2606244014cac4, type: 3}
   - {fileID: 8855985278181753037, guid: 2a7f3d2d8af92499eb949cb2182c3aca, type: 3}
   - {fileID: 8855985278181753037, guid: e7e201e657313452f85b693eaf27f03b, type: 3}
   - {fileID: 8855985278181753037, guid: fa643a549e8ef4dd9a77ab193aeb208f, type: 3}
+  - {fileID: 8855985278181753037, guid: 3e5afe13df0ce49ab8409a1fba940746, type: 3}
+  spawnDistanceFromBoundaryRatio: 0.7
+  debug: 0

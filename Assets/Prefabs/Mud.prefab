@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3812061677473867445}
   - component: {fileID: 5999260354557069852}
   m_Layer: 0
-  m_Name: River
+  m_Name: Mud
   m_TagString: BypassableHazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8855985278181753037}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 7, y: -7, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 7659e5cefe456914daa7670e966aedda, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ffce4f65dd15b4f0b9a0cb6d5ec768ff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,8 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 805bc2c4fe7ff4588b6f5adefd03b4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bypassObject: {fileID: 8855985278181753037, guid: 961258da4ab0c46448cb1c388576741a, type: 3}
-  collisionEffect: 0
+  bypassObject: {fileID: 8855985278181753037, guid: e7e201e657313452f85b693eaf27f03b, type: 3}
+  collisionEffect: 1
 --- !u!60 &5999260354557069852
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -114,8 +114,8 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.4725998, y: 0.8775619}
-    oldSize: {x: 30.004883, y: 50}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 7.11, y: 5.07}
     newSize: {x: 1, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -123,20 +123,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -11.568566, y: -2.293522}
-      - {x: -3.1603992, y: -6.5134645}
-      - {x: 1.0419762, y: -3.1088212}
-      - {x: 3.3545742, y: -1.8186831}
-      - {x: 12.895441, y: 2.4600148}
-      - {x: 15.06863, y: 3.7100556}
-      - {x: 12.130505, y: 5.5395384}
-      - {x: 11.267242, y: 5.6471405}
-      - {x: 9.200314, y: 5.0601044}
-      - {x: 6.480228, y: 3.892134}
-      - {x: 5.2895365, y: 3.4565337}
-      - {x: 4.441017, y: 3.364098}
-      - {x: 0.34409738, y: 3.3187466}
-      - {x: -2.2476406, y: 3.1823137}
-      - {x: -5.136888, y: 2.5377345}
-      - {x: -6.365904, y: 1.9332238}
-      - {x: -9.209514, y: -0.119327545}
+    - - {x: -2.91, y: -0.011222839}
+      - {x: -3.0399342, y: 0.5944004}
+      - {x: -2.0780444, y: 1.0495846}
+      - {x: 0.045427322, y: 0.8678837}
+      - {x: 1.318325, y: -0.08048248}
+      - {x: 3.0306835, y: -0.9312458}
+      - {x: 3.0253072, y: -1.4553878}
+      - {x: 0.46938765, y: -1.6167247}
