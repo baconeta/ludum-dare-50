@@ -102,6 +102,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3d6dcb413eec4754d823325a64455f8e, type: 3}
   - {fileID: 21300000, guid: 6e13f39a7d9be544681bea135837bc26, type: 3}
   - {fileID: 21300000, guid: 9a34171eb89f2624abd9e818ff2612ff, type: 3}
+  - {fileID: 21300000, guid: 929f001a7beb7460480bdf50392557be, type: 3}
+  - {fileID: 21300000, guid: 9cdf86e01fbfc456fab49c61f080663d, type: 3}
+  - {fileID: 21300000, guid: 17f086348ba274f95a7887e7bb0d37fb, type: 3}
+  - {fileID: 21300000, guid: d4d958e2344f2462d8e3ef4ae91f922d, type: 3}
+  - {fileID: 21300000, guid: c547a56d9b170461daae31a2ac60b25b, type: 3}
+  - {fileID: 21300000, guid: 986027b77d28a4d3e96c97cb2b37cce6, type: 3}
   removeXPosition: -10
 --- !u!61 &804859318406779703
 BoxCollider2D:
