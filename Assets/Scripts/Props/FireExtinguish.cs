@@ -33,15 +33,14 @@ public class FireExtinguish : PlayerScrubbable
     protected override void Update()
     {
         base.Update();
-        if (!scrubbed)
+        if (!scrubbed && _renderer.isVisible)
         {
             float distance = Vector2.Distance(_dodo.transform.position, transform.position);
             Debug.Log("Distance: " + distance);
-            //_audioSource.volume
+            float volume = 1.0F * (30 - distance);
+            _audioSource.volume = volume;
         }
     }
-    // Scale volume with distance to Dodo.
-    // Disable sound when scrubbed.
     
     protected override void HandleScrub()
     {
