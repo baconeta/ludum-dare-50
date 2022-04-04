@@ -102,16 +102,7 @@ public class Dodo : MonoBehaviour
     {
         if (_isOnBridge)
         {
-            Vector3 bridgeStartPos = _BridgeObjectDodoIsOn.transform.GetChild(0).position;
-            Vector3 bridgeMidPos = _BridgeObjectDodoIsOn.transform.GetChild(1).position;
-            Vector3 bridgeEndPos = _BridgeObjectDodoIsOn.transform.GetChild(2).position;
-            float t = Time.time % 1;
-            Vector3 bezierPoint1 = Mathf.Pow(1 - t, 2) * bridgeStartPos;
-            Vector3 bezierPoint2 = (2 * (1 - t) * t) * bridgeMidPos;
-            Vector3 bezierPoint3 = Mathf.Pow(t, 2) * bridgeEndPos;
-            Vector3 myBezier = bezierPoint1 + bezierPoint2 + bezierPoint3;
-            Debug.Log(myBezier);
-            Debug.DrawLine(myBezier, myBezier + myBezier * 0.01f, Color.red, 5);
+            WalkThePlank();
             return;
         }
 
@@ -124,6 +115,33 @@ public class Dodo : MonoBehaviour
         Move();
         float currentDodoSpeed = _wc.getWorldSpeed();
         _anim.SetFloat(DodoSpeed, currentDodoSpeed);
+    }
+
+    //Ensures dodo walks over the plank
+    private void WalkThePlank()
+    {
+        Vector3 bridgeStartPos = _BridgeObjectDodoIsOn.transform.GetChild(0).position;
+        Vector3 bridgeMidPos = _BridgeObjectDodoIsOn.transform.GetChild(1).position;
+        Vector3 bridgeEndPos = _BridgeObjectDodoIsOn.transform.GetChild(2).position;
+        Vector3 newVector;
+        
+        //Check if Dodo is past halfway on the plank
+        if (transform.position.x < bridgeMidPos.x) //Is not over halfway
+        {
+            //Move along _sideVector3 at constant value
+            
+            transform.position += _sideVector3;
+            
+        }
+        else //Dodo is over halfway
+        {
+            newVector = new Vector3(
+                Mathf.Clamp(_sideVector3.x / 100, bridgeMidPos.x, bridgeEndPos.x),
+                Mathf.Clamp(_sideVector3.x / 100, bridgeEndPos.y, bridgeMidPos.y),
+                _sideVector3.z);
+            transform.position -= _sideVector3;
+        }
+
     }
 
     //Input desiredBehaviour to choose a behaviour
@@ -372,23 +390,6 @@ public class Dodo : MonoBehaviour
     public bool isEating()
     {
         return _isEating;
-    }
-
-    //Changes transform to move on a curve over log
-    IEnumerator WalkOverBridge()
-    {
-        Vector3 bridgeStartPos = _BridgeObjectDodoIsOn.transform.GetChild(0).position;
-        Vector3 bridgeMidPos = _BridgeObjectDodoIsOn.transform.GetChild(0).position;
-        Vector3 bridgeEndPos = _BridgeObjectDodoIsOn.transform.GetChild(2).position;
-        //Repeat every frame
-        float t = Time.time % 1;
-        Vector3 bezierPoint1 = Mathf.Pow(1 - t, 2) * bridgeStartPos;
-        Vector3 bezierPoint2 = (2 * (1 - t) * t) * bridgeMidPos;
-        Vector3 bezierPoint3 = Mathf.Pow(t, 2) * bridgeEndPos;
-        Vector3 myBezier = bezierPoint1 + bezierPoint2 + bezierPoint3;
-        Debug.DrawLine(myBezier, myBezier * 2, Color.red, 5);
-        //
-        yield return new WaitForSeconds(1);
     }
 
 }
