@@ -1,5 +1,6 @@
 using Props;
 using UnityEngine;
+using System.Collections;
 
 public class PlayerScrubbable : PlayerClickable
 {
@@ -14,6 +15,8 @@ public class PlayerScrubbable : PlayerClickable
     private Vector3 mouseLocation;
     protected Sprite scrubbedSprite;
     protected bool scrubbed = false;
+    [SerializeField] private float minimumShakeThreshold = 0.08f;
+    private bool shaking = false;
 
     protected override void Start()
     {
@@ -33,10 +36,16 @@ public class PlayerScrubbable : PlayerClickable
         //Get distance of mouse movement between frames, then add that amount to currentScrubAmount.
         previousMouseLocation = mouseLocation;
         mouseLocation = ConvertMouseToWorldPosition(Input.mousePosition);
-        currentScrubAmount += Vector3.Distance(mouseLocation, previousMouseLocation);
+        float dragDistance = Vector3.Distance(mouseLocation, previousMouseLocation);
+        currentScrubAmount += dragDistance;
         if (currentScrubAmount > scrubAmountRequired && !scrubbed)
         {
             HandleScrub();
+        }
+        Debug.Log(dragDistance);
+        if (dragDistance > minimumShakeThreshold && !scrubbed)
+        {
+            StartCoroutine(DoShake());
         }
     }
 
@@ -46,6 +55,20 @@ public class PlayerScrubbable : PlayerClickable
         _spriteRenderer.sprite = scrubbedSprite;
         _collider.enabled = false;
         _animator.enabled = false;
+    }
+
+    protected IEnumerator DoShake()
+    {
+        if (!shaking && !scrubbed)
+        {
+            shaking = true;
+            transform.Rotate(0, 0, 5);
+            yield return new WaitForSeconds(0.1F);
+            transform.Rotate(0, 0, -10);
+            yield return new WaitForSeconds(0.1F);
+            transform.Rotate(0, 0, 5);
+            shaking = false;
+        }
     }
 
 }
