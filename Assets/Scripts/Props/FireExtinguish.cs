@@ -20,12 +20,12 @@ public class FireExtinguish : PlayerScrubbable
         _audioSource = GetComponent<AudioSource>();
     }
 
-    private void onBecameVisible()
+    private void OnBecameVisible()
     {
         _audioSource.Play();
     }
 
-    private void onBecameInvisible()
+    private void OnBecameInvisible()
     {
         _audioSource.Stop();
     }
@@ -36,16 +36,15 @@ public class FireExtinguish : PlayerScrubbable
         if (!scrubbed && _renderer.isVisible)
         {
             float distance = Vector2.Distance(_dodo.transform.position, transform.position);
-            Debug.Log("Distance: " + distance);
-            float volume = 1.0F * (30 - distance);
+            float volume = ((40-(distance*2))/100);
             _audioSource.volume = volume;
         }
     }
-    
+
     protected override void HandleScrub()
     {
         base.HandleScrub();
         _audioSource.Stop();
     }
-    
+
 }
