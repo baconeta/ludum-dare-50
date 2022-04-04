@@ -18,9 +18,9 @@ public class PlayerScrubbable : PlayerClickable
     protected override void Start()
     {
         base.Start();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        Collider = GetComponent<Collider2D>();
-        animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _collider = GetComponent<Collider2D>();
+        _animator = GetComponent<Animator>();
     }
 
     protected override void OnMouseDown()
