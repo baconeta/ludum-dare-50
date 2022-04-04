@@ -10,13 +10,15 @@ namespace Controllers
         private float _timeSinceLastSpawn = 0f;
 
         [SerializeField] [Range(0, 100)] [Tooltip("% chance to spawn a predator per second it is valid to do so")]
-        private int spawnChance = 100;
+        private int initialSpawnChance = 10;
 
         [SerializeField] private Transform spawnTransform;
         [SerializeField] private GameObject predatorObjectToSpawn;
         [SerializeField] private float timeBeforePredatorsStartSpawning = 60f;
         private float _originalPredatorSpawnTime;
         private bool _bCanSpawn = false;
+        private float currentSpawnChance;
+        [SerializeField] private int increaseSpawnChanceOnFail = 5;
 
         private Random _randomValue;
         private float _secondCounter;
@@ -25,6 +27,7 @@ namespace Controllers
         {
             _randomValue = new Random();
             _originalPredatorSpawnTime = timeBeforePredatorsStartSpawning;
+            currentSpawnChance = initialSpawnChance;
         }
 
         private void SpawnTiger()
@@ -56,9 +59,14 @@ namespace Controllers
                 if (_secondCounter >= 1)
                 {
                     _secondCounter = 0;
-                    if (_randomValue.Next(101) < spawnChance)
+                    if (_randomValue.Next(101) < currentSpawnChance)
                     {
                         SpawnTiger();
+                        currentSpawnChance = initialSpawnChance;
+                    }
+                    else
+                    {
+                        currentSpawnChance += increaseSpawnChanceOnFail;
                     }
                 }
             }
@@ -68,6 +76,7 @@ namespace Controllers
         {
             _timeSinceLastSpawn = 0f;
             timeBeforePredatorsStartSpawning = _originalPredatorSpawnTime;
+            currentSpawnChance = initialSpawnChance;
         }
     }
 }
