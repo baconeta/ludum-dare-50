@@ -4,11 +4,11 @@ using UnityEngine;
 public class FireExtinguish : PlayerScrubbable
 {
     private Renderer _renderer;
-    private AudioSource _audioSource;
 
     [SerializeField] protected float valueToExtinguish;
     [SerializeField] protected Sprite extinguishedSprite;
-
+    [SerializeField] private AudioSource burningSound;
+    [SerializeField] private AudioSource extinguishSound;
 
     protected override void Start()
     {
@@ -16,17 +16,16 @@ public class FireExtinguish : PlayerScrubbable
         scrubAmountRequired = valueToExtinguish;
         scrubbedSprite = extinguishedSprite;
         _renderer = GetComponent<Renderer>();
-        _audioSource = GetComponent<AudioSource>();
     }
 
     private void OnBecameVisible()
     {
-        _audioSource.Play();
+        burningSound.Play();
     }
 
     private void OnBecameInvisible()
     {
-        _audioSource.Stop();
+        burningSound.Stop();
     }
 
     protected override void Update()
@@ -36,14 +35,15 @@ public class FireExtinguish : PlayerScrubbable
         {
             float distance = Vector2.Distance(_dodo.transform.position, transform.position);
             float volume = ((40-(distance*2))/100);
-            _audioSource.volume = volume;
+            burningSound.volume = volume;
         }
     }
 
     protected override void HandleScrub()
     {
         base.HandleScrub();
-        _audioSource.Stop();
+        burningSound.Stop();
+        extinguishSound.Play();
         _statsController.IncrementFiresFoiled();
     }
 
