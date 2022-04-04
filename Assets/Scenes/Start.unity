@@ -1504,10 +1504,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Only one Dodo remains, so it''s up to you to stop him going extinct.
+  m_Text: 'Only one Dodo remains, so it''s up to you to stop him from going extinct.
 
     Inevitably,
-    you will fail though, but how long can you last?'
+    you will fail... but how long can you last?'
 --- !u!222 &471540194
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5271,7 +5271,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Click rapidly on the saber tooth tigers to stop them eating the Dodo!
+  m_Text: Click rapidly on the saber-toothed tigers to stop them from eating the
+    Dodo!
 --- !u!222 &1963085433
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6844,7 +6845,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -30, y: -90.899994}
+  m_AnchoredPosition: {x: -30, y: -90.900024}
   m_SizeDelta: {x: 150, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8286371915239344796
@@ -7348,7 +7349,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -193.4, y: -33.100006}
+  m_AnchoredPosition: {x: -193.40002, y: -33.099976}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8286371916616350788
