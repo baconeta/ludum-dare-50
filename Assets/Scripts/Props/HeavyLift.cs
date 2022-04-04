@@ -9,6 +9,7 @@ namespace Props
 
         [SerializeField] private bool useLiftAnim;
         [SerializeField] private BoulderAnimation _liftAnimation;
+        private bool isLifted;
 
         protected override void Start()
         {
@@ -17,6 +18,7 @@ namespace Props
 
         protected override void OnMouseDown()
         {
+            isLifted = true;
             EnableCollisions(false);
             transform.position += liftedDistanceVector;
             if (useLiftAnim)
@@ -29,10 +31,16 @@ namespace Props
         {
             EnableCollisions(true);
             transform.position -= liftedDistanceVector;
+            isLifted = false;
             if (useLiftAnim)
             {
                 _liftAnimation.DropBoulderAnims();
             }
+        }
+
+        public bool isRockLifted()
+        {
+            return isLifted;
         }
     }
 }
