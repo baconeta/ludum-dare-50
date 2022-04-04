@@ -4,12 +4,12 @@ namespace Props
 {
     public class PlayerDraggable : PlayerInteractable
     {
-        private BoxCollider2D _boxCollider2D;
+        private Collider2D _collider2D;
 
         protected override void Start()
         {
             base.Start();
-            _boxCollider2D = GetComponent<BoxCollider2D>();
+            _collider2D = GetComponent<Collider2D>();
         }
 
         // TODO Move onMouseDown & onMouseUp to PlayerInteractable.cs.
@@ -48,7 +48,7 @@ namespace Props
 
         protected void EnableCollisions(bool enabled)
         {
-            _boxCollider2D.enabled = enabled;
+            _collider2D.enabled = enabled;
         }
     }
 }
