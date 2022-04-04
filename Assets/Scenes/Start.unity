@@ -2987,6 +2987,7 @@ MonoBehaviour:
   TotalTrunksTraversed: {fileID: 1666458908}
   TotalSabersSlain: {fileID: 935610284}
   NormalTextColour: {r: 0.4117647, g: 0.2784314, b: 0.11372549, a: 1}
+  HighlightedTextColour: {r: 0.67058825, g: 0.27450982, b: 0.1882353, a: 1}
 --- !u!222 &2191066124134647636
 CanvasRenderer:
   m_ObjectHideFlags: 0
