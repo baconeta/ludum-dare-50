@@ -15,6 +15,6 @@ public class Timer : MonoBehaviour
 
     private void Update()
     {
-        TimerValue.text = _statsController.GetFormattedTime();
+        TimerValue.text = _statsController.FormatTime(_statsController.time);
     }
 }
