@@ -27,6 +27,11 @@ namespace Controllers
             RawTimes.Add(PlayerPrefs.GetFloat("BestTime3"));
             RawTimes.Add(PlayerPrefs.GetFloat("BestTime4"));
             RawTimes.Add(PlayerPrefs.GetFloat("BestTime5"));
+            RawTimes.Sort();
+            RawTimes.Reverse();
+            // Only keep the 5 best times.
+            RawTimes = RawTimes.GetRange(0, 5);
+
             FormattedTimes = new List<string>();
             RepopulateFormattedTimes();
 
@@ -58,24 +63,30 @@ namespace Controllers
 
         public void onGameEnd()
         {
-            _timerRunning = false;
-            RawTimes.Add(time);
-            SaveBestTimes();
-            RepopulateFormattedTimes();
+            if (_timerRunning) {
+                _timerRunning = false;
+                RawTimes.Add(time);
+                // Sort by largest-first.
+                RawTimes.Sort();
+                RawTimes.Reverse();
+                // Only keep the 5 best times.
+                RawTimes = RawTimes.GetRange(0, 5);
+                SaveBestTimes();
+                RepopulateFormattedTimes();
 
-            PlayerPrefs.SetInt("TotalDeaths", deaths);
-            PlayerPrefs.SetInt("TotalFoodsEaten", foodsEaten);
-            PlayerPrefs.SetInt("TotalObjectsSmashed", objectsSmashed);
-            PlayerPrefs.SetInt("TotalBridgesCrossed", bridgesCrossed);
-            PlayerPrefs.SetInt("TotalBouldersBumped", bouldersBumped);
-            PlayerPrefs.Save();
+                deaths++;
+
+                PlayerPrefs.SetInt("TotalDeaths", deaths);
+                PlayerPrefs.SetInt("TotalFoodsEaten", foodsEaten);
+                PlayerPrefs.SetInt("TotalObjectsSmashed", objectsSmashed);
+                PlayerPrefs.SetInt("TotalBridgesCrossed", bridgesCrossed);
+                PlayerPrefs.SetInt("TotalBouldersBumped", bouldersBumped);
+                PlayerPrefs.Save();
+            }
         }
 
         private void SaveBestTimes()
         {
-            // Only keep the 5 best times.
-            RawTimes.Sort();
-            RawTimes = RawTimes.GetRange(0, 5);
             for (int i = 0; i < 5; i++) {
                 PlayerPrefs.SetFloat("BestTime"+(i+1), RawTimes[i]);
             }
@@ -84,12 +95,11 @@ namespace Controllers
         private void RepopulateFormattedTimes()
         {
             // Only keep the 5 best times.
-            RawTimes.Sort();
             RawTimes = RawTimes.GetRange(0, 5);
             // Repopulate formatted times.
             FormattedTimes.Clear();
-            foreach (float score in RawTimes) {
-                FormattedTimes.Add(FormatTime(time));
+            for (int i = 0; i < 5; i++) {
+                FormattedTimes.Add(FormatTime(RawTimes[i]));
             }            
         }
 
@@ -116,6 +126,7 @@ namespace Controllers
             bridgesCrossed++;
         }
 
+        // TODO Needs to be linked-up.
         public void IncrementBouldersBumped()
         {
             bouldersBumped++;
