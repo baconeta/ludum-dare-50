@@ -1,4 +1,6 @@
 using UnityEngine;
+using Unity.Services.Analytics;
+using Unity.Services.Core;
 
 namespace Controllers
 {
@@ -6,6 +8,11 @@ namespace Controllers
     {
         [SerializeField] private EndGameScreenController endGameScreenController;
         private GameController gameController;
+
+        public async void Start()
+        {
+            await UnityServices.InitializeAsync();
+        }
 
         private void Awake()
         {
