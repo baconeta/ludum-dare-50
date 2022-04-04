@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 namespace Props
 {
@@ -6,6 +7,7 @@ namespace Props
     {
         [Tooltip("How many times the prop can be clicked before it dies or is destroyed.")]
         [SerializeField] private int durability = 5;
+        private bool shaking = false;
 
         protected override void Start()
         {
@@ -15,11 +17,29 @@ namespace Props
         protected override void OnMouseDown()
         {
             base.OnMouseDown();
-            durability--;
-            if (durability == 0) {
-                // TODO Swap to a death state instead of destroying the object.
-                _statsController.IncrementObjectsSmashed();
-                Destroy(this.gameObject);
+            if (CanPlayerInteract && !IsDodoInteracting)
+            {
+                durability--;
+                if (durability == 0) {
+                    // TODO Swap to a death state instead of destroying the object.
+                    _statsController.IncrementObjectsSmashed();
+                    Destroy(this.gameObject);
+                }
+                StartCoroutine(DoShake());
+            }
+        }
+
+        protected IEnumerator DoShake()
+        {
+            if (!shaking)
+            {
+                shaking = true;
+                transform.Rotate(0, 0, 10);
+                yield return new WaitForSeconds(0.05F);
+                transform.Rotate(0, 0, -20);
+                yield return new WaitForSeconds(0.0F);
+                transform.Rotate(0, 0, 10);
+                shaking = false;
             }
         }
     }
