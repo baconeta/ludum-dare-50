@@ -7,6 +7,7 @@ using Controllers;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.U2D;
+using static BypassableHazard;
 using Random = UnityEngine.Random;
 
 public class Dodo : MonoBehaviour
@@ -291,9 +292,20 @@ public class Dodo : MonoBehaviour
 
     private void HitBypassableHazard(Collider2D col)
     {
-        if (!_isOnBridge)
+        if (_isOnBridge)
+            return;
+
+        var effect = col.GetComponent<BypassableHazard>().collisionEffect;
+        switch (effect)
         {
-            DamagePlayer(col.name);
+            case Effect.Damage:
+                DamagePlayer(col.name);
+                break;
+            case Effect.Slow:
+                Debug.Log("slooow doooooown");
+                break;
+            default:
+                throw new Exception($"{nameof(Dodo)}.{nameof(HitBypassableHazard)} doesn't handle {effect}");
         }
     }
 
