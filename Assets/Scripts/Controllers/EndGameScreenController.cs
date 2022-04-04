@@ -23,7 +23,6 @@ namespace Controllers
 
         private void Start()
         {
-            _statsController = FindObjectOfType<StatsController>();
             _canvas = GetComponent<Canvas>();
             hideEndGameScreen();
         }
@@ -35,6 +34,7 @@ namespace Controllers
 
         public void onGameEnd()
         {
+            _statsController = FindObjectOfType<StatsController>();
             showEndGameScreen();
         }
 
