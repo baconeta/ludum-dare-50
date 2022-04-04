@@ -353,6 +353,9 @@ MonoBehaviour:
   _wobbleFrequency: 1
   _cliffBound: {fileID: 0}
   _mountainBound: {fileID: 0}
+  _bridgeJumpStrength: 0.2
+  _dodoBridgeWalkOffSpeed: 1.5
+  _dodoBridgeWalkOnSpeed: 1.5
 --- !u!50 &-5505904398498373190
 Rigidbody2D:
   serializedVersion: 4

@@ -18,9 +18,9 @@ public class PlayerScrubbable : PlayerClickable
     protected override void Start()
     {
         base.Start();
-        spriteRenderer = FindObjectOfType<SpriteRenderer>();
-        Collider = FindObjectOfType<Collider2D>();
-        animator = FindObjectOfType<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        Collider = GetComponent<Collider2D>();
+        animator = GetComponent<Animator>();
     }
 
     protected override void OnMouseDown()
@@ -34,7 +34,6 @@ public class PlayerScrubbable : PlayerClickable
         previousMouseLocation = mouseLocation;
         mouseLocation = ConvertMouseToWorldPosition(Input.mousePosition);
         currentScrubAmount += Vector3.Distance(mouseLocation, previousMouseLocation);
-        Debug.Log(currentScrubAmount);
         if (currentScrubAmount > scrubAmountRequired)
         {
             spriteRenderer.sprite = scrubbedSprite;
