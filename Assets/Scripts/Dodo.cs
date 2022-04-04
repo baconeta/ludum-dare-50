@@ -91,6 +91,7 @@ public class Dodo : MonoBehaviour
     private Animator _anim;
     private static readonly int DodoSpeed = Animator.StringToHash("dodoSpeed");
     private static readonly int DodoOnBridge = Animator.StringToHash("isOnBridge");
+    private static readonly int DodoEating = Animator.StringToHash("isEating");
 
     // Start is called before the first frame update
     private void Start()
@@ -128,13 +129,16 @@ public class Dodo : MonoBehaviour
 
         if (_isEating)
         {
+            _anim.SetBool(DodoEating, true);
             return;
         }
 
         _behaviourTimer = Time.time % behaviourChangeSpeed;
         Move();
         float currentDodoSpeed = _wc.getWorldSpeed();
+        _anim.SetBool(DodoEating, false);
         _anim.SetFloat(DodoSpeed, currentDodoSpeed);
+        
     }
 
     //Ensures dodo walks over the plank
@@ -424,6 +428,7 @@ public class Dodo : MonoBehaviour
         {
             if (distanceTofocusedObject < eatRange) // Then Feast!!!!
             {
+                _anim.SetBool(DodoEating, true);
                 setEatingStatus(true);
                 _wc.setWorldSpeedPercentage(0);
                 GetComponentInChildren<DodoEat>().EatMelon();
@@ -470,6 +475,7 @@ public class Dodo : MonoBehaviour
         transform.position = _originTransform.position;
         _anim.SetFloat(DodoSpeed, 0f);
         _anim.SetBool(DodoOnBridge, false);
+        _anim.SetBool(DodoEating, false);
         _isEating = false;
         _isInMud = false;
         _currentDodoAcceleration = 0f;
