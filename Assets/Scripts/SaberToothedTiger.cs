@@ -5,6 +5,8 @@ using UnityEngine;
 public class SaberToothedTiger : Smashable
 {
     private Dodo _dodoToChase;
+    private Transform _cliffBound;
+    Vector3 _edgeVector = new Vector3(1f, -0.5f, 0f);
 
     // Animation
     private Animator _anim;
@@ -15,7 +17,7 @@ public class SaberToothedTiger : Smashable
     private float speedAboveWorld;
 
     private float _fullSaberSpeed;
-    private Vector3 _directionOfFocus;
+    private Vector3 _directionOfDodo;
 
     [SerializeField] private float sidewaysSpeed = 2f;
 
@@ -34,6 +36,7 @@ public class SaberToothedTiger : Smashable
         _anim = GetComponent<Animator>();
         _anim.SetFloat(RunningSpeed,
             speedAboveWorld + _worldController.getWorldSpeed() / (_worldController.getWorldSpeedPercentage()+0.01f) / 2.5f);
+        _cliffBound = FindObjectOfType<PredatorController>().transform.GetChild(1);
     }
 
     // Update is called once per frame
@@ -48,18 +51,31 @@ public class SaberToothedTiger : Smashable
     private void MoveTowardsDodo()
     {
         Vector3 currentPos = transform.position;
-        _directionOfFocus = currentPos - _dodoToChase.transform.position;
+        Vector3 _tigerDirection = _cliffBound.position - currentPos;
 
-        //Is chased Dodo to the left or right of the tiger
-        float smellCrossProduct = Vector3.Cross(_directionOfFocus.normalized, tigerForwardVector.normalized).z;
-        //if CrossProduct is > 0, move towards mountains
-        if (smellCrossProduct > 0)
+        float crossFromEdge = Vector3.Cross(_edgeVector.normalized, _tigerDirection.normalized).z;
+        
+        //if tiger hits edge, move away.
+        if (crossFromEdge > 0)//if edge cross product < 0, move upwards
         {
+            Debug.Log("Moving from edge");
             transform.position += _sideVector3 * sidewaysSpeed;
         }
-        else if (smellCrossProduct < 0) //Move towards cliff
+        else
         {
-            transform.position += -_sideVector3 * sidewaysSpeed;
+            _directionOfDodo = currentPos - _dodoToChase.transform.position;
+            
+            //Is Dodo to the left or right of the tiger
+            float smellCrossProduct = Vector3.Cross(_directionOfDodo.normalized, tigerForwardVector.normalized).z;
+            
+            if (smellCrossProduct > 0)
+            {
+                transform.position += _sideVector3 * sidewaysSpeed;
+            }
+            else if (smellCrossProduct < 0) //Move towards cliff
+            {
+                transform.position += -_sideVector3 * sidewaysSpeed;
+            }
         }
     }
 }
