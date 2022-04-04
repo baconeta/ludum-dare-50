@@ -156,6 +156,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dodo
       objectReference: {fileID: 0}
+    - target: {fileID: 9090872024761434200, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
 --- !u!4 &910660611469145478 stripped
