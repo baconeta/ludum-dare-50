@@ -22,6 +22,7 @@ namespace Controllers
 
         private Random _randomValue;
         private float _secondCounter;
+        private bool onEndScreen;
 
         private void Start()
         {
@@ -38,6 +39,10 @@ namespace Controllers
 
         private void Update()
         {
+            if (onEndScreen)
+            {
+                return;
+            }
             // We want to have a chance to spawn a tiger from behind the Dodo calculated every frame but 
             // only if enough time has passed
             if (!_bCanSpawn)
@@ -75,10 +80,16 @@ namespace Controllers
 
         public void onGameReset()
         {
-            _bCanSpawn = false;
             _timeSinceLastSpawn = 0f;
             timeBeforePredatorsStartSpawning = _originalPredatorSpawnTime;
             currentSpawnChance = initialSpawnChance;
+            onEndScreen = false;
+        }
+        
+        public void onGameEnd()
+        {
+            _bCanSpawn = false;
+            onEndScreen = true;
         }
     }
 }
