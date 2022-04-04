@@ -66,7 +66,7 @@ namespace Controllers
             var spawnCount = CalculateNumberOfObstaclesToSpawn();
             for (var i = 0; i < spawnCount; i++)
             {
-                _obstacleController.SpawnHazard(parent, _lastGroundWidth);
+                _obstacleController.SpawnHazard(parent, 10f, 4f);
                 _chunksAddedSinceLastObstacle = 0;
             }
         }
