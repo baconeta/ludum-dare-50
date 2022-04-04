@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f670936bec9be84dba305e922aedf7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  valueToExtinguish: 20
+  valueToExtinguish: 30
 --- !u!212 &5739524043030434251
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -130,10 +130,10 @@ PolygonCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 10.94}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.14}
     oldSize: {x: 30.000002, y: 30.000002}
     newSize: {x: 30.000002, y: 30.000002}
     adaptiveTilingThreshold: 0.5

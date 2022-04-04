@@ -512,6 +512,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 903353930}
     m_Modifications:
+    - target: {fileID: 321216812906052936, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: m_Size.x
+      value: 7.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 321216812906052936, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: m_Size.y
+      value: 2.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 321216812906052936, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 321216812906052936, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: m_Offset.y
+      value: 1.07
+      objectReference: {fileID: 0}
     - target: {fileID: 910660611469145477, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -533,8 +549,16 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 910660611469145479, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: _bridgeJumpStrength
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 910660611469145479, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
       propertyPath: dodoAccelerationSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 910660611469145479, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: _dodoBridgeWalkOffSpeed
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 6344460091223780589, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
       propertyPath: m_RootOrder
@@ -659,6 +683,18 @@ PrefabInstance:
       propertyPath: debug
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5796905304614065710, guid: 1f8aba01eedde45d3b6fe2762a768757, type: 3}
+      propertyPath: largeHazards.Array.data[0]
+      value: 
+      objectReference: {fileID: 8855985278181753037, guid: fa643a549e8ef4dd9a77ab193aeb208f, type: 3}
+    - target: {fileID: -5796905304614065710, guid: 1f8aba01eedde45d3b6fe2762a768757, type: 3}
+      propertyPath: largeHazards.Array.data[1]
+      value: 
+      objectReference: {fileID: 8855985278181753037, guid: fa643a549e8ef4dd9a77ab193aeb208f, type: 3}
+    - target: {fileID: -5796905304614065710, guid: 1f8aba01eedde45d3b6fe2762a768757, type: 3}
+      propertyPath: largeHazards.Array.data[2]
+      value: 
+      objectReference: {fileID: 8855985278181753037, guid: fa643a549e8ef4dd9a77ab193aeb208f, type: 3}
     - target: {fileID: 3226795110749629906, guid: 1f8aba01eedde45d3b6fe2762a768757, type: 3}
       propertyPath: m_Name
       value: ObstacleController
@@ -845,7 +881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 705115901464240670, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
       propertyPath: largeGroundSpawnChance
-      value: 0.25
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 705115901464240670, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
       propertyPath: largeGroundObjectToSpawn
