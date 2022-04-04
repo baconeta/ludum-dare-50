@@ -468,6 +468,13 @@ public class Dodo : MonoBehaviour
     {
         // reset his current position back to his original position
         transform.position = _originTransform.position;
+        _anim.SetFloat(DodoSpeed, 0f);
+        _anim.SetBool(DodoOnBridge, false);
+        _isEating = false;
+        _isInMud = false;
+        _currentDodoAcceleration = 0f;
+        _currentBehaviour = 1;
+        _behaviourTimer = 0f;
         _isGameRunning = true;
     }
 
