@@ -5,14 +5,27 @@ using UnityEngine;
 
 public class PlayerScrubbable : PlayerClickable
 {
+    protected SpriteRenderer spriteRenderer;
+    protected Collider2D collider;
+    protected Animator animator;
+
     protected float scrubAmountRequired;
     private float currentScrubAmount = 0;
     private Vector3 previousMouseLocation;
     private Vector3 mouseLocation;
-    protected override void OnMouseDown()
+    protected Sprite scrubbedSprite;
+
+    protected override void Start()
+    {
+        base.Start();
+        spriteRenderer = FindObjectOfType<SpriteRenderer>();
+        collider = FindObjectOfType<Collider2D>();
+        animator = FindObjectOfType<Animator>();
+    }
+
+    protected override void OnMouseDown() 
     {
         base.OnMouseDown();
-       
     }
 
     protected void OnMouseDrag()
@@ -24,7 +37,9 @@ public class PlayerScrubbable : PlayerClickable
         Debug.Log(currentScrubAmount);
         if (currentScrubAmount > scrubAmountRequired)
         {
-            Destroy(this.gameObject);
+            spriteRenderer.sprite = scrubbedSprite;
+            collider.enabled = false;
+            animator.enabled = false;
         }
     }
     
