@@ -17,8 +17,8 @@ public class Dodo : MonoBehaviour
 
     private StatsController statsController;
 
-    [SerializeField] Vector3 dodoForwardVector = new Vector3(1f, -.5f);
-    [SerializeField] Vector3 dodoLeftVector = new Vector3(1f, 0.5f);
+    [SerializeField] private Vector3 dodoForwardVector = new Vector3(1f, -.5f);
+    [SerializeField] private Vector3 dodoLeftVector = new Vector3(1f, 0.5f);
 
     //Speed and Acceleration
     [SerializeField] private float dodoSpeed;
@@ -354,10 +354,12 @@ public class Dodo : MonoBehaviour
         //if CrossProduct is > 0, move towards mountains
         if (smellCrossProduct > 0 && _currentBehaviour != 3)
         {
+            focusedObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
             ChangeMovementBehaviour(3);
         }
         else if (smellCrossProduct < 0 && _currentBehaviour != 2) //Move towards cliff
         {
+            focusedObject.GetComponent<SpriteRenderer>().sortingOrder = 4;
             ChangeMovementBehaviour(2);
         }
     }
@@ -369,18 +371,21 @@ public class Dodo : MonoBehaviour
 
         distanceTofocusedObject = Vector3.Distance(transform.position, focusedObject.transform.position);
 
-        //If Focus/Left CrossProduct is < 0 then dodo has passed focus AND out of eatRange
-        if (Vector3.Cross(directionOfFocus.normalized, dodoLeftVector.normalized).z > 0 && distanceTofocusedObject > eatRange)
+        //If Focus/Left CrossProduct is < 0 then dodo has passed focus
+        if (Vector3.Cross(directionOfFocus.normalized, dodoLeftVector.normalized).z > 0)
         {
-            //Dodo is not interacting with object
-            focusedObject.GetComponent<PlayerInteractable>().DodoInteract(false);
-            focusedObject = null;
+            if (distanceTofocusedObject > eatRange)
+            {
+                //Dodo is not focusing object
+                focusedObject.GetComponent<PlayerInteractable>().DodoInteract(false);
+                focusedObject = null;
+            }
         }
         else if (!_isEating)
         {
+            
             if (distanceTofocusedObject < eatRange) // Then Feast!!!!
             {
-
                 setEatingStatus(true);
                 _wc.setWorldSpeedPercentage(0);
                 GetComponentInChildren<DodoEat>().EatMelon();
