@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Props
 {
     public class DodoBait : PlayerDraggable
