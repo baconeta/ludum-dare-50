@@ -391,6 +391,7 @@ public class Dodo : MonoBehaviour
         _wc.setWorldSpeedPercentage(0f);
         GameController gc = FindObjectOfType<GameController>();
         gc.gameRunning = false;
+        _isGameRunning = false;
         gc.EndGame(2f);
     }
 
