@@ -86,6 +86,8 @@ namespace Props
         // Update is called once per frame
         protected override void Update()
         {
+            if (transform.position.x < 0)
+                Destroy(gameObject);
             // If the player is clicking on the object.
             if (IsPlayerInteracting)
             {
@@ -101,7 +103,6 @@ namespace Props
             {
                 if (_isFallingFromMountain && getCrossProduct("mountain") < 0)
                 {
-                    
                     _isFallingFromMountain = false;
                     Destroy(gameObject.GetComponent<Rigidbody2D>());
                 }
