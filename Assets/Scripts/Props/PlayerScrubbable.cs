@@ -15,7 +15,7 @@ public class PlayerScrubbable : PlayerClickable
     private Vector3 mouseLocation;
     protected Sprite scrubbedSprite;
     protected bool scrubbed = false;
-    [SerializeField] private float minimumShakeThreshold = 0.08f;
+    [SerializeField] private float minimumShakeThreshold;
     private bool shaking = false;
 
     protected override void Start()
