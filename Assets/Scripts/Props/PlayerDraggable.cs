@@ -102,7 +102,6 @@ namespace Props
             // If the player is clicking on the object.
             if (IsPlayerInteracting)
             {
-                sr.sortingOrder = 4;
                 // when you click and hold down, it follows the mouse cursor, and then drops on release.
                 Vector3 mousePos = ConvertMouseToWorldPosition(Input.mousePosition);
                 Vector3 loc = transform.position;
@@ -112,20 +111,34 @@ namespace Props
             }
             else
             {
-                _distanceToDodo = Vector3.Distance(_dodoObject.transform.position, transform.position);
-                if (_distanceToDodo < _rangeToCheckCrossProduct)
+                bool shouldCheckCross = true;
+                if (GetComponent<HeavyLift>())
                 {
-                    _directionFromDodo = _dodoObject.transform.position - transform.position;
-                    dodoCrossProduct = Vector3.Cross(_directionFromDodo.normalized, _dodoForwardVector.normalized).z;
-                    if (dodoCrossProduct > 0)
+                    if (GetComponent<HeavyLift>().isRockLifted())
                     {
-                        sr.sortingOrder = 2;
-                    }
-                    else
-                    {
+                        shouldCheckCross = false;
                         sr.sortingOrder = 4;
                     }
                 }
+                if (shouldCheckCross)
+                {
+                    _distanceToDodo = Vector3.Distance(_dodoObject.transform.position, transform.position);
+                    if (_distanceToDodo < _rangeToCheckCrossProduct)
+                    {
+                        _directionFromDodo = _dodoObject.transform.position - transform.position;
+                        dodoCrossProduct = Vector3.Cross(_directionFromDodo.normalized, _dodoForwardVector.normalized).z;
+                        if (dodoCrossProduct > 0)
+                        {
+                            sr.sortingOrder = 2;
+                        }
+                        else
+                        {
+                            sr.sortingOrder = 4;
+                        }
+                        Debug.Log(sr.sortingOrder);
+                    } 
+                }
+                
             }
             if (gameObject.GetComponent<Rigidbody2D>())
             {
