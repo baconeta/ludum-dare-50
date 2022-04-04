@@ -103,7 +103,7 @@ public class Dodo : MonoBehaviour
         if (_isOnBridge)
         {
             Vector3 bridgeStartPos = _BridgeObjectDodoIsOn.transform.GetChild(0).position;
-            Vector3 bridgeMidPos = _BridgeObjectDodoIsOn.transform.GetChild(0).position;
+            Vector3 bridgeMidPos = _BridgeObjectDodoIsOn.transform.GetChild(1).position;
             Vector3 bridgeEndPos = _BridgeObjectDodoIsOn.transform.GetChild(2).position;
             float t = Time.time % 1;
             Vector3 bezierPoint1 = Mathf.Pow(1 - t, 2) * bridgeStartPos;
@@ -111,7 +111,7 @@ public class Dodo : MonoBehaviour
             Vector3 bezierPoint3 = Mathf.Pow(t, 2) * bridgeEndPos;
             Vector3 myBezier = bezierPoint1 + bezierPoint2 + bezierPoint3;
             Debug.Log(myBezier);
-            Debug.DrawLine(myBezier, myBezier, Color.red, 5);
+            Debug.DrawLine(myBezier, myBezier + myBezier * 0.01f, Color.red, 5);
             return;
         }
 
