@@ -6,9 +6,8 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-
     [SerializeField] public bool isInvincible;
-    public bool gameRunning { get; private set; }
+    public bool gameRunning { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -28,12 +27,18 @@ public class GameController : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void EndGame()
-    {;
+    public void EndGame(float delay = 0f)
+    {
+        ;
         if (!isInvincible)
         {
-            BroadcastMessage("onGameEnd");
-            gameRunning = false;
+            Invoke(nameof(BroadcastGameover), delay);
         }
+    }
+
+    private void BroadcastGameover()
+    {
+        BroadcastMessage("onGameEnd");
+        gameRunning = false;
     }
 }
