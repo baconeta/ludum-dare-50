@@ -76,6 +76,8 @@ public class Dodo : MonoBehaviour
     [SerializeField] private float _bridgeJumpStrength;
     [Tooltip("The speed at which dodo moves downwards after passing halfway on the log.")]
     [SerializeField] private float _dodoBridgeWalkOffSpeed;
+    [Tooltip("The speed at which dodo moves upwards before passing halfway on the log.")]
+    [SerializeField] private float _dodoBridgeWalkOnSpeed;
 
     //Animation
     private Animator _anim;
@@ -132,11 +134,11 @@ public class Dodo : MonoBehaviour
         //Check if Dodo is past halfway on the plank
         if (transform.position.x < bridgeMidPos.x) //Is not over halfway
         {
-            transform.position += _sideVector3;
+            transform.position += _sideVector3 * _dodoBridgeWalkOnSpeed;
         }
         else //Dodo is over halfway
         {
-            transform.position -= _sideVector3 / _dodoBridgeWalkOffSpeed;
+            transform.position -= _sideVector3 * _dodoBridgeWalkOffSpeed;
         }
 
         if (transform.position.x > bridgeEndPos.x)
