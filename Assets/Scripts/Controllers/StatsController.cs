@@ -13,7 +13,7 @@ namespace Controllers
         public List<float> RawTimes { get; private set; }
     
         public int deaths { get; private set; }
-        public int eatenFoods { get; private set; }
+        public int foodsEaten { get; private set; }
         public int objectsSmashed { get; private set; }
         public int bridgesCrossed { get; private set; }
         public int bouldersBumped { get; private set; }
@@ -29,6 +29,12 @@ namespace Controllers
             RawTimes.Add(PlayerPrefs.GetFloat("BestTime5"));
             FormattedTimes = new List<string>();
             RepopulateFormattedTimes();
+
+            deaths = PlayerPrefs.GetInt("TotalDeaths");
+            foodsEaten = PlayerPrefs.GetInt("TotalFoodsEaten");
+            objectsSmashed = PlayerPrefs.GetInt("TotalObjectsSmashed");
+            bridgesCrossed = PlayerPrefs.GetInt("TotalBridgesCrossed");
+            bouldersBumped = PlayerPrefs.GetInt("TotalBouldersBumped");
         }
 
         private void Update()
@@ -56,6 +62,13 @@ namespace Controllers
             RawTimes.Add(time);
             SaveBestTimes();
             RepopulateFormattedTimes();
+
+            PlayerPrefs.SetInt("TotalDeaths", deaths);
+            PlayerPrefs.SetInt("TotalFoodsEaten", foodsEaten);
+            PlayerPrefs.SetInt("TotalObjectsSmashed", objectsSmashed);
+            PlayerPrefs.SetInt("TotalBridgesCrossed", bridgesCrossed);
+            PlayerPrefs.SetInt("TotalBouldersBumped", bouldersBumped);
+            PlayerPrefs.Save();
         }
 
         private void SaveBestTimes()
@@ -90,7 +103,7 @@ namespace Controllers
 
         public void IncrementFoodEaten()
         {
-            eatenFoods++;
+            foodsEaten++;
         }
 
         public void IncrementObjectsSmashed()
