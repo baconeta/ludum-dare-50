@@ -250,8 +250,8 @@ GameObject:
   - component: {fileID: 6102199197974787304}
   - component: {fileID: 6102199197974787307}
   - component: {fileID: 6102199197974787305}
-  - component: {fileID: 6872853301279111260}
   - component: {fileID: -5505904398498373190}
+  - component: {fileID: 6663423283001490470}
   m_Layer: 0
   m_Name: Dodo
   m_TagString: Dodo
@@ -343,6 +343,7 @@ MonoBehaviour:
   dodoLeftVector: {x: 1, y: 0.5, z: 0}
   dodoSpeed: 2
   dodoAccelerationSpeed: 2
+  dodoOnLogSpeed: 0.3
   sniffRange: 25
   focusedObject: {fileID: 0}
   dodoPostEatAcceleration: 0.005
@@ -352,32 +353,6 @@ MonoBehaviour:
   _wobbleFrequency: 1
   _cliffBound: {fileID: 0}
   _mountainBound: {fileID: 0}
---- !u!61 &6872853301279111260
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6102199197974787306}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 3.5, y: 1.75}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.2, y: 0.1}
-    oldSize: {x: 11.98, y: 16.8}
-    newSize: {x: 1, y: 0.5}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 12, y: 4.75}
-  m_EdgeRadius: 0
 --- !u!50 &-5505904398498373190
 Rigidbody2D:
   serializedVersion: 4
@@ -399,6 +374,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!70 &6663423283001490470
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6102199197974787306}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 2.9, y: 0.22}
+  m_Size: {x: 6.3, y: 3.66}
+  m_Direction: 1
 --- !u!1 &8237389179590632347
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,4 +471,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 50

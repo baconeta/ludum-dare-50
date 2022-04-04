@@ -134,6 +134,11 @@ public class Dodo : MonoBehaviour
         {
             transform.position -= _sideVector3 / 2;
         }
+
+        if (transform.position.x > bridgeEndPos.x)
+        {
+            DismountBridge(_BridgeObjectDodoIsOn.GetComponent<Collider2D>());
+        }
         
 
     }
@@ -273,7 +278,7 @@ public class Dodo : MonoBehaviour
         switch (col.tag)
         {
             case "Bridge":
-                DismountBridge(col);
+                //DismountBridge(col);
                 break;
         }
     }
@@ -288,6 +293,7 @@ public class Dodo : MonoBehaviour
 
     private void MountBridge(Collider2D col)
     {
+        BridgeJump();
         _BridgeObjectDodoIsOn = col.gameObject;
         _wc.setWorldSpeedPercentage(dodoOnLogSpeed);
         _isOnBridge = true;
@@ -297,10 +303,23 @@ public class Dodo : MonoBehaviour
 
     private void DismountBridge(Collider2D col)
     {
+        BridgeJump(true);
         statsController.IncrementBridgesCrossed();
         _isOnBridge = false;
         _BridgeObjectDodoIsOn.GetComponent<PlayerInteractable>().DodoInteract(false);
         _anim.SetBool(DodoOnBridge, false);
+    }
+
+    private void BridgeJump(bool jumpOff = false)
+    {
+        if (jumpOff)
+        {
+            transform.position -= Vector3.up / 10;
+        }
+        else
+        {
+            transform.position += Vector3.up / 10;
+        }
     }
 
     void DamagePlayer(string source)
