@@ -92,6 +92,7 @@ public class Dodo : MonoBehaviour
     private static readonly int DodoSpeed = Animator.StringToHash("dodoSpeed");
     private static readonly int DodoOnBridge = Animator.StringToHash("isOnBridge");
     private static readonly int DodoEating = Animator.StringToHash("isEating");
+    private static readonly int DeadDodo = Animator.StringToHash("deadDodo");
 
     // Start is called before the first frame update
     private void Start()
@@ -138,7 +139,6 @@ public class Dodo : MonoBehaviour
         float currentDodoSpeed = _wc.getWorldSpeed();
         _anim.SetBool(DodoEating, false);
         _anim.SetFloat(DodoSpeed, currentDodoSpeed);
-        
     }
 
     //Ensures dodo walks over the plank
@@ -384,7 +384,15 @@ public class Dodo : MonoBehaviour
     void DamagePlayer(string source)
     {
         Debug.Log($"You took damage from {source} and died");
-        FindObjectOfType<GameController>().EndGame();
+        _anim.SetFloat(DodoSpeed, 0f);
+        _anim.SetBool(DodoOnBridge, false);
+        _anim.SetBool(DodoEating, false);
+        _anim.SetBool(DeadDodo, true);
+        _wc.setWorldSpeedPercentage(0f);
+        GameController gc = FindObjectOfType<GameController>();
+        gc.gameRunning = false;
+        _isGameRunning = false;
+        gc.EndGame(2f);
     }
 
     void MoveTowardsSmellable()
@@ -473,9 +481,6 @@ public class Dodo : MonoBehaviour
     {
         // reset his current position back to his original position
         transform.position = _originTransform.position;
-        _anim.SetFloat(DodoSpeed, 0f);
-        _anim.SetBool(DodoOnBridge, false);
-        _anim.SetBool(DodoEating, false);
         _isEating = false;
         _isInMud = false;
         _currentDodoAcceleration = 0f;
