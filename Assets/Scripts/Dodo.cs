@@ -26,6 +26,7 @@ public class Dodo : MonoBehaviour
     [SerializeField] private float dodoAccelerationSpeed;
     private float dodoDefaultSpeed;
     [SerializeField] private float dodoOnLogSpeed = 0.3f;
+    [SerializeField] private float dodoInMudSpeed = 0.5f;
     private float _currentDodoAcceleration;
 
     //Sniff
@@ -280,12 +281,12 @@ public class Dodo : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D col)
+    private void OnTriggerStay2D(Collider2D col)
     {
         switch (col.tag)
         {
-            case "Bridge":
-                //Dismount now occurs in movement
+            case "BypassableHazard":
+                WhileInBypassableHazard(col);
                 break;
         }
     }
@@ -302,10 +303,24 @@ public class Dodo : MonoBehaviour
                 DamagePlayer(col.name);
                 break;
             case Effect.Slow:
-                Debug.Log("slooow doooooown");
+                _wc.setWorldSpeedPercentage(dodoInMudSpeed);
                 break;
             default:
                 throw new Exception($"{nameof(Dodo)}.{nameof(HitBypassableHazard)} doesn't handle {effect}");
+        }
+    }
+
+    private void WhileInBypassableHazard(Collider2D col)
+    {
+        if (_isOnBridge)
+            return;
+
+        var effect = col.GetComponent<BypassableHazard>().collisionEffect;
+        switch (effect)
+        {
+            case Effect.Slow:
+                _wc.setWorldSpeedPercentage(dodoInMudSpeed);
+                break;
         }
     }
 
