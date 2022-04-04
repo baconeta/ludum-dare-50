@@ -512,6 +512,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 903353930}
     m_Modifications:
+    - target: {fileID: 321216812906052936, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: m_Size.x
+      value: 7.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 321216812906052936, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: m_Size.y
+      value: 2.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 321216812906052936, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 321216812906052936, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: m_Offset.y
+      value: 1.07
+      objectReference: {fileID: 0}
     - target: {fileID: 910660611469145477, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -533,8 +549,16 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 910660611469145479, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: _bridgeJumpStrength
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 910660611469145479, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
       propertyPath: dodoAccelerationSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 910660611469145479, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: _dodoBridgeWalkOffSpeed
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 6344460091223780589, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
       propertyPath: m_RootOrder

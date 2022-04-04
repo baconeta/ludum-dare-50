@@ -72,7 +72,10 @@ public class Dodo : MonoBehaviour
     //Bridges
     private bool _isOnBridge;
     private GameObject _BridgeObjectDodoIsOn;
+    [Tooltip("The height that the dodo snaps up when getting on the log. Typically < 0.5")]
     [SerializeField] private float _bridgeJumpStrength;
+    [Tooltip("The speed at which dodo moves downwards after passing halfway on the log.")]
+    [SerializeField] private float _dodoBridgeWalkOffSpeed;
 
     //Animation
     private Animator _anim;
@@ -133,7 +136,7 @@ public class Dodo : MonoBehaviour
         }
         else //Dodo is over halfway
         {
-            transform.position -= _sideVector3 / 2;
+            transform.position -= _sideVector3 / _dodoBridgeWalkOffSpeed;
         }
 
         if (transform.position.x > bridgeEndPos.x)
@@ -280,7 +283,7 @@ public class Dodo : MonoBehaviour
         switch (col.tag)
         {
             case "Bridge":
-                //DismountBridge(col);
+                //Dismount now occurs in movement
                 break;
         }
     }
