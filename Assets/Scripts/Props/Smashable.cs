@@ -34,11 +34,11 @@ namespace Props
             if (!shaking)
             {
                 shaking = true;
-                transform.Rotate(0, 0, 10);
+                transform.Rotate(0, 0, 8);
                 yield return new WaitForSeconds(0.05F);
-                transform.Rotate(0, 0, -20);
+                transform.Rotate(0, 0, -16);
                 yield return new WaitForSeconds(0.0F);
-                transform.Rotate(0, 0, 10);
+                transform.Rotate(0, 0, 8);
                 shaking = false;
             }
         }
