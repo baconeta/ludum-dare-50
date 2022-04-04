@@ -13,10 +13,10 @@ namespace Controllers
         public List<float> RawTimes { get; private set; }
     
         public int deaths { get; private set; }
-        public int foodsEaten { get; private set; }
-        public int objectsSmashed { get; private set; }
-        public int bridgesCrossed { get; private set; }
-        public int bouldersBumped { get; private set; }
+        public int melonsMunched { get; private set; }
+        public int sabersSlain { get; private set; }
+        public int trunksTraversed { get; private set; }
+        public int firesFoiled { get; private set; }
 
         private void Start()
         {
@@ -35,11 +35,11 @@ namespace Controllers
             FormattedTimes = new List<string>();
             RepopulateFormattedTimes();
 
-            deaths = PlayerPrefs.GetInt("TotalDeaths");
-            foodsEaten = PlayerPrefs.GetInt("TotalFoodsEaten");
-            objectsSmashed = PlayerPrefs.GetInt("TotalObjectsSmashed");
-            bridgesCrossed = PlayerPrefs.GetInt("TotalBridgesCrossed");
-            bouldersBumped = PlayerPrefs.GetInt("TotalBouldersBumped");
+            deaths = PlayerPrefs.GetInt("TotalDodoDeaths");
+            melonsMunched = PlayerPrefs.GetInt("TotalMelonsMunched");
+            sabersSlain = PlayerPrefs.GetInt("TotalSabersSlain");
+            trunksTraversed = PlayerPrefs.GetInt("TotalTrunksTraversed");
+            firesFoiled = PlayerPrefs.GetInt("TotalFiresFoiled");
         }
 
         private void Update()
@@ -76,11 +76,11 @@ namespace Controllers
 
                 deaths++;
 
-                PlayerPrefs.SetInt("TotalDeaths", deaths);
-                PlayerPrefs.SetInt("TotalFoodsEaten", foodsEaten);
-                PlayerPrefs.SetInt("TotalObjectsSmashed", objectsSmashed);
-                PlayerPrefs.SetInt("TotalBridgesCrossed", bridgesCrossed);
-                PlayerPrefs.SetInt("TotalBouldersBumped", bouldersBumped);
+                PlayerPrefs.SetInt("TotalDodoDeaths", deaths);
+                PlayerPrefs.SetInt("TotalMelonsMunched", melonsMunched);
+                PlayerPrefs.SetInt("TotalSabersSlain", sabersSlain);
+                PlayerPrefs.SetInt("TotalTrunksTraversed", trunksTraversed);
+                PlayerPrefs.SetInt("TotalFiresFoiled", firesFoiled);
                 PlayerPrefs.Save();
             }
         }
@@ -111,25 +111,24 @@ namespace Controllers
             return minutes.ToString ("00") + ":" + seconds.ToString ("00") + ":" + milliseconds.ToString("00");
         }
 
-        public void IncrementFoodEaten()
+        public void IncrementMelonsMunched()
         {
-            foodsEaten++;
+            melonsMunched += 1;
         }
 
-        public void IncrementObjectsSmashed()
+        public void IncrementSabersSlain()
         {
-            objectsSmashed++;
+            sabersSlain += 1;
         }
 
-        public void IncrementBridgesCrossed()
+        public void IncrementTrunksTraversed()
         {
-            bridgesCrossed++;
+            trunksTraversed += 1;
         }
 
-        // TODO Needs to be linked-up.
-        public void IncrementBouldersBumped()
+        public void IncrementFiresFoiled()
         {
-            bouldersBumped++;
+            firesFoiled++;
         }
     }
 }
