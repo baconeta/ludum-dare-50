@@ -385,6 +385,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 910660611469145479, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: dodoInMudSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 910660611469145479, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
       propertyPath: _bridgeJumpStrength
       value: 0.2
       objectReference: {fileID: 0}
@@ -443,6 +447,14 @@ PrefabInstance:
     - target: {fileID: 6344460091223780590, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
       propertyPath: m_Name
       value: DodoController
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344460091618131811, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: _eatSpeedMax
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344460091618131811, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
+      propertyPath: _eatSpeedMin
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
