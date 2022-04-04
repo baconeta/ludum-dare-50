@@ -1,4 +1,5 @@
 using Controllers;
+using Props;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -33,6 +34,14 @@ namespace Ground
 
         private void Die()
         {
+            PlayerDraggable[] playerDraggableArray = gameObject.GetComponentsInChildren<PlayerDraggable>();
+            Transform obstacleController = FindObjectOfType<ObstacleController>().transform;
+            foreach (PlayerDraggable playerDraggable in playerDraggableArray)
+            {
+                playerDraggable.gameObject.AddComponent<GroundMovement>();
+                playerDraggable.gameObject.transform.parent = obstacleController;
+                
+            }
             Destroy(gameObject);
         }
     }
