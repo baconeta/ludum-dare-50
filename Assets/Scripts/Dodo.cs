@@ -480,6 +480,7 @@ public class Dodo : MonoBehaviour
     public void onGameReset()
     {
         // reset his current position back to his original position
+        _anim.SetBool(DeadDodo, false);
         transform.position = _originTransform.position;
         _isEating = false;
         _isInMud = false;
@@ -487,6 +488,7 @@ public class Dodo : MonoBehaviour
         _currentBehaviour = 1;
         _behaviourTimer = 0f;
         _isGameRunning = true;
+        
     }
 
     public void onGameEnd()
