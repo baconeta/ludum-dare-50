@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bypassObject: {fileID: 8855985278181753037, guid: 961258da4ab0c46448cb1c388576741a, type: 3}
+  collisionEffect: 0
 --- !u!60 &5999260354557069852
 PolygonCollider2D:
   m_ObjectHideFlags: 0
