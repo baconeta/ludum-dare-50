@@ -49,11 +49,11 @@ namespace Controllers
             scores.Sort();
         }
 
-        public string GetFormattedTime()
+        public string FormatTime(float t)
         {
-            int minutes = Mathf.FloorToInt(time / 60F);
-            int seconds = Mathf.FloorToInt(time % 60F);
-            int milliseconds = Mathf.FloorToInt((time * 100F) % 100F);
+            int minutes = Mathf.FloorToInt(t / 60F);
+            int seconds = Mathf.FloorToInt(t % 60F);
+            int milliseconds = Mathf.FloorToInt((t * 100F) % 100F);
             return minutes.ToString ("00") + ":" + seconds.ToString ("00") + ":" + milliseconds.ToString("00");
         }
 
