@@ -72,12 +72,10 @@ namespace Props
                     edgePoint = _worldController.transform.GetChild(4).position;
                     directionOfObject = transform.position - edgePoint;
                     return Vector3.Cross(edgeVector.normalized, directionOfObject.normalized).z;
-                    break;
                 case "mountain":
                     edgePoint = _worldController.transform.GetChild(5).position;
                     directionOfObject = transform.position - edgePoint;
                     return Vector3.Cross(edgeVector.normalized, directionOfObject.normalized).z;
-                    break;
             }
             return 0;
 
