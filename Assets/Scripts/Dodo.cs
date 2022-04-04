@@ -123,24 +123,18 @@ public class Dodo : MonoBehaviour
         Vector3 bridgeStartPos = _BridgeObjectDodoIsOn.transform.GetChild(0).position;
         Vector3 bridgeMidPos = _BridgeObjectDodoIsOn.transform.GetChild(1).position;
         Vector3 bridgeEndPos = _BridgeObjectDodoIsOn.transform.GetChild(2).position;
-        Vector3 newVector;
+        
         
         //Check if Dodo is past halfway on the plank
         if (transform.position.x < bridgeMidPos.x) //Is not over halfway
         {
-            //Move along _sideVector3 at constant value
-            
             transform.position += _sideVector3;
-            
         }
         else //Dodo is over halfway
         {
-            newVector = new Vector3(
-                Mathf.Clamp(_sideVector3.x / 100, bridgeMidPos.x, bridgeEndPos.x),
-                Mathf.Clamp(_sideVector3.x / 100, bridgeEndPos.y, bridgeMidPos.y),
-                _sideVector3.z);
-            transform.position -= _sideVector3;
+            transform.position -= _sideVector3 / 2;
         }
+        
 
     }
 
@@ -299,7 +293,6 @@ public class Dodo : MonoBehaviour
         _isOnBridge = true;
         _BridgeObjectDodoIsOn.GetComponent<PlayerInteractable>().DodoInteract(true);
         _anim.SetBool(DodoOnBridge, true);
-        //StartCoroutine(WalkOverBridge());
     }
 
     private void DismountBridge(Collider2D col)
@@ -307,7 +300,7 @@ public class Dodo : MonoBehaviour
         statsController.IncrementBridgesCrossed();
         _isOnBridge = false;
         _BridgeObjectDodoIsOn.GetComponent<PlayerInteractable>().DodoInteract(false);
-        _anim.SetBool(DodoOnBridge, true);
+        _anim.SetBool(DodoOnBridge, false);
     }
 
     void DamagePlayer(string source)
