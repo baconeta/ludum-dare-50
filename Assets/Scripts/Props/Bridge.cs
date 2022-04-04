@@ -13,15 +13,10 @@ namespace Props
             // Left just for LD speed.
         }
 
-        protected override void OnMouseUp()
+        protected override void OnObjectLanded()
         {
             // Play wooden thud
-            if (!_audioSource.isPlaying)
-            {
-                _audioSource.Play();
-            }
-
-            base.OnMouseUp();
+            _audioSource.Play();
         }
     }
 }

@@ -39,6 +39,10 @@ namespace Props
             checkFallFromMountain();
         }
 
+        protected virtual void OnObjectLanded()
+        {
+        }
+
         private void checkFallFromMountain()
         {
             float _mountainEdgeCrossProduct = getCrossProduct("mountain");
@@ -101,6 +105,7 @@ namespace Props
                 {
                     _isFallingFromMountain = false;
                     Destroy(gameObject.GetComponent<Rigidbody2D>());
+                    OnObjectLanded();
                 }
             }
             
