@@ -18,7 +18,7 @@ namespace Props
             durability--;
             if (durability == 0) {
                 // TODO Swap to a death state instead of destroying the object.
-                _statsController.IncrementObjectsSmashed();
+                _statsController.IncrementSabersSlain();
                 Destroy(this.gameObject);
             }
         }

@@ -14,17 +14,15 @@ namespace Controllers
         [SerializeField] private Text Highscore5;
         [SerializeField] private Text TotalBanner;
         [SerializeField] private Text TotalDodoDeaths;
-        [SerializeField] private Text TotalFoodsEaten;
-        [SerializeField] private Text TotalObjectsSmashed;
-        [SerializeField] private Text TotalBridgesCrossed;
-        [SerializeField] private Text TotalBouldersBumped;
-
+        [SerializeField] private Text TotalMelonsMunched;
+        [SerializeField] private Text TotalFiresFoiled;
+        [SerializeField] private Text TotalTrunksTraversed;
+        [SerializeField] private Text TotalSabersSlain;
         private StatsController _statsController;
         private Canvas _canvas;
 
         private void Start()
         {
-            _statsController = FindObjectOfType<StatsController>();
             _canvas = GetComponent<Canvas>();
             hideEndGameScreen();
         }
@@ -36,6 +34,7 @@ namespace Controllers
 
         public void onGameEnd()
         {
+            _statsController = FindObjectOfType<StatsController>();
             showEndGameScreen();
         }
 
@@ -48,11 +47,10 @@ namespace Controllers
             Highscore4.text = _statsController.FormattedTimes[3];
             Highscore5.text = _statsController.FormattedTimes[4];
             TotalDodoDeaths.text = "Dodo Deaths: " + _statsController.deaths;
-            TotalFoodsEaten.text = "Snacks Eaten: " + _statsController.foodsEaten;
-            TotalObjectsSmashed.text = "Things Smashed: " + _statsController.objectsSmashed;
-            TotalBridgesCrossed.text = "Bridges Crossed: " + _statsController.bridgesCrossed;
-            TotalBouldersBumped.text = "Boulders Bumped: " + _statsController.bouldersBumped;
-                
+            TotalMelonsMunched.text = "Melons Munched: " + _statsController.melonsMunched;
+            TotalSabersSlain.text = "Sabers Slain: " + _statsController.sabersSlain;
+            TotalTrunksTraversed.text = "Trunks Traversed: " + _statsController.trunksTraversed;
+            TotalFiresFoiled.text = "Fires Foiled: " + _statsController.firesFoiled;
         }
 
         public void hideEndGameScreen()

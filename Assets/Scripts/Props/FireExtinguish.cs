@@ -46,6 +46,7 @@ public class FireExtinguish : PlayerScrubbable
     {
         base.HandleScrub();
         _audioSource.Stop();
+        _statsController.IncrementFiresFoiled();
     }
 
 }
