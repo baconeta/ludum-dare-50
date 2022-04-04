@@ -24,7 +24,6 @@ namespace Controllers
 
         private void Start()
         {
-            _statsController = FindObjectOfType<StatsController>();
             _canvas = GetComponent<Canvas>();
             hideEndGameScreen();
         }
@@ -36,6 +35,7 @@ namespace Controllers
 
         public void onGameEnd()
         {
+            _statsController = FindObjectOfType<StatsController>();
             showEndGameScreen();
         }
 
@@ -52,7 +52,7 @@ namespace Controllers
             TotalObjectsSmashed.text = "Things Smashed: " + _statsController.objectsSmashed;
             TotalBridgesCrossed.text = "Bridges Crossed: " + _statsController.bridgesCrossed;
             TotalBouldersBumped.text = "Boulders Bumped: " + _statsController.bouldersBumped;
-                
+            
         }
 
         public void hideEndGameScreen()
