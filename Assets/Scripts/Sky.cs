@@ -21,7 +21,7 @@ public class Sky : MonoBehaviour
         collider = GetComponent <BoxCollider2D>();
         rb = GetComponent <Rigidbody2D>();
 
-        width = collider.size.x * transform.localScale.x;
+        width = collider.size.x * transform.localScale.x - 0.5f;
         collider.enabled = false;
 
         originalZ = transform.position.z;
