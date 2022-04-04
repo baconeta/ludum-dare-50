@@ -64,24 +64,25 @@ namespace Controllers
         public void onGameEnd()
         {
             if (_timerRunning) {
-            _timerRunning = false;
-            RawTimes.Add(time);
-            // Sort by largest-first.
-            RawTimes.Sort();
-            RawTimes.Reverse();
-            // Only keep the 5 best times.
-            RawTimes = RawTimes.GetRange(0, 5);
-            SaveBestTimes();
-            RepopulateFormattedTimes();
+                _timerRunning = false;
+                RawTimes.Add(time);
+                // Sort by largest-first.
+                RawTimes.Sort();
+                RawTimes.Reverse();
+                // Only keep the 5 best times.
+                RawTimes = RawTimes.GetRange(0, 5);
+                SaveBestTimes();
+                RepopulateFormattedTimes();
 
-            deaths++;
+                deaths++;
 
-            PlayerPrefs.SetInt("TotalDeaths", deaths);
-            PlayerPrefs.SetInt("TotalFoodsEaten", foodsEaten);
-            PlayerPrefs.SetInt("TotalObjectsSmashed", objectsSmashed);
-            PlayerPrefs.SetInt("TotalBridgesCrossed", bridgesCrossed);
-            PlayerPrefs.SetInt("TotalBouldersBumped", bouldersBumped);
-            PlayerPrefs.Save();
+                PlayerPrefs.SetInt("TotalDeaths", deaths);
+                PlayerPrefs.SetInt("TotalFoodsEaten", foodsEaten);
+                PlayerPrefs.SetInt("TotalObjectsSmashed", objectsSmashed);
+                PlayerPrefs.SetInt("TotalBridgesCrossed", bridgesCrossed);
+                PlayerPrefs.SetInt("TotalBouldersBumped", bouldersBumped);
+                PlayerPrefs.Save();
+            }
         }
 
         private void SaveBestTimes()
@@ -125,6 +126,7 @@ namespace Controllers
             bridgesCrossed++;
         }
 
+        // TODO Needs to be linked-up.
         public void IncrementBouldersBumped()
         {
             bouldersBumped++;
