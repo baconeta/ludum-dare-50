@@ -15,7 +15,7 @@ public class Dodo : MonoBehaviour
     [Tooltip("World Controller used in Scene")]
     [SerializeField] private WorldController _wc;
 
-    private StatsController statsController;
+    private StatsController _statsController;
 
     [SerializeField] private Vector3 dodoForwardVector = new Vector3(1f, -.5f);
     [SerializeField] private Vector3 dodoLeftVector = new Vector3(1f, 0.5f);
@@ -93,7 +93,7 @@ public class Dodo : MonoBehaviour
             throw new Exception("World Controller not set on Dodo Object!");
         }
 
-        statsController = FindObjectOfType<StatsController>();
+        _statsController = FindObjectOfType<StatsController>();
 
         dodoDefaultSpeed = dodoSpeed;
         dodoSniffer = GetComponentInChildren<SmellController>();
@@ -310,7 +310,7 @@ public class Dodo : MonoBehaviour
     private void DismountBridge(Collider2D col)
     {
         BridgeJump(true);
-        statsController.IncrementBridgesCrossed();
+        _statsController.IncrementTrunksTraversed();
         _isOnBridge = false;
         _BridgeObjectDodoIsOn.GetComponent<PlayerInteractable>().DodoInteract(false);
         _anim.SetBool(DodoOnBridge, false);
@@ -408,7 +408,7 @@ public class Dodo : MonoBehaviour
     {
         if (newIsEating is false)
         {
-            statsController.IncrementFoodEaten();
+            _statsController.IncrementMelonsMunched();
             focusedObject = null;
         }
 

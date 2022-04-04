@@ -34,7 +34,7 @@ public class PlayerScrubbable : PlayerClickable
         previousMouseLocation = mouseLocation;
         mouseLocation = ConvertMouseToWorldPosition(Input.mousePosition);
         currentScrubAmount += Vector3.Distance(mouseLocation, previousMouseLocation);
-        if (currentScrubAmount > scrubAmountRequired)
+        if (currentScrubAmount > scrubAmountRequired && !scrubbed)
         {
             HandleScrub();
         }
