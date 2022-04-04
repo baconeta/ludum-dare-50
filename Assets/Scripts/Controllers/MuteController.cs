@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,8 @@ namespace Controllers
         public Sprite unmutedImage;
         public Sprite mutedImage;
         private Toggle _isMuted;
+
+        [SerializeField] private Slider volumeSlider;
 
         private SpriteRenderer _spriteRenderer;
 
@@ -29,7 +32,7 @@ namespace Controllers
             else
             {
                 _spriteRenderer.sprite = unmutedImage;
-                AudioListener.volume = 1;
+                AudioListener.volume = volumeSlider.value;
             }
         }
     }
