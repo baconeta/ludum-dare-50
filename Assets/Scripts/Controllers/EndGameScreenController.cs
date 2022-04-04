@@ -48,7 +48,7 @@ namespace Controllers
             Highscore4.text = _statsController.FormattedTimes[3];
             Highscore5.text = _statsController.FormattedTimes[4];
             TotalDodoDeaths.text = "Dodo Deaths: " + _statsController.deaths;
-            TotalFoodsEaten.text = "Snacks Eaten: " + _statsController.eatenFoods;
+            TotalFoodsEaten.text = "Snacks Eaten: " + _statsController.foodsEaten;
             TotalObjectsSmashed.text = "Things Smashed: " + _statsController.objectsSmashed;
             TotalBridgesCrossed.text = "Bridges Crossed: " + _statsController.bridgesCrossed;
             TotalBouldersBumped.text = "Boulders Bumped: " + _statsController.bouldersBumped;

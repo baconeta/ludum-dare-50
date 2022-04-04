@@ -13,7 +13,7 @@ namespace Controllers
         public List<float> RawTimes { get; private set; }
     
         public int deaths { get; private set; }
-        public int eatenFoods { get; private set; }
+        public int foodsEaten { get; private set; }
         public int objectsSmashed { get; private set; }
         public int bridgesCrossed { get; private set; }
         public int bouldersBumped { get; private set; }
@@ -90,7 +90,7 @@ namespace Controllers
 
         public void IncrementFoodEaten()
         {
-            eatenFoods++;
+            foodsEaten++;
         }
 
         public void IncrementObjectsSmashed()
