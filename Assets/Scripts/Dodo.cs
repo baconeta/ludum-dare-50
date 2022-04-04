@@ -260,7 +260,6 @@ public class Dodo : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log(col);
         switch (col.tag)
         {
             case "DeathHazard":
