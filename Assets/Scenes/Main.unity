@@ -694,7 +694,11 @@ PrefabInstance:
     - target: {fileID: -5796905304614065710, guid: 1f8aba01eedde45d3b6fe2762a768757, type: 3}
       propertyPath: largeHazards.Array.data[2]
       value: 
-      objectReference: {fileID: 8855985278181753037, guid: fa643a549e8ef4dd9a77ab193aeb208f, type: 3}
+      objectReference: {fileID: 8855985278181753037, guid: 2a7f3d2d8af92499eb949cb2182c3aca, type: 3}
+    - target: {fileID: -5796905304614065710, guid: 1f8aba01eedde45d3b6fe2762a768757, type: 3}
+      propertyPath: largeHazards.Array.data[3]
+      value: 
+      objectReference: {fileID: 8855985278181753037, guid: e7e201e657313452f85b693eaf27f03b, type: 3}
     - target: {fileID: 3226795110749629906, guid: 1f8aba01eedde45d3b6fe2762a768757, type: 3}
       propertyPath: m_Name
       value: ObstacleController
@@ -881,7 +885,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 705115901464240670, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
       propertyPath: largeGroundSpawnChance
-      value: 1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 705115901464240670, guid: cdfa86695b29f4f4e92027e5d7552b46, type: 3}
       propertyPath: largeGroundObjectToSpawn
