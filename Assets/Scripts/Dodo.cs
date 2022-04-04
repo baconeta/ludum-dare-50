@@ -69,7 +69,7 @@ public class Dodo : MonoBehaviour
 
     //Bridges
     private bool _isOnBridge;
-    private GameObject _currentBridgeObject;
+    private GameObject _BridgeObjectDodoIsOn;
 
     //Animation
     private Animator _anim;
@@ -264,18 +264,19 @@ public class Dodo : MonoBehaviour
 
     private void MountBridge(Collider2D col)
     {
-        _currentBridgeObject = col.gameObject;
+        _BridgeObjectDodoIsOn = col.gameObject;
         _wc.setWorldSpeedPercentage(dodoOnLogSpeed);
         _isOnBridge = true;
-        _currentBridgeObject.GetComponent<PlayerInteractable>().DodoInteract(true);
+        _BridgeObjectDodoIsOn.GetComponent<PlayerInteractable>().DodoInteract(true);
         _anim.SetBool(DodoOnBridge, true);
+        StartCoroutine(WalkOverBridge());
     }
 
     private void DismountBridge(Collider2D col)
     {
         statsController.IncrementBridgesCrossed();
         _isOnBridge = false;
-        _currentBridgeObject.GetComponent<PlayerInteractable>().DodoInteract(false);
+        _BridgeObjectDodoIsOn.GetComponent<PlayerInteractable>().DodoInteract(false);
         _anim.SetBool(DodoOnBridge, true);
     }
 
@@ -359,6 +360,15 @@ public class Dodo : MonoBehaviour
     public bool isEating()
     {
         return _isEating;
+    }
+
+    //Changes transform to move on a curve over log
+    IEnumerator WalkOverBridge()
+    {
+        Transform currentBridge = _BridgeObjectDodoIsOn.transform;
+        Debug.DrawLine(currentBridge.position, currentBridge.position - currentBridge, Color.red, Mathf.Infinity);
+        Debug.Log((Vector3) currentBridge.GetComponent<SpriteRenderer>().size);
+        yield return new WaitForSeconds(1);
     }
 
 }
