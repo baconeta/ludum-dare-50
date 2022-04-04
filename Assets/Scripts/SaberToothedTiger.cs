@@ -61,4 +61,9 @@ public class SaberToothedTiger : Smashable
             transform.position += -_sideVector3 * sidewaysSpeed;
         }
     }
+
+    private void onGameEnd()
+    {
+        Destroy(this);
+    }
 }
