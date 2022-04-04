@@ -1,8 +1,12 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using Props;
 using Controllers;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.U2D;
 using Random = UnityEngine.Random;
 
 public class Dodo : MonoBehaviour
@@ -11,6 +15,7 @@ public class Dodo : MonoBehaviour
     [Tooltip("World Controller used in Scene")]
     [SerializeField] private WorldController _wc;
 
+    private StatsController statsController;
 
     [SerializeField] Vector3 dodoForwardVector = new Vector3(1f, -.5f);
     [SerializeField] Vector3 dodoLeftVector = new Vector3(1f, 0.5f);
@@ -66,6 +71,11 @@ public class Dodo : MonoBehaviour
 
     //Bridges
     private bool _isOnBridge;
+    private GameObject _BridgeObjectDodoIsOn;
+    [Tooltip("The height that the dodo snaps up when getting on the log. Typically < 0.5")]
+    [SerializeField] private float _bridgeJumpStrength;
+    [Tooltip("The speed at which dodo moves downwards after passing halfway on the log.")]
+    [SerializeField] private float _dodoBridgeWalkOffSpeed;
 
     //Animation
     private Animator _anim;
@@ -81,6 +91,8 @@ public class Dodo : MonoBehaviour
             throw new Exception("World Controller not set on Dodo Object!");
         }
 
+        statsController = FindObjectOfType<StatsController>();
+
         dodoDefaultSpeed = dodoSpeed;
         dodoSniffer = GetComponentInChildren<SmellController>();
         dodoSniffer.GetComponent<CircleCollider2D>().radius = sniffRange;
@@ -92,13 +104,47 @@ public class Dodo : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if (_isOnBridge || _isEating)
+        if (_isOnBridge)
+        {
+            WalkThePlank();
             return;
+        }
+
+        if (_isEating)
+        {
+            return;
+        }
 
         _behaviourTimer = Time.time % behaviourChangeSpeed;
         Move();
         float currentDodoSpeed = _wc.getWorldSpeed();
         _anim.SetFloat(DodoSpeed, currentDodoSpeed);
+    }
+
+    //Ensures dodo walks over the plank
+    private void WalkThePlank()
+    {
+        Vector3 bridgeStartPos = _BridgeObjectDodoIsOn.transform.GetChild(0).position;
+        Vector3 bridgeMidPos = _BridgeObjectDodoIsOn.transform.GetChild(1).position;
+        Vector3 bridgeEndPos = _BridgeObjectDodoIsOn.transform.GetChild(2).position;
+        
+        
+        //Check if Dodo is past halfway on the plank
+        if (transform.position.x < bridgeMidPos.x) //Is not over halfway
+        {
+            transform.position += _sideVector3;
+        }
+        else //Dodo is over halfway
+        {
+            transform.position -= _sideVector3 / _dodoBridgeWalkOffSpeed;
+        }
+
+        if (transform.position.x > bridgeEndPos.x)
+        {
+            DismountBridge(_BridgeObjectDodoIsOn.GetComponent<Collider2D>());
+        }
+        
+
     }
 
     //Input desiredBehaviour to choose a behaviour
@@ -236,7 +282,7 @@ public class Dodo : MonoBehaviour
         switch (col.tag)
         {
             case "Bridge":
-                DismountBridge(col);
+                //Dismount now occurs in movement
                 break;
         }
     }
@@ -251,19 +297,43 @@ public class Dodo : MonoBehaviour
 
     private void MountBridge(Collider2D col)
     {
+        _BridgeObjectDodoIsOn = col.gameObject;
+        BridgeJump();
         _wc.setWorldSpeedPercentage(dodoOnLogSpeed);
         _isOnBridge = true;
-        transform.position += new Vector3(0f, 0.1f, 0f);
-        col.gameObject.GetComponent<PlayerInteractable>().DodoInteract(true);
+        _BridgeObjectDodoIsOn.GetComponent<PlayerInteractable>().DodoInteract(true);
         _anim.SetBool(DodoOnBridge, true);
     }
 
     private void DismountBridge(Collider2D col)
     {
+        BridgeJump(true);
+        statsController.IncrementBridgesCrossed();
         _isOnBridge = false;
-        transform.position -= new Vector3(0f, 0.1f, 0f);
-        col.gameObject.GetComponent<PlayerInteractable>().DodoInteract(false);
-        _anim.SetBool(DodoOnBridge, true);
+        _BridgeObjectDodoIsOn.GetComponent<PlayerInteractable>().DodoInteract(false);
+        _anim.SetBool(DodoOnBridge, false);
+    }
+
+    private void BridgeJump(bool jumpOff = false)
+    {
+        if (jumpOff)
+        {
+            transform.position -= Vector3.up * _bridgeJumpStrength;
+        }
+        else
+        {
+            Vector3 bridgeStartPos = _BridgeObjectDodoIsOn.transform.GetChild(0).position;
+            Vector3 bridgeMidPos = _BridgeObjectDodoIsOn.transform.GetChild(1).position;
+            if (transform.position.x > bridgeStartPos.x)
+            {
+                transform.position.Set(transform.position.x, bridgeMidPos.y, 0);
+            }
+            else
+            {
+                transform.position = bridgeStartPos;
+                transform.position += Vector3.up * _bridgeJumpStrength;
+            }
+        }
     }
 
     void DamagePlayer(string source)
@@ -331,6 +401,7 @@ public class Dodo : MonoBehaviour
     {
         if (newIsEating is false)
         {
+            statsController.IncrementFoodEaten();
             focusedObject = null;
         }
 
@@ -346,4 +417,5 @@ public class Dodo : MonoBehaviour
     {
         return _isEating;
     }
+
 }

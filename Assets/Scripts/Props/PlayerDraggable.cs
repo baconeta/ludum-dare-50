@@ -5,6 +5,7 @@ namespace Props
     public class PlayerDraggable : PlayerInteractable
     {
         private Collider2D _collider2D;
+        protected Vector2 mouseOffset;
 
         protected override void Start()
         {
@@ -19,6 +20,10 @@ namespace Props
             {
                 IsPlayerInteracting = true;
                 EnableCollisions(false);
+                
+                Vector3 mousePos = ConvertMouseToWorldPosition(Input.mousePosition);
+                Vector3 loc = transform.position;
+                mouseOffset = (Vector2) loc - (Vector2) mousePos;
             }
         }
 
@@ -42,7 +47,7 @@ namespace Props
                 Vector3 loc = transform.position;
                 loc.x = mousePos.x;
                 loc.y = mousePos.y;
-                transform.position = loc;
+                transform.position = loc + (Vector3) mouseOffset;
             }
         }
 
