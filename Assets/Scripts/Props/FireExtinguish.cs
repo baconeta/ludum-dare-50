@@ -16,6 +16,8 @@ public class FireExtinguish : PlayerScrubbable
         scrubAmountRequired = valueToExtinguish;
         scrubbedSprite = extinguishedSprite;
         _dodo = FindObjectOfType<Dodo>();
+        _renderer = GetComponent<Renderer>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void onBecameVisible()
