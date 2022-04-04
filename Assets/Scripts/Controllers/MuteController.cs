@@ -7,7 +7,7 @@ namespace Controllers
     {
         public Sprite unmutedImage;
         public Sprite mutedImage;
-        private Toggle _isMuted;
+        public Toggle isMuted;
 
         [SerializeField] private Slider volumeSlider;
 
@@ -16,14 +16,14 @@ namespace Controllers
         // Start is called before the first frame update
         private void Start()
         {
-            _isMuted = GetComponent<Toggle>();
+            isMuted = GetComponent<Toggle>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            _isMuted.isOn = false;
+            isMuted.isOn = false;
         }
 
         public void MuteButton()
         {
-            if (_isMuted.isOn)
+            if (isMuted.isOn)
             {
                 _spriteRenderer.sprite = mutedImage;
                 AudioListener.volume = 0;

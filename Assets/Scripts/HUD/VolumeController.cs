@@ -1,16 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
+using Controllers;
 using UnityEngine;
 
-public class VolumeController : MonoBehaviour
+namespace HUD
 {
-    // Start is called before the first frame update
-    void Start()
+    public class VolumeController : MonoBehaviour
     {
-    }
+        private MuteController muteController;
+        // Start is called before the first frame update
+        void Start()
+        {
+            muteController = FindObjectOfType<MuteController>();
+        }
 
-    public void OnValueChanged(float sliderValue)
-    {
-        AudioListener.volume = sliderValue;
+        public void OnValueChanged(float sliderValue)
+        {
+            if (!muteController.isMuted)
+            {
+                AudioListener.volume = sliderValue;
+            }
+        }
     }
 }
