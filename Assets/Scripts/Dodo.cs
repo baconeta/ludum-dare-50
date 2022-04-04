@@ -72,6 +72,7 @@ public class Dodo : MonoBehaviour
     //Bridges
     private bool _isOnBridge;
     private GameObject _BridgeObjectDodoIsOn;
+    [SerializeField] private float _bridgeJumpStrength;
 
     //Animation
     private Animator _anim;
@@ -315,7 +316,7 @@ public class Dodo : MonoBehaviour
     {
         if (jumpOff)
         {
-            transform.position -= Vector3.up / 10;
+            transform.position -= Vector3.up * _bridgeJumpStrength;
         }
         else
         {
@@ -328,7 +329,7 @@ public class Dodo : MonoBehaviour
             else
             {
                 transform.position = bridgeStartPos;
-                transform.position += Vector3.up / 10;
+                transform.position += Vector3.up * _bridgeJumpStrength;
             }
         }
     }
