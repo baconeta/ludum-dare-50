@@ -8,21 +8,13 @@ public class Timer : MonoBehaviour
     public Text TimerValue;
     private StatsController _statsController;
 
-    private void OnEnable()
-    {
-        Invoke(nameof(GrabStatsController), 0.5f);
-    }
-
-    private void GrabStatsController()
+    private void Start()
     {
         _statsController = FindObjectOfType<StatsController>();
     }
 
     private void Update()
     {
-        if (_statsController != default)
-        {
-            TimerValue.text = _statsController.FormatTime(_statsController.time);
-        }
+        TimerValue.text = _statsController.FormatTime(_statsController.time);
     }
 }

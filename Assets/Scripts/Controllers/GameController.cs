@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Controllers;
@@ -15,11 +14,6 @@ public class GameController : MonoBehaviour
     void Start()
     {
         gameRunning = true;
-        HUDController hud = FindObjectOfType<HUDController>();
-        if (hud != null)
-        {
-            hud.GameStart();
-        }
     }
 
     public void ResetGame()
