@@ -9,6 +9,7 @@ namespace Controllers
     {
         [SerializeField] private GameObject[] standardHazards;
         [SerializeField] private GameObject[] largeHazards;
+        [SerializeField] private float spawnDistanceFromBoundaryRatio = 0.7f;
         [SerializeField] private bool debug;
         private WorldController _worldController;
 
@@ -66,7 +67,9 @@ namespace Controllers
         {
             var obstacle = Instantiate(obstacleType, parent.transform);
             var location = GetOffset(obstacleType, parentWidth, parentHeight);
-            Debug.Log($"Changing obstacle position from {obstacle.transform.position} to {obstacle.transform.position + location}");
+
+            if (debug)
+                Debug.Log($"Changing obstacle position from {obstacle.transform.position} to {obstacle.transform.position + location}");
 
             obstacle.transform.position += location;
         }
@@ -103,9 +106,9 @@ namespace Controllers
             return new Vector3(newWidth, adjustedHeight, 0);
         }
 
-        private static float GetRandomValueFromMidpoint(float size, float padding = 0.7f)
+        private float GetRandomValueFromMidpoint(float size)
         {
-            var maxOffset = size * padding / 2f;
+            var maxOffset = size * spawnDistanceFromBoundaryRatio / 2f;
             return Random.Range(-maxOffset, maxOffset);
         }
 
@@ -158,14 +161,14 @@ namespace Controllers
             return AdjustLocationForWorldMovement(newWidth, newHeight);
         }
 
-        private static float GetMaxValueFromMidpoint(float size, float padding = 0.7f)
+        private float GetMaxValueFromMidpoint(float size)
         {
-            var maxOffset = size * padding / 2f;
+            var maxOffset = size * spawnDistanceFromBoundaryRatio / 2f;
             return maxOffset;
         }
 
-        private static float GetMinValueFromMidpoint(float size, float padding = 0.7f)
-            => -GetMaxValueFromMidpoint(size, padding);
+        private float GetMinValueFromMidpoint(float size)
+            => -GetMaxValueFromMidpoint(size);
 
         #endregion debug
     }
