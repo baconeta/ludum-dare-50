@@ -14,7 +14,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: DefaultCompany
   productName: ludum-dare-50
-  defaultCursor: {fileID: 2800000, guid: 0baaa8ae416e1d74ab60086e283f4477, type: 3}
+  defaultCursor: {fileID: 2800000, guid: 10c94a4c866a30b4ea29d5b37ae227c2, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
