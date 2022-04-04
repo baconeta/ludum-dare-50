@@ -9,6 +9,8 @@ namespace Controllers
         public Sprite mutedImage;
         private Toggle _isMuted;
 
+        [SerializeField] private Slider volumeSlider;
+
         private SpriteRenderer _spriteRenderer;
 
         // Start is called before the first frame update
@@ -29,7 +31,7 @@ namespace Controllers
             else
             {
                 _spriteRenderer.sprite = unmutedImage;
-                AudioListener.volume = 1;
+                AudioListener.volume = volumeSlider.value;
             }
         }
     }
