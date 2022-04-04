@@ -103,7 +103,7 @@ namespace Controllers
             return new Vector3(newWidth, adjustedHeight, 0);
         }
 
-        private static float GetRandomValueFromMidpoint(float size, float padding = 0.6f)
+        private static float GetRandomValueFromMidpoint(float size, float padding = 0.7f)
         {
             var maxOffset = size * padding / 2f;
             return Random.Range(-maxOffset, maxOffset);
@@ -158,13 +158,13 @@ namespace Controllers
             return AdjustLocationForWorldMovement(newWidth, newHeight);
         }
 
-        private static float GetMaxValueFromMidpoint(float size, float padding = 0.6f)
+        private static float GetMaxValueFromMidpoint(float size, float padding = 0.7f)
         {
             var maxOffset = size * padding / 2f;
             return maxOffset;
         }
 
-        private static float GetMinValueFromMidpoint(float size, float padding = 0.6f)
+        private static float GetMinValueFromMidpoint(float size, float padding = 0.7f)
             => -GetMaxValueFromMidpoint(size, padding);
 
         #endregion debug
