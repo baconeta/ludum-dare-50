@@ -133,7 +133,6 @@ namespace Props
                         {
                             sr.sortingOrder = 4;
                         }
-                        Debug.Log(sr.sortingOrder);
                     } 
                 }
                 
