@@ -69,7 +69,7 @@ public class Dodo : MonoBehaviour
 
     //Bridges
     private bool _isOnBridge;
-    private float _timeOnBridge;
+    private GameObject _currentBridgeObject;
 
     //Animation
     private Animator _anim;
@@ -100,9 +100,6 @@ public class Dodo : MonoBehaviour
     {
         if (_isOnBridge)
         {
-            _timeOnBridge += Time.deltaTime;
-            Debug.Log(new Vector3(Mathf.Sin(_timeOnBridge), Mathf.Sin(_timeOnBridge) / 2) / 100);
-            transform.position += new Vector3(Mathf.Sin(_timeOnBridge), Mathf.Sin(_timeOnBridge) / 2) / 100;
             return;
         }
 
@@ -267,11 +264,10 @@ public class Dodo : MonoBehaviour
 
     private void MountBridge(Collider2D col)
     {
-        _timeOnBridge = 0;
+        _currentBridgeObject = col.gameObject;
         _wc.setWorldSpeedPercentage(dodoOnLogSpeed);
         _isOnBridge = true;
-        //transform.position += new Vector3(0f, 0.1f, 0f);
-        col.gameObject.GetComponent<PlayerInteractable>().DodoInteract(true);
+        _currentBridgeObject.GetComponent<PlayerInteractable>().DodoInteract(true);
         _anim.SetBool(DodoOnBridge, true);
     }
 
@@ -279,8 +275,7 @@ public class Dodo : MonoBehaviour
     {
         statsController.IncrementBridgesCrossed();
         _isOnBridge = false;
-        //transform.position -= new Vector3(0f, 0.1f, 0f);
-        col.gameObject.GetComponent<PlayerInteractable>().DodoInteract(false);
+        _currentBridgeObject.GetComponent<PlayerInteractable>().DodoInteract(false);
         _anim.SetBool(DodoOnBridge, true);
     }
 
