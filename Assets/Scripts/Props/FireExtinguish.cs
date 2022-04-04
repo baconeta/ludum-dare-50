@@ -28,17 +28,6 @@ public class FireExtinguish : PlayerScrubbable
         burningSound.Stop();
     }
 
-    protected override void Update()
-    {
-        base.Update();
-        if (!scrubbed && _renderer.isVisible)
-        {
-            float distance = Vector2.Distance(_dodo.transform.position, transform.position);
-            float volume = ((40-(distance*2))/100);
-            burningSound.volume = volume;
-        }
-    }
-
     protected override void HandleScrub()
     {
         base.HandleScrub();
