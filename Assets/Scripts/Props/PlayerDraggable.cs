@@ -8,11 +8,22 @@ namespace Props
         protected Vector2 mouseOffset;
         private bool _isFallingFromMountain;
         private float _mountainEdgeCrossProduct;
-
+        private GameObject _dodoObject;
+        private Vector3 _dodoForwardVector = new Vector3(1f, -.5f);
+        private Vector3 _directionFromDodo;
+        private float _distanceToDodo;
+        private float _rangeToCheckCrossProduct = 4;
+        private float dodoCrossProduct;
+        private SpriteRenderer sr;
+        
+        
         protected override void Start()
         {
             base.Start();
             _collider2D = GetComponent<Collider2D>();
+            sr = GetComponent<SpriteRenderer>();
+            _dodoObject = FindObjectOfType<Dodo>().gameObject;
+            
         }
 
         // TODO Move onMouseDown & onMouseUp to PlayerInteractable.cs.
@@ -89,6 +100,7 @@ namespace Props
             // If the player is clicking on the object.
             if (IsPlayerInteracting)
             {
+                sr.sortingOrder = 4;
                 // when you click and hold down, it follows the mouse cursor, and then drops on release.
                 Vector3 mousePos = ConvertMouseToWorldPosition(Input.mousePosition);
                 Vector3 loc = transform.position;
@@ -96,7 +108,23 @@ namespace Props
                 loc.y = mousePos.y;
                 transform.position = loc + (Vector3) mouseOffset;
             }
-
+            else
+            {
+                _distanceToDodo = Vector3.Distance(_dodoObject.transform.position, transform.position);
+                if (_distanceToDodo < _rangeToCheckCrossProduct)
+                {
+                    _directionFromDodo = _dodoObject.transform.position - transform.position;
+                    dodoCrossProduct = Vector3.Cross(_directionFromDodo.normalized, _dodoForwardVector.normalized).z;
+                    if (dodoCrossProduct > 0)
+                    {
+                        sr.sortingOrder = 2;
+                    }
+                    else
+                    {
+                        sr.sortingOrder = 4;
+                    }
+                }
+            }
             if (gameObject.GetComponent<Rigidbody2D>())
             {
                 if (_isFallingFromMountain && getCrossProduct("mountain") < 0)

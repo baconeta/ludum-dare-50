@@ -17,8 +17,9 @@ namespace Ground
             {
                 // Activate the ground movement here
                 _ground = FindObjectOfType<Ground>();
-                _worldController = _ground.GetWorldCollider();
             }
+
+            _worldController = FindObjectOfType<WorldController>();
 
             _Collider = GetComponent<Collider2D>();
             _Collider.enabled = false;
