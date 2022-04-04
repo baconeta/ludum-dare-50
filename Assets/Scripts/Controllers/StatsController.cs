@@ -63,6 +63,8 @@ namespace Controllers
             SaveBestTimes();
             RepopulateFormattedTimes();
 
+            deaths++;
+
             PlayerPrefs.SetInt("TotalDeaths", deaths);
             PlayerPrefs.SetInt("TotalFoodsEaten", foodsEaten);
             PlayerPrefs.SetInt("TotalObjectsSmashed", objectsSmashed);
