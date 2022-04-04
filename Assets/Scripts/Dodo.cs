@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Props;
 using Controllers;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.U2D;
 using Random = UnityEngine.Random;
 
 public class Dodo : MonoBehaviour
@@ -100,6 +102,16 @@ public class Dodo : MonoBehaviour
     {
         if (_isOnBridge)
         {
+            Vector3 bridgeStartPos = _BridgeObjectDodoIsOn.transform.GetChild(0).position;
+            Vector3 bridgeMidPos = _BridgeObjectDodoIsOn.transform.GetChild(0).position;
+            Vector3 bridgeEndPos = _BridgeObjectDodoIsOn.transform.GetChild(2).position;
+            float t = Time.time % 1;
+            Vector3 bezierPoint1 = Mathf.Pow(1 - t, 2) * bridgeStartPos;
+            Vector3 bezierPoint2 = (2 * (1 - t) * t) * bridgeMidPos;
+            Vector3 bezierPoint3 = Mathf.Pow(t, 2) * bridgeEndPos;
+            Vector3 myBezier = bezierPoint1 + bezierPoint2 + bezierPoint3;
+            Debug.Log(myBezier);
+            Debug.DrawLine(myBezier, myBezier, Color.red, 5);
             return;
         }
 
@@ -269,7 +281,7 @@ public class Dodo : MonoBehaviour
         _isOnBridge = true;
         _BridgeObjectDodoIsOn.GetComponent<PlayerInteractable>().DodoInteract(true);
         _anim.SetBool(DodoOnBridge, true);
-        StartCoroutine(WalkOverBridge());
+        //StartCoroutine(WalkOverBridge());
     }
 
     private void DismountBridge(Collider2D col)
@@ -365,6 +377,17 @@ public class Dodo : MonoBehaviour
     //Changes transform to move on a curve over log
     IEnumerator WalkOverBridge()
     {
+        Vector3 bridgeStartPos = _BridgeObjectDodoIsOn.transform.GetChild(0).position;
+        Vector3 bridgeMidPos = _BridgeObjectDodoIsOn.transform.GetChild(0).position;
+        Vector3 bridgeEndPos = _BridgeObjectDodoIsOn.transform.GetChild(2).position;
+        //Repeat every frame
+        float t = Time.time % 1;
+        Vector3 bezierPoint1 = Mathf.Pow(1 - t, 2) * bridgeStartPos;
+        Vector3 bezierPoint2 = (2 * (1 - t) * t) * bridgeMidPos;
+        Vector3 bezierPoint3 = Mathf.Pow(t, 2) * bridgeEndPos;
+        Vector3 myBezier = bezierPoint1 + bezierPoint2 + bezierPoint3;
+        Debug.DrawLine(myBezier, myBezier * 2, Color.red, 5);
+        //
         yield return new WaitForSeconds(1);
     }
 
