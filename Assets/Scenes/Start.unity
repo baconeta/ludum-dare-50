@@ -1539,7 +1539,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1218498851}
+      - m_Target: {fileID: 8286371916377074848}
         m_TargetAssemblyTypeName: Controllers.HUDController, Assembly-CSharp
         m_MethodName: RestartGame
         m_Mode: 1
