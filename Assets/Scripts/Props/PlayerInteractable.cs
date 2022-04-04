@@ -11,21 +11,50 @@ namespace Props
         protected bool CanDodoInteract = false;
         protected bool IsPlayerInteracting = false;
         protected bool IsDodoInteracting = false;
+        private float _rangeToCheckCrossProduct = 4;
+        private Vector3 _dodoForwardVector = new Vector3(1f, -.5f);
         
         protected StatsController _statsController;
         protected WorldController _worldController;
-        
+        protected SpriteRenderer _spriteRenderer;
+        protected Dodo _dodo;
+        protected GameObject _dodoObject => _dodo.gameObject;
+
         protected virtual void Start()
         {
             _statsController = FindObjectOfType<StatsController>();
             _worldController = FindObjectOfType<WorldController>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            if (_spriteRenderer == default)
+            {
+                Debug.Log("No sprite rendered on " + name + " object.");
+            }
+            _dodo = FindObjectOfType<Dodo>();
         }
 
         protected virtual void Update()
         {
-            if (IsPlayerInteracting)
+            if (!IsPlayerInteracting)
             {
-                // Move the prop each frame.
+                UpdateObjectSortOrder();
+            }
+        }
+
+        protected virtual void UpdateObjectSortOrder()
+        {
+            var distanceToDodo = Vector3.Distance(_dodoObject.transform.position, transform.position);
+            if (distanceToDodo < _rangeToCheckCrossProduct)
+            {
+                var directionFromDodo = _dodoObject.transform.position - transform.position;
+                var dodoCrossProduct = Vector3.Cross(directionFromDodo.normalized, _dodoForwardVector.normalized).z;
+                if (dodoCrossProduct > 0)
+                {
+                    _spriteRenderer.sortingOrder = 2;
+                }
+                else
+                {
+                    _spriteRenderer.sortingOrder = 4;
+                }
             }
         }
 

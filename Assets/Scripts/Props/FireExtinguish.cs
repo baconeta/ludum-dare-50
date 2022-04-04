@@ -3,7 +3,6 @@ using UnityEngine;
 //TODO: Change to PlayerScrubbable
 public class FireExtinguish : PlayerScrubbable
 {
-    private Dodo _dodo;
     private Renderer _renderer;
     private AudioSource _audioSource;
 
@@ -16,7 +15,6 @@ public class FireExtinguish : PlayerScrubbable
         base.Start();
         scrubAmountRequired = valueToExtinguish;
         scrubbedSprite = extinguishedSprite;
-        _dodo = FindObjectOfType<Dodo>();
         _renderer = GetComponent<Renderer>();
         _audioSource = GetComponent<AudioSource>();
     }

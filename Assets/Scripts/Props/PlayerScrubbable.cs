@@ -4,14 +4,11 @@ using System.Collections;
 
 public class PlayerScrubbable : PlayerClickable
 {
-
-    protected SpriteRenderer _spriteRenderer;
     protected Collider2D _collider;
     protected Animator _animator;
 
     protected float scrubAmountRequired;
     private float currentScrubAmount = 0;
-    private Vector3 previousMouseLocation;
     private Vector3 mouseLocation;
     protected Sprite scrubbedSprite;
     protected bool scrubbed = false;
@@ -21,7 +18,6 @@ public class PlayerScrubbable : PlayerClickable
     protected override void Start()
     {
         base.Start();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<Collider2D>();
         _animator = GetComponent<Animator>();
     }
@@ -34,7 +30,7 @@ public class PlayerScrubbable : PlayerClickable
     protected void OnMouseDrag()
     {
         //Get distance of mouse movement between frames, then add that amount to currentScrubAmount.
-        previousMouseLocation = mouseLocation;
+        var previousMouseLocation = mouseLocation;
         mouseLocation = ConvertMouseToWorldPosition(Input.mousePosition);
         float dragDistance = Vector3.Distance(mouseLocation, previousMouseLocation);
         currentScrubAmount += dragDistance;
@@ -42,7 +38,6 @@ public class PlayerScrubbable : PlayerClickable
         {
             HandleScrub();
         }
-        Debug.Log(dragDistance);
         if (dragDistance > minimumShakeThreshold && !scrubbed)
         {
             StartCoroutine(DoShake());
