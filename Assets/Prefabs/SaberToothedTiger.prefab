@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8802793379628755830}
   - component: {fileID: 8802793379628755825}
   - component: {fileID: 8802793379628755824}
-  - component: {fileID: 8802793379628755831}
   - component: {fileID: 167072701687061564}
+  - component: {fileID: 2701085132708422238}
   m_Layer: 0
   m_Name: SaberToothedTiger
   m_TagString: Tiger
@@ -104,32 +104,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &8802793379628755831
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8802793379628755827}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.33999157, y: -0.6799834}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 17.99, y: 11.55}
-    newSize: {x: 17.99, y: 11.55}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 16.073685, y: 10.190035}
-  m_EdgeRadius: 0
 --- !u!114 &167072701687061564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,3 +120,39 @@ MonoBehaviour:
   speedAboveWorld: 0.2
   sidewaysSpeed: 2
   tigerForwardVector: {x: 1, y: -0.5, z: 0}
+--- !u!60 &2701085132708422238
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8802793379628755827}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 17.99, y: 11.55}
+    newSize: {x: 17.99, y: 11.55}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 4.863265, y: -5.310817}
+      - {x: 7.1399508, y: -1.8194208}
+      - {x: 7.677314, y: 0.4330988}
+      - {x: 7.5203524, y: 3.8742304}
+      - {x: 3.7598314, y: 3.9315672}
+      - {x: 2.9588041, y: 2.6005821}
+      - {x: 1.2941322, y: 1.7970543}
+      - {x: -3.0222378, y: 2.0148258}
+      - {x: -8.261144, y: -0.22722673}
+      - {x: -5.698332, y: -4.316094}
+      - {x: 1.4089553, y: -5.6412454}

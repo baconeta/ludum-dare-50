@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3964108696138040112}
   - component: {fileID: 5165314828486348383}
   - component: {fileID: 5739524043030434251}
-  - component: {fileID: -5761882593040802925}
   - component: {fileID: 5321852835096130702}
+  - component: {fileID: 8584939727764828161}
   m_Layer: 0
   m_Name: Bushfire
   m_TagString: DeathHazard
@@ -98,32 +98,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &-5761882593040802925
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8855985278181753037}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.9942646, y: -1.7828178}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 30.000002, y: 30.000002}
-    newSize: {x: 30.000002, y: 30.000002}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 23.422367, y: 20.659557}
-  m_EdgeRadius: 0
 --- !u!95 &5321852835096130702
 Animator:
   serializedVersion: 3
@@ -143,3 +117,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!60 &8584939727764828161
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8855985278181753037}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 30.000002, y: 30.000002}
+    newSize: {x: 30.000002, y: 30.000002}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -7.215198, y: 2.026741}
+      - {x: -3.337432, y: 3.2486641}
+      - {x: 9.4040785, y: 5.245659}
+      - {x: 10.130806, y: -6.8261065}
+      - {x: 2.295613, y: -10.600693}
+      - {x: -1.3061863, y: -11.282212}
+      - {x: -10.093172, y: -6.955321}
+      - {x: -10.612296, y: -1.5236578}
