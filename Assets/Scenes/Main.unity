@@ -655,6 +655,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1149387457}
     m_Modifications:
+    - target: {fileID: -5796905304614065710, guid: 1f8aba01eedde45d3b6fe2762a768757, type: 3}
+      propertyPath: debug
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3226795110749629906, guid: 1f8aba01eedde45d3b6fe2762a768757, type: 3}
       propertyPath: m_Name
       value: ObstacleController
