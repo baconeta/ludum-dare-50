@@ -104,5 +104,12 @@ namespace Controllers
         {
             return _moveDirection;
         }
+
+        public void onGameReset()
+        {
+            _currentRampSpeedModifier = initialRampSpeedModifier;
+            _ramping = _currentRampSpeedModifier < 1.0f;
+            _timeElapsed = 0f;
+        }
     }
 }

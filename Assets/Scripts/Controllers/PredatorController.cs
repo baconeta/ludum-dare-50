@@ -45,6 +45,7 @@ namespace Controllers
                 timeBeforePredatorsStartSpawning -= Time.deltaTime;
                 if (timeBeforePredatorsStartSpawning <= 0)
                 {
+                    Debug.Log("Tigers can now spawn");
                     _bCanSpawn = true;
                 }
 
@@ -74,6 +75,7 @@ namespace Controllers
 
         public void onGameReset()
         {
+            _bCanSpawn = false;
             _timeSinceLastSpawn = 0f;
             timeBeforePredatorsStartSpawning = _originalPredatorSpawnTime;
             currentSpawnChance = initialSpawnChance;
