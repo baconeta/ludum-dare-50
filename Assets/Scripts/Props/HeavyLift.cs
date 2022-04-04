@@ -38,6 +38,18 @@ namespace Props
             }
         }
 
+        protected override void UpdateObjectSortOrder()
+        {
+            if (isRockLifted())
+            {
+                _spriteRenderer.sortingOrder = 4;
+            }
+            else
+            {
+                base.UpdateObjectSortOrder();
+            }
+        }
+
         public bool isRockLifted()
         {
             return isLifted;

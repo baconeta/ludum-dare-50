@@ -4,26 +4,14 @@ namespace Props
 {
     public class PlayerDraggable : PlayerInteractable
     {
-        private Collider2D _collider2D;
+        protected Collider2D _collider;
         protected Vector2 mouseOffset;
         private bool _isFallingFromMountain;
-        private float _mountainEdgeCrossProduct;
-        private GameObject _dodoObject;
-        private Vector3 _dodoForwardVector = new Vector3(1f, -.5f);
-        private Vector3 _directionFromDodo;
-        private float _distanceToDodo;
-        private float _rangeToCheckCrossProduct = 4;
-        private float dodoCrossProduct;
-        private SpriteRenderer sr;
-        
-        
+
         protected override void Start()
         {
             base.Start();
-            _collider2D = GetComponent<Collider2D>();
-            sr = GetComponent<SpriteRenderer>();
-            _dodoObject = FindObjectOfType<Dodo>().gameObject;
-            
+            _collider = GetComponent<Collider2D>();
         }
 
         // TODO Move onMouseDown & onMouseUp to PlayerInteractable.cs.
@@ -95,48 +83,18 @@ namespace Props
         // Update is called once per frame
         protected override void Update()
         {
+            base.Update();
+
             if (transform.position.x < 0)
                 Destroy(gameObject);
+
             // If the player is clicking on the object.
             if (IsPlayerInteracting)
             {
                 // when you click and hold down, it follows the mouse cursor, and then drops on release.
-                Vector3 mousePos = ConvertMouseToWorldPosition(Input.mousePosition);
-                Vector3 loc = transform.position;
-                loc.x = mousePos.x;
-                loc.y = mousePos.y;
-                transform.position = loc + (Vector3) mouseOffset;
+                MoveObjectWithMouse();
             }
-            else
-            {
-                bool shouldCheckCross = true;
-                if (GetComponent<HeavyLift>())
-                {
-                    if (GetComponent<HeavyLift>().isRockLifted())
-                    {
-                        shouldCheckCross = false;
-                        sr.sortingOrder = 4;
-                    }
-                }
-                if (shouldCheckCross)
-                {
-                    _distanceToDodo = Vector3.Distance(_dodoObject.transform.position, transform.position);
-                    if (_distanceToDodo < _rangeToCheckCrossProduct)
-                    {
-                        _directionFromDodo = _dodoObject.transform.position - transform.position;
-                        dodoCrossProduct = Vector3.Cross(_directionFromDodo.normalized, _dodoForwardVector.normalized).z;
-                        if (dodoCrossProduct > 0)
-                        {
-                            sr.sortingOrder = 2;
-                        }
-                        else
-                        {
-                            sr.sortingOrder = 4;
-                        }
-                    } 
-                }
-                
-            }
+
             if (gameObject.GetComponent<Rigidbody2D>())
             {
                 if (_isFallingFromMountain && getCrossProduct("mountain") < 0)
@@ -148,9 +106,18 @@ namespace Props
             
         }
 
+        private void MoveObjectWithMouse()
+        {
+            Vector3 mousePos = ConvertMouseToWorldPosition(Input.mousePosition);
+            Vector3 loc = transform.position;
+            loc.x = mousePos.x;
+            loc.y = mousePos.y;
+            transform.position = loc + (Vector3)mouseOffset;
+        }
+
         protected void EnableCollisions(bool enabled)
         {
-            _collider2D.enabled = enabled;
+            _collider.enabled = enabled;
         }
     }
 }
