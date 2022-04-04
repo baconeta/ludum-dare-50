@@ -29,6 +29,12 @@ namespace Controllers
             RawTimes.Add(PlayerPrefs.GetFloat("BestTime5"));
             FormattedTimes = new List<string>();
             RepopulateFormattedTimes();
+
+            deaths = PlayerPrefs.GetInt("TotalDeaths");
+            foodsEaten = PlayerPrefs.GetInt("TotalFoodsEaten");
+            objectsSmashed = PlayerPrefs.GetInt("TotalObjectsSmashed");
+            bridgesCrossed = PlayerPrefs.GetInt("TotalBridgesCrossed");
+            bouldersBumped = PlayerPrefs.GetInt("TotalBouldersBumped");
         }
 
         private void Update()
@@ -56,6 +62,13 @@ namespace Controllers
             RawTimes.Add(time);
             SaveBestTimes();
             RepopulateFormattedTimes();
+
+            PlayerPrefs.SetInt("TotalDeaths", deaths);
+            PlayerPrefs.SetInt("TotalFoodsEaten", foodsEaten);
+            PlayerPrefs.SetInt("TotalObjectsSmashed", objectsSmashed);
+            PlayerPrefs.SetInt("TotalBridgesCrossed", bridgesCrossed);
+            PlayerPrefs.SetInt("TotalBouldersBumped", bouldersBumped);
+            PlayerPrefs.Save();
         }
 
         private void SaveBestTimes()
