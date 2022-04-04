@@ -39,8 +39,9 @@ public class Dodo : MonoBehaviour
     private float focusedObjectPreviousDistance;
     private Vector3 directionOfFocus;
 
-    //Eating
+    //State
     private bool _isEating = false;
+    private bool _isInMud = false;
 
     [Tooltip("Speed at which the dodo (de/ac)celerates surrounding eating.")] [SerializeField]
     float dodoPostEatAcceleration = 0.005f;
@@ -238,6 +239,11 @@ public class Dodo : MonoBehaviour
                 MoveTowardMountain();
                 break;
         }
+
+        if (_isInMud && _wc.getWorldSpeedPercentage() > dodoInMudSpeed)
+        {
+            _wc.setWorldSpeedPercentage(dodoInMudSpeed);
+        }
     }
 
     private void MoveForwards()
@@ -290,12 +296,12 @@ public class Dodo : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D col)
+    private void OnTriggerExit2D(Collider2D col)
     {
         switch (col.tag)
         {
             case "BypassableHazard":
-                WhileInBypassableHazard(col);
+                LeaveBypassableHazard(col);
                 break;
         }
     }
@@ -312,23 +318,20 @@ public class Dodo : MonoBehaviour
                 DamagePlayer(col.name);
                 break;
             case Effect.Slow:
-                _wc.setWorldSpeedPercentage(dodoInMudSpeed);
+                _isInMud = true;
                 break;
             default:
                 throw new Exception($"{nameof(Dodo)}.{nameof(HitBypassableHazard)} doesn't handle {effect}");
         }
     }
 
-    private void WhileInBypassableHazard(Collider2D col)
+    private void LeaveBypassableHazard(Collider2D col)
     {
-        if (_isOnBridge)
-            return;
-
         var effect = col.GetComponent<BypassableHazard>().collisionEffect;
         switch (effect)
         {
             case Effect.Slow:
-                _wc.setWorldSpeedPercentage(dodoInMudSpeed);
+                _isInMud = false;
                 break;
         }
     }
