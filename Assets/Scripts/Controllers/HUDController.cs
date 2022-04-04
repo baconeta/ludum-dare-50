@@ -23,6 +23,20 @@ namespace Controllers
 
         public void RestartGame()
         {
+            // First show a fact, then reset the game from there
+            ShowDodoFact();
+        }
+
+        private void ShowDodoFact()
+        {
+            // Here we fade the screen out to the background image and plonk a random dodo fact on the screen
+            // After some time, we fade it out and call the functions below
+            Invoke(nameof(ResetScene), 8f);
+            
+        }
+
+        private void ResetScene()
+        {
             if (gameController != null)
             {
                 gameController.ResetGame();
