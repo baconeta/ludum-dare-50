@@ -42,11 +42,11 @@ namespace Controllers
         public void showEndGameScreen()
         {
             _canvas.enabled = true;
-            Highscore1.text = _statsController.scores[0].ToString();
-            Highscore2.text = _statsController.scores[1].ToString();
-            Highscore3.text = _statsController.scores[2].ToString();
-            Highscore4.text = _statsController.scores[3].ToString();
-            Highscore5.text = _statsController.scores[4].ToString();
+            Highscore1.text = _statsController.FormattedTimes[0];
+            Highscore2.text = _statsController.FormattedTimes[1];
+            Highscore3.text = _statsController.FormattedTimes[2];
+            Highscore4.text = _statsController.FormattedTimes[3];
+            Highscore5.text = _statsController.FormattedTimes[4];
             TotalDodoDeaths.text = "Dodo Deaths: " + _statsController.deaths;
             TotalFoodsEaten.text = "Snacks Eaten: " + _statsController.eatenFoods;
             TotalObjectsSmashed.text = "Things Smashed: " + _statsController.objectsSmashed;

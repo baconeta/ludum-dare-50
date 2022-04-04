@@ -9,8 +9,8 @@ namespace Controllers
         public float time { get; private set; }
         private bool _timerRunning = false;
     
-        public List<string> times { get; private set; }
-        public List<int> scores { get; private set; }
+        public List<string> FormattedTimes { get; private set; }
+        public List<float> RawTimes { get; private set; }
     
         public int deaths { get; private set; }
         public int eatenFoods { get; private set; }
@@ -20,8 +20,8 @@ namespace Controllers
 
         private void Start()
         {
-            times = new List<string>();
-            scores = Enumerable.Repeat(0, 5).ToList();
+            FormattedTimes = new List<string>();
+            RawTimes = Enumerable.Repeat(0.0f, 5).ToList();
         }
 
         private void Update()
@@ -34,38 +34,36 @@ namespace Controllers
 
         public void onGameReset()
         {
-            onGameStart();
+            StartTimer();
         }
-        public void onGameStart()
+
+        public void StartTimer()
         {
             time = 0;
             _timerRunning = true;
-            deaths = 0; 
-            eatenFoods = 0;
-            objectsSmashed = 0;
-            bridgesCrossed = 0;
-            bouldersBumped = 0;
         }
 
         public void onGameEnd()
         {
             _timerRunning = false;
-            times.Add(GetFormattedTime());
-            scores.Add(CalculateScore());
-            scores.Sort();
+            // Add the current time, sort all times.
+            RawTimes.Add(time);
+            RawTimes.Sort();
+            // Only keep the top 5 times.
+            RawTimes = RawTimes.GetRange(0, 5);
+            // Repopulate formatted times.
+            FormattedTimes.Clear();
+            foreach (float score in RawTimes) {
+                FormattedTimes.Add(FormatTime(time));
+            }            
         }
 
-        public string GetFormattedTime()
+        public string FormatTime(float t)
         {
-            int minutes = Mathf.FloorToInt(time / 60F);
-            int seconds = Mathf.FloorToInt(time % 60F);
-            int milliseconds = Mathf.FloorToInt((time * 100F) % 100F);
+            int minutes = Mathf.FloorToInt(t / 60F);
+            int seconds = Mathf.FloorToInt(t % 60F);
+            int milliseconds = Mathf.FloorToInt((t * 100F) % 100F);
             return minutes.ToString ("00") + ":" + seconds.ToString ("00") + ":" + milliseconds.ToString("00");
-        }
-    
-        private int CalculateScore()
-        {
-            return (int) time + (eatenFoods * 5) + objectsSmashed + bridgesCrossed - bouldersBumped;
         }
 
         public void IncrementFoodEaten()
