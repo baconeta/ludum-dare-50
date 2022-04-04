@@ -55,7 +55,9 @@ namespace Props
 
         private void onGameReset()
         {
-            Destroy(this);
+            transform.position = new Vector3(1000,1000,0);
+            CanPlayerInteract = false;
+            CanDodoInteract = false;
         }
     }
 }
