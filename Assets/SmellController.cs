@@ -1,13 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Props;
 
 public class SmellController : MonoBehaviour
 {
 
+    private AudioSource _squawk;
     private GameObject smellObject;
+
+    private void Start()
+    {
+        _squawk =  GetComponent<AudioSource>();
+    }
     
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -16,6 +19,10 @@ public class SmellController : MonoBehaviour
             if (col.tag is "Smell")
             {
                 smellObject = col.gameObject;
+                if (!_squawk.isPlaying)
+                {
+                    _squawk.Play();
+                }
             }
         }
     }
