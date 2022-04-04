@@ -11,6 +11,7 @@ namespace Controllers
     
         public List<string> FormattedTimes { get; private set; }
         public List<float> RawTimes { get; private set; }
+        public string LatestTime { get; private set; }
     
         public int deaths { get; private set; }
         public int melonsMunched { get; private set; }
@@ -65,6 +66,7 @@ namespace Controllers
         {
             if (_timerRunning) {
                 _timerRunning = false;
+                LatestTime = FormatTime(time);
                 RawTimes.Add(time);
                 // Sort by largest-first.
                 RawTimes.Sort();

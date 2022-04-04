@@ -2901,7 +2901,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 000,000
+  m_Text: 00:00:00
 --- !u!114 &629999388751605471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2935,7 +2935,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 000,000
+  m_Text: 00:00:00
 --- !u!222 &944509103114743674
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2986,6 +2986,8 @@ MonoBehaviour:
   TotalFiresFoiled: {fileID: 1112792668}
   TotalTrunksTraversed: {fileID: 1666458908}
   TotalSabersSlain: {fileID: 935610284}
+  NormalTextColour: {r: 0.4117647, g: 0.2784314, b: 0.11372549, a: 1}
+  HighlightedTextColour: {r: 0.67058825, g: 0.27450982, b: 0.1882353, a: 1}
 --- !u!222 &2191066124134647636
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3071,7 +3073,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 000,000
+  m_Text: 00:00:00
 --- !u!223 &3432035310038026560
 Canvas:
   m_ObjectHideFlags: 0
@@ -3144,7 +3146,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 000,000
+  m_Text: 00:00:00
 --- !u!224 &3953979617566167540
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4404,7 +4406,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 000,000
+  m_Text: 00:00:00
 --- !u!1 &8975396487261314839
 GameObject:
   m_ObjectHideFlags: 0
