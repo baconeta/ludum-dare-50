@@ -365,9 +365,6 @@ public class Dodo : MonoBehaviour
     //Changes transform to move on a curve over log
     IEnumerator WalkOverBridge()
     {
-        Transform currentBridge = _BridgeObjectDodoIsOn.transform;
-        Debug.DrawLine(currentBridge.position, currentBridge.position - currentBridge, Color.red, Mathf.Infinity);
-        Debug.Log((Vector3) currentBridge.GetComponent<SpriteRenderer>().size);
         yield return new WaitForSeconds(1);
     }
 
