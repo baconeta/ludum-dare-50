@@ -209,6 +209,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6102199197974787305, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
+      propertyPath: _dodoBridgeWalkOnSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102199197974787305, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
       propertyPath: _dodoBridgeWalkOffSpeed
       value: 1.5
       objectReference: {fileID: 0}
