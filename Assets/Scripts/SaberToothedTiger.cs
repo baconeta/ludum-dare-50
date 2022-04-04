@@ -21,6 +21,7 @@ public class SaberToothedTiger : Smashable
     //Vector line that Tiger will moves on TODO this is wrong because it depends where the tiger is on the screen...
     private Vector3 _sideVector3 = new Vector3(.5f, 0.25f) / 100;
     [SerializeField] private Vector3 tigerForwardVector = new Vector3(1f, -.5f);
+    [SerializeField] private GameController _gc;
 
 
     // Start is called before the first frame update
@@ -33,11 +34,21 @@ public class SaberToothedTiger : Smashable
         _anim = GetComponent<Animator>();
         _anim.SetFloat(RunningSpeed,
             speedAboveWorld + _worldController.getBaseWorldSpeedOnlyRamp() / 2.5f);
+        _gc = FindObjectOfType<GameController>();
     }
 
     // Update is called once per frame
     protected override void Update()
     {
+        if (_gc != default)
+        {
+            if (!_gc.gameRunning)
+            {
+                _anim.SetFloat(RunningSpeed, 0f);
+                return;
+            }
+        }
+
         MoveTowardsDodo();
         Vector3 movementVector = _worldController.getMoveDirection() *
                                  (Time.deltaTime * (_fullSaberSpeed - _worldController.getWorldSpeed()));
@@ -60,10 +71,5 @@ public class SaberToothedTiger : Smashable
         {
             transform.position += -_sideVector3 * sidewaysSpeed;
         }
-    }
-
-    private void onGameEnd()
-    {
-        Destroy(this);
     }
 }
