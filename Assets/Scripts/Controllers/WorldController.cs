@@ -38,7 +38,7 @@ namespace Controllers
             _statsController = FindObjectOfType<StatsController>();
             _currentRampSpeedModifier = initialRampSpeedModifier;
             _ramping = _currentRampSpeedModifier < 1.0f;
-            _statsController.onGameStart();
+            _statsController.StartTimer();
         }
 
         // Update is called once per frame

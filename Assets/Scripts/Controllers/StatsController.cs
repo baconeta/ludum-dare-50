@@ -20,8 +20,15 @@ namespace Controllers
 
         private void Start()
         {
-            FormattedTimes = new List<string>();
+            // Add five zeros to start with.
             RawTimes = Enumerable.Repeat(0.0f, 5).ToList();
+            RawTimes.Add(PlayerPrefs.GetFloat("BestTime1"));
+            RawTimes.Add(PlayerPrefs.GetFloat("BestTime2"));
+            RawTimes.Add(PlayerPrefs.GetFloat("BestTime3"));
+            RawTimes.Add(PlayerPrefs.GetFloat("BestTime4"));
+            RawTimes.Add(PlayerPrefs.GetFloat("BestTime5"));
+            FormattedTimes = new List<string>();
+            RepopulateFormattedTimes();
         }
 
         private void Update()
@@ -46,10 +53,25 @@ namespace Controllers
         public void onGameEnd()
         {
             _timerRunning = false;
-            // Add the current time, sort all times.
             RawTimes.Add(time);
+            SaveBestTimes();
+            RepopulateFormattedTimes();
+        }
+
+        private void SaveBestTimes()
+        {
+            // Only keep the 5 best times.
             RawTimes.Sort();
-            // Only keep the top 5 times.
+            RawTimes = RawTimes.GetRange(0, 5);
+            for (int i = 0; i < 5; i++) {
+                PlayerPrefs.SetFloat("BestTime"+(i+1), RawTimes[i]);
+            }
+        }
+
+        private void RepopulateFormattedTimes()
+        {
+            // Only keep the 5 best times.
+            RawTimes.Sort();
             RawTimes = RawTimes.GetRange(0, 5);
             // Repopulate formatted times.
             FormattedTimes.Clear();
