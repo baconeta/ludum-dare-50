@@ -256,6 +256,7 @@ public class Dodo : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
+        Debug.Log(col);
         switch (col.tag)
         {
             case "DeathHazard":
@@ -293,8 +294,8 @@ public class Dodo : MonoBehaviour
 
     private void MountBridge(Collider2D col)
     {
-        BridgeJump();
         _BridgeObjectDodoIsOn = col.gameObject;
+        BridgeJump();
         _wc.setWorldSpeedPercentage(dodoOnLogSpeed);
         _isOnBridge = true;
         _BridgeObjectDodoIsOn.GetComponent<PlayerInteractable>().DodoInteract(true);
@@ -318,7 +319,17 @@ public class Dodo : MonoBehaviour
         }
         else
         {
-            transform.position += Vector3.up / 10;
+            Vector3 bridgeStartPos = _BridgeObjectDodoIsOn.transform.GetChild(0).position;
+            Vector3 bridgeMidPos = _BridgeObjectDodoIsOn.transform.GetChild(1).position;
+            if (transform.position.x > bridgeStartPos.x)
+            {
+                transform.position.Set(transform.position.x, bridgeMidPos.y, 0);
+            }
+            else
+            {
+                transform.position = bridgeStartPos;
+                transform.position += Vector3.up / 10;
+            }
         }
     }
 
