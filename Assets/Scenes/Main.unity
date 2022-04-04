@@ -553,7 +553,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 910660611469145479, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
       propertyPath: _dodoBridgeWalkOffSpeed
-      value: 2.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6344460091223780589, guid: 34f24b3fcaa23774581c2a499c0dd203, type: 3}
       propertyPath: m_RootOrder
