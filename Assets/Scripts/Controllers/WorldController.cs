@@ -85,6 +85,11 @@ namespace Controllers
             baselineWorldSpeed = speed;
         }
         
+        public float getBaseWorldSpeedOnlyRamp()
+        {
+            return baselineWorldSpeed * _currentRampSpeedModifier;
+        }
+        
         public void setWorldSpeedPercentage(float speed)
         {
             percentageSpeedModifier = speed;

@@ -13,13 +13,15 @@ using Random = UnityEngine.Random;
 public class Dodo : MonoBehaviour
 {
     //Components and Necessary Assets
-    [Tooltip("World Controller used in Scene")]
-    [SerializeField] private WorldController _wc;
+    [Tooltip("World Controller used in Scene")] [SerializeField]
+    private WorldController _wc;
 
     private StatsController _statsController;
 
     [SerializeField] private Vector3 dodoForwardVector = new Vector3(1f, -.5f);
     [SerializeField] private Vector3 dodoLeftVector = new Vector3(1f, 0.5f);
+    private Transform _originTransform;
+    private bool _isGameRunning = true;
 
     //Speed and Acceleration
     [SerializeField] private float dodoSpeed;
@@ -74,12 +76,15 @@ public class Dodo : MonoBehaviour
     //Bridges
     private bool _isOnBridge;
     private GameObject _BridgeObjectDodoIsOn;
-    [Tooltip("The height that the dodo snaps up when getting on the log. Typically < 0.5")]
-    [SerializeField] private float _bridgeJumpStrength;
-    [Tooltip("The speed at which dodo moves downwards after passing halfway on the log.")]
-    [SerializeField] private float _dodoBridgeWalkOffSpeed;
-    [Tooltip("The speed at which dodo moves upwards before passing halfway on the log.")]
-    [SerializeField] private float _dodoBridgeWalkOnSpeed;
+
+    [Tooltip("The height that the dodo snaps up when getting on the log. Typically < 0.5")] [SerializeField]
+    private float _bridgeJumpStrength;
+
+    [Tooltip("The speed at which dodo moves downwards after passing halfway on the log.")] [SerializeField]
+    private float _dodoBridgeWalkOffSpeed;
+
+    [Tooltip("The speed at which dodo moves upwards before passing halfway on the log.")] [SerializeField]
+    private float _dodoBridgeWalkOnSpeed;
 
     //Animation
     private Animator _anim;
@@ -103,11 +108,17 @@ public class Dodo : MonoBehaviour
         _cliffBoundPos = _cliffBound.position;
         _mountainBoundPos = _mountainBound.position;
         _anim = GetComponent<Animator>();
+        _originTransform = transform;
     }
 
     // Update is called once per frame
     private void FixedUpdate()
     {
+        if (!_isGameRunning)
+        {
+            return;
+        }
+
         if (_isOnBridge)
         {
             WalkThePlank();
@@ -131,8 +142,8 @@ public class Dodo : MonoBehaviour
         Vector3 bridgeStartPos = _BridgeObjectDodoIsOn.transform.GetChild(0).position;
         Vector3 bridgeMidPos = _BridgeObjectDodoIsOn.transform.GetChild(1).position;
         Vector3 bridgeEndPos = _BridgeObjectDodoIsOn.transform.GetChild(2).position;
-        
-        
+
+
         //Check if Dodo is past halfway on the plank
         if (transform.position.x < bridgeMidPos.x) //Is not over halfway
         {
@@ -147,8 +158,6 @@ public class Dodo : MonoBehaviour
         {
             DismountBridge(_BridgeObjectDodoIsOn.GetComponent<Collider2D>());
         }
-        
-
     }
 
     //Input desiredBehaviour to choose a behaviour
@@ -410,7 +419,6 @@ public class Dodo : MonoBehaviour
         }
         else if (!_isEating)
         {
-            
             if (distanceTofocusedObject < eatRange) // Then Feast!!!!
             {
                 setEatingStatus(true);
@@ -420,7 +428,8 @@ public class Dodo : MonoBehaviour
             else if (distanceTofocusedObject < 3) //focus is getting closer, slow down speed
             {
                 focusedObject.GetComponent<PlayerInteractable>().DodoInteract(true);
-                _wc.setWorldSpeedPercentage(Mathf.Clamp(_wc.getWorldSpeedPercentage() - dodoPostEatAcceleration, 0.2f * distanceTofocusedObject,
+                _wc.setWorldSpeedPercentage(Mathf.Clamp(_wc.getWorldSpeedPercentage() - dodoPostEatAcceleration,
+                    0.2f * distanceTofocusedObject,
                     1));
             }
             else // Focus is too far away, keep speed max or accelerate
@@ -452,4 +461,17 @@ public class Dodo : MonoBehaviour
         return _isEating;
     }
 
+    public void onGameReset()
+    {
+        // reset his current position back to his original position
+        transform.position = _originTransform.position;
+        _isGameRunning = true;
+    }
+
+    public void onGameEnd()
+    {
+        // Stop moving the dodo please
+        _isGameRunning = false;
+        _anim.SetFloat(DodoSpeed, 0f);
+    }
 }

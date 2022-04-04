@@ -1,4 +1,3 @@
-using Controllers;
 using Props;
 using UnityEngine;
 
@@ -29,11 +28,11 @@ public class SaberToothedTiger : Smashable
     {
         base.Start();
         // On spawn we want the tiger to start running towards the dodo.
-        _fullSaberSpeed = _worldController.getWorldSpeed() + speedAboveWorld;
+        _fullSaberSpeed = _worldController.getBaseWorldSpeedOnlyRamp() + speedAboveWorld;
         _dodoToChase = FindObjectOfType<Dodo>();
         _anim = GetComponent<Animator>();
         _anim.SetFloat(RunningSpeed,
-            speedAboveWorld + _worldController.getWorldSpeed() / (_worldController.getWorldSpeedPercentage()+0.01f) / 2.5f);
+            speedAboveWorld + _worldController.getBaseWorldSpeedOnlyRamp() / 2.5f);
     }
 
     // Update is called once per frame
@@ -61,5 +60,10 @@ public class SaberToothedTiger : Smashable
         {
             transform.position += -_sideVector3 * sidewaysSpeed;
         }
+    }
+
+    private void onGameEnd()
+    {
+        Destroy(this);
     }
 }
