@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eatSpeedMin: 1
-  _eatSpeedMax: 2
+  _eatSpeedMax: 4
 --- !u!82 &9090872024761434200
 AudioSource:
   m_ObjectHideFlags: 0
