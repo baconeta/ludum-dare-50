@@ -101,7 +101,7 @@ namespace Props
             {
                 if (_isFallingFromMountain && getCrossProduct("mountain") < 0)
                 {
-                    Debug.Log("Im falling!");
+                    
                     _isFallingFromMountain = false;
                     Destroy(gameObject.GetComponent<Rigidbody2D>());
                 }
