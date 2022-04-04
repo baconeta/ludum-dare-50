@@ -40,11 +40,6 @@ namespace Controllers
         {
             time = 0;
             _timerRunning = true;
-            deaths = 0; 
-            eatenFoods = 0;
-            objectsSmashed = 0;
-            bridgesCrossed = 0;
-            bouldersBumped = 0;
         }
 
         public void onGameEnd()
