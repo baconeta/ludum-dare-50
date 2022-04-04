@@ -51,7 +51,6 @@ namespace Controllers
         {
             _timerRunning = false;
             times.Add(GetFormattedTime());
-            scores.Add(CalculateScore());
             scores.Sort();
         }
 
@@ -61,11 +60,6 @@ namespace Controllers
             int seconds = Mathf.FloorToInt(time % 60F);
             int milliseconds = Mathf.FloorToInt((time * 100F) % 100F);
             return minutes.ToString ("00") + ":" + seconds.ToString ("00") + ":" + milliseconds.ToString("00");
-        }
-    
-        private int CalculateScore()
-        {
-            return (int) time + (eatenFoods * 5) + objectsSmashed + bridgesCrossed - bouldersBumped;
         }
 
         public void IncrementFoodEaten()
