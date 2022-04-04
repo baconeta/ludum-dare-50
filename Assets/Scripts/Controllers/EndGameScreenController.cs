@@ -40,7 +40,6 @@ namespace Controllers
 
         public void showEndGameScreen()
         {
-            _canvas.enabled = true;
             Highscore1.text = _statsController.FormattedTimes[0];
             Highscore2.text = _statsController.FormattedTimes[1];
             Highscore3.text = _statsController.FormattedTimes[2];
@@ -51,6 +50,8 @@ namespace Controllers
             TotalSabersSlain.text = "Sabers Slain: " + _statsController.sabersSlain;
             TotalTrunksTraversed.text = "Trunks Traversed: " + _statsController.trunksTraversed;
             TotalFiresFoiled.text = "Fires Foiled: " + _statsController.firesFoiled;
+
+            _canvas.enabled = true;
         }
 
         public void hideEndGameScreen()
