@@ -1,3 +1,4 @@
+using System.Collections;
 using Controllers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,7 @@ namespace Controllers
 
         private StatsController _statsController;
         private Canvas _canvas;
+        [SerializeField] private DodoFacts ddf;
 
         private void Start()
         {
@@ -38,6 +40,15 @@ namespace Controllers
         public void onGameEnd()
         {
             _statsController = FindObjectOfType<StatsController>();
+            ddf.GetComponent<Image>().enabled = true;
+            ddf.ChooseImage();
+            StartCoroutine(nameof(WaitToShowEndScreen));
+        }
+
+        private IEnumerator WaitToShowEndScreen()
+        {
+            yield return new WaitForSeconds(6f);
+            ddf.GetComponent<Image>().enabled = false;
             showEndGameScreen();
         }
 
@@ -49,11 +60,21 @@ namespace Controllers
             Highscore4.text = _statsController.FormattedTimes[3];
             Highscore5.text = _statsController.FormattedTimes[4];
 
-            Highscore1.color = Highscore1.text == _statsController.LatestTime ? HighlightedTextColour : NormalTextColour;
-            Highscore2.color = Highscore2.text == _statsController.LatestTime ? HighlightedTextColour : NormalTextColour;
-            Highscore3.color = Highscore3.text == _statsController.LatestTime ? HighlightedTextColour : NormalTextColour;
-            Highscore4.color = Highscore4.text == _statsController.LatestTime ? HighlightedTextColour : NormalTextColour;
-            Highscore5.color = Highscore5.text == _statsController.LatestTime ? HighlightedTextColour : NormalTextColour;
+            Highscore1.color = Highscore1.text == _statsController.LatestTime
+                ? HighlightedTextColour
+                : NormalTextColour;
+            Highscore2.color = Highscore2.text == _statsController.LatestTime
+                ? HighlightedTextColour
+                : NormalTextColour;
+            Highscore3.color = Highscore3.text == _statsController.LatestTime
+                ? HighlightedTextColour
+                : NormalTextColour;
+            Highscore4.color = Highscore4.text == _statsController.LatestTime
+                ? HighlightedTextColour
+                : NormalTextColour;
+            Highscore5.color = Highscore5.text == _statsController.LatestTime
+                ? HighlightedTextColour
+                : NormalTextColour;
 
             TotalDodoDeaths.text = "Dodo Deaths: " + _statsController.deaths;
             TotalMelonsMunched.text = "Melons Munched: " + _statsController.melonsMunched;
