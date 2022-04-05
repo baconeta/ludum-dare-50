@@ -40,7 +40,7 @@ namespace Controllers
         public void onGameEnd()
         {
             _statsController = FindObjectOfType<StatsController>();
-            ddf.gameObject.SetActive(true);
+            ddf.GetComponent<Image>().enabled = true;
             ddf.ChooseImage();
             StartCoroutine(nameof(WaitToShowEndScreen));
         }
@@ -48,7 +48,7 @@ namespace Controllers
         private IEnumerator WaitToShowEndScreen()
         {
             yield return new WaitForSeconds(6f);
-            ddf.gameObject.SetActive(false);
+            ddf.GetComponent<Image>().enabled = false;
             showEndGameScreen();
         }
 
