@@ -8,6 +8,7 @@ namespace Controllers
         public Sprite unmutedImage;
         public Sprite mutedImage;
         public Toggle isMuted;
+        public bool globalMute;
 
         [SerializeField] private Slider volumeSlider;
 
@@ -25,11 +26,13 @@ namespace Controllers
         {
             if (isMuted.isOn)
             {
+                globalMute = true;
                 _spriteRenderer.sprite = mutedImage;
                 AudioListener.volume = 0;
             }
             else
             {
+                globalMute = false;
                 _spriteRenderer.sprite = unmutedImage;
                 AudioListener.volume = volumeSlider.value;
             }
