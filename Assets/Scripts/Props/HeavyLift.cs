@@ -25,6 +25,7 @@ namespace Props
             {
                 _liftAnimation.LiftBoulderAnims();
             }
+            
         }
 
         protected override void OnMouseUp()
