@@ -483,12 +483,14 @@ public class Dodo : MonoBehaviour
         _anim.SetBool(DeadDodo, false);
         transform.position = _originTransform.position;
         _isEating = false;
+        _isOnBridge = false;
         _isInMud = false;
         _currentDodoAcceleration = 0f;
         _currentBehaviour = 1;
         _behaviourTimer = 0f;
         _isGameRunning = true;
-        
+        dodoSpeed = dodoDefaultSpeed;
+
     }
 
     public void onGameEnd()
