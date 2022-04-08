@@ -25,11 +25,11 @@ namespace Props
             {
                 _liftAnimation.LiftBoulderAnims();
             }
+            
         }
 
         protected override void OnMouseUp()
         {
-            EnableCollisions(true);
             transform.position -= liftedDistanceVector;
             isLifted = false;
             if (useLiftAnim)
