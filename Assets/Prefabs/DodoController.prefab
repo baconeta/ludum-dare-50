@@ -156,6 +156,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dodo
       objectReference: {fileID: 0}
+    - target: {fileID: 6559018549490458721, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
+      propertyPath: m_Volume
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 7084134682478855422, guid: 040f1abdc54953c40bfb914c273d49a4, type: 3}
       propertyPath: m_Enabled
       value: 1
