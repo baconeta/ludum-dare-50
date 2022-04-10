@@ -5,7 +5,8 @@
 ![yum](https://user-images.githubusercontent.com/36744690/162606224-b22b2b57-4bc0-48c0-a73a-51f95a4ffb97.png)
 
 _Don't die, Dodo!_ is a game produced for Ludum Dare #50 in 72 hours with a team of six under the theme "Delay the inevitable".
-This was our first mobile compatible game, and it wa sa massive hit on the mobile webgl market according to analytics.
+
+This was our first mobile compatible game, and it was a massive hit on the mobile webGL market according to analytics.
 
 ## Tools and dependencies
 - [Unity 2020.3.30f1](unityhub://2020.3.30f1/1fb1bf06830e)
